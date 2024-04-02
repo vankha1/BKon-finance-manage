@@ -3,6 +3,8 @@ import { MaterialCommunityIcons, Feather } from "@expo/vector-icons";
 
 import HomeScreen from "../screens/Home/HomeScreen";
 import SettingScreen from "../screens/Settings/SettingScreen";
+import StatisticScreen from "../screens/Statistic/StatisticScreen";
+import { COLORS } from "../constants";
 
 const Tab = createBottomTabNavigator();
 
@@ -24,10 +26,30 @@ function TabNavigator() {
         }}
       />
       <Tab.Screen
+        name="Statistics"
+        component={StatisticScreen}
+        options={{
+          headerTitle: "Statistics",
+          headerStyle: { backgroundColor: COLORS.headerBg, height: 100 },
+          headerTitleStyle: {
+            color: COLORS.white,
+          },
+          headerTitleAlign: 'center',
+          title: "Statistics",
+          tabBarIcon: () => {
+            return <MaterialCommunityIcons name="chart-line" size={27} />;
+          },
+          tabBarLabelStyle: {
+            fontSize: 13,
+          },
+          tabBarActiveBackgroundColor: "primary",
+        }}
+      />
+      <Tab.Screen
         name="Settings"
         component={SettingScreen}
         options={{
-          title: "Home",
+          title: "Settings",
           tabBarIcon: () => {
             return <Feather name="settings" size={23} />;
           },

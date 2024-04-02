@@ -8,10 +8,13 @@ import { COLORS } from "../../constants";
 import Button from "../../components/Button/Button";
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
 
   const navigator = useNavigation();
+
+  const handleLogin = () => {
+    navigator.navigate('MainStack')
+  }
 
   return (
     <ScrollView contentContainerStyle={[styles.container]}>
@@ -33,7 +36,7 @@ const LoginScreen = () => {
       </View>
 
       <View style={styles.btnContainer}>
-        <Button>
+        <Button onPress={handleLogin}>
           <Text style={styles.btnText}>Sign in</Text>
         </Button>
       </View>
