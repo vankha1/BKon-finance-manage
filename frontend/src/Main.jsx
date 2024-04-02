@@ -1,10 +1,13 @@
 import { NavigationContainer } from "@react-navigation/native";
 import TabNavigator from "./navigation/TabNavigation";
+import AuthNavigator from "./navigation/AuthNavigation";
 
 const Main = () => {
+  const isLoggedIn = false;
+
   return (
     <NavigationContainer>
-      <TabNavigator />
+      {isLoggedIn ? <TabNavigator /> : <AuthNavigator />}
     </NavigationContainer>
   );
 };
