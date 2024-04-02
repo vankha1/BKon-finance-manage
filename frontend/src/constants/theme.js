@@ -10,6 +10,7 @@ const COLORS = {
   lightWhite: "#FAFAFC",
   mainBackground: "#ecf2f2",
   buttonBg: "#26c165",
+  headerBg: "#326941"
 };
 
 const SIZES = {
