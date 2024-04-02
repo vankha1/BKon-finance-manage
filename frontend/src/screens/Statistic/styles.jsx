@@ -13,11 +13,15 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "start",
     margin: 20,
+    padding: 20,
+    backgroundColor: 'white',
+    borderRadius: 10,
   },
   progressBar: {
     fontSize: 25,
     fontWeight: "bold",
     color: "#000",
+    marginBottom: 10
   }
 });
 
