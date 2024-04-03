@@ -2,10 +2,10 @@ const COLORS = {
   primary: "#d0d2d9",
   secondary: "#444262",
   tertiary: "#FF7754",
-
+  mainLightBackground: "#F6FBF2",
   gray: "#F2F2F2",
   gray2: "#C1C0C8",
-
+  gray3: "#D9D9D9",
   white: "#F3F4F8",
   lightWhite: "#FAFAFC",
   mainBackground: "#ecf2f2",
