@@ -49,6 +49,12 @@ function TabNavigator() {
         name="Settings"
         component={SettingScreen}
         options={{
+          headerTitle: "Settings",
+          headerStyle: { backgroundColor: COLORS.headerBg, height: 100 },
+          headerTitleStyle: {
+            color: COLORS.white,
+          },
+          headerTitleAlign: 'center',
           title: "Settings",
           tabBarIcon: () => {
             return <Feather name="settings" size={23} />;
