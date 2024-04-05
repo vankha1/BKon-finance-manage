@@ -2,10 +2,16 @@ import { View, Text } from "react-native";
 import styles from "./styles";
 import SettingCard from "../../components/SettingCard/SettingCard";
 import { COLORS } from "../../constants";
+import { useNavigation } from "@react-navigation/native";
 
 const SettingScreen = () => {
+  const currencies = ['USD', 'VND'];
+  const languages = ['English', 'Vietnamese'];
+  const navigator = useNavigation();
+
+  const optionsArray = [currencies, languages]
   const nameCard = [
-    "Main Currency",
+    "Main currency",
     "Languages",
     "Notifications",
     "Security",
@@ -22,6 +28,10 @@ const SettingScreen = () => {
     "log-out",
   ];
 
+  const handleLogout = () => {
+    navigator.navigate("Login")
+  }
+
   return (
     <View style={styles.container}>
       <View
@@ -35,6 +45,7 @@ const SettingScreen = () => {
               bgColorIcon={COLORS.gray3}
               colorIcon={"black"}
               nameCard={name}
+              data={optionsArray[index]}
             />
           );
         })}
@@ -44,7 +55,6 @@ const SettingScreen = () => {
         style={styles.cardContainer}
       >
         {nameCard.slice(3, 5).map((name, index) => {
-          console.log(index)
           return (
             <SettingCard
               key={index}
@@ -52,6 +62,7 @@ const SettingScreen = () => {
               bgColorIcon={COLORS.gray3}
               colorIcon={"black"}
               nameCard={name}
+              data={optionsArray[index + 3]}
             />
           );
         })}
@@ -68,6 +79,7 @@ const SettingScreen = () => {
               bgColorIcon={COLORS.gray3}
               colorIcon={"black"}
               nameCard={name}
+              onPress={handleLogout}
             />
           );
         })}
