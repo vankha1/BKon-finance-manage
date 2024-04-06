@@ -86,7 +86,7 @@ const StatisticScreen = () => {
             <ProgressCard
               key={index}
               type={categories[index]}
-              progress={parseFloat(value / sumOfSeries).toFixed(2).toString()}
+              progress={+parseFloat(value / sumOfSeries).toFixed(2)}
               iconType={iconTypes[index]}
               bgColorIcon={bgColorIcon[index]}
               colorIcon={sliceColor[index]}
