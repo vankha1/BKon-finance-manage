@@ -4,12 +4,13 @@ import * as Progress from "react-native-progress";
 import { COLORS } from "../../constants";
 import styles from "./styles";
 import IconWrapper from "../Icon/Icon";
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 const ProgressCard = ({ type, iconType, progress, bgColorIcon, colorIcon }) => {
   return (
     <View style={styles.container}>
 
-      <IconWrapper iconType={iconType} size={24} bgColor={bgColorIcon} colorIcon={colorIcon}/>
+      <IconWrapper iconType={iconType} size={24} bgColor={bgColorIcon} colorIcon={colorIcon} LibIcon={MaterialCommunityIcons}/>
 
       <View style={styles.progressContent}>
         <Text style={styles.typeName}>{type}</Text>

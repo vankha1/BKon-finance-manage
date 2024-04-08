@@ -27,6 +27,15 @@ const StatisticScreen = () => {
     "#3b82f6",
   ];
 
+  const bgColorIcon = [
+    "#ffdad6",
+    "#fdf5cc",
+    "#eaffe9",
+    "#e9ddff",
+    "#d6d8ff",
+    "#d6e4ff",
+  ]
+
   const iconTypes = [
     "lightning-bolt-outline",
     "shopping",
@@ -77,9 +86,9 @@ const StatisticScreen = () => {
             <ProgressCard
               key={index}
               type={categories[index]}
-              progress={parseFloat(value / sumOfSeries).toFixed(2)}
+              progress={+parseFloat(value / sumOfSeries).toFixed(2)}
               iconType={iconTypes[index]}
-              bgColorIcon={COLORS.primary}
+              bgColorIcon={bgColorIcon[index]}
               colorIcon={sliceColor[index]}
             />
           );
