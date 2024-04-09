@@ -1,28 +1,28 @@
-import { StyleSheet } from "react-native";
-
+import { Dimensions, StyleSheet } from "react-native";
+import { COLORS } from "../../constants";
+var maxWidth = Dimensions.get("window").width; //full width
+var maxHeight = Dimensions.get("window").height; //full height
 const styles = StyleSheet.create({
-  container: { flex: 1 },
-  chartContainer: {
-    flex: 1,
+  container: {
+    width: maxWidth,
+    height: maxHeight + 34,
+    padding: 20,
+    backgroundColor: COLORS.mainLightBackground,
+  },
+  pressableList: {
     flexDirection: "row",
-    alignItems: "start",
+    flexWrap: "wrap",
+    gap: 20,
     margin: 10,
   },
-  progressContainer: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "start",
-    margin: 20,
-    padding: 20,
-    backgroundColor: 'white',
+  btn: {
+    width: "45%",
+    height: 80,
+    backgroundColor: "#ffffff",
     borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  progressBar: {
-    fontSize: 25,
-    fontWeight: "bold",
-    color: "#000",
-    marginBottom: 10
-  }
 });
 
 export default styles;
