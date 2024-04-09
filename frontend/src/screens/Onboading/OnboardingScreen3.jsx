@@ -3,12 +3,12 @@ import Button from "../../components/Button/Button"
 import { useNavigation } from "@react-navigation/native";
 
 
-const OnBoardingScreen = () => {
+const OnBoardingScreen3 = () => {
 
     const navigator = useNavigation()
     return (
         <View>
-            <Image source={require('../../../assets/images/onboading-1.jpg')}/>
+            <Image source={require('../../../assets/images/onboarding-3.jpg')}/>
 
             <View>
                 <Text>Tiết kiệm tiền cho vợ bạn</Text>
@@ -16,7 +16,7 @@ const OnBoardingScreen = () => {
             </View>
 
             <Button 
-                onPress={() => navigator.navigate("Onboarding2")}
+                onPress={() => navigator.navigate("Onboarding1")}
             >
                 <Text>Tiep tuc</Text>
             </Button>
@@ -24,4 +24,4 @@ const OnBoardingScreen = () => {
     )
 }
 
-export default OnBoardingScreen
+export default OnBoardingScreen3
