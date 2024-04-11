@@ -1,28 +1,61 @@
 import { StyleSheet } from "react-native";
+import { COLORS } from "../../../constants";
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "start",
+    alignItems: "center",
+    backgroundColor: COLORS.mainLightBackground,
+  },
+  barContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: 10,
+    borderRadius: 10,
+    width: "90%",
+    padding: 20,
+    backgroundColor: "white",
+    margin: 10,
+  },
+  barChartBtn: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "90%",
+    backgroundColor: COLORS.gray3,
+    borderRadius: 5,
+    paddingVertical: 2
+  },
   chartContainer: {
-    flex: 1,
+    display: "flex",
     flexDirection: "row",
     alignItems: "start",
     margin: 10,
+    backgroundColor: "white",
+    padding: 20,
+    width: "90%",
+    borderRadius: 10,
   },
   progressContainer: {
     flex: 1,
     flexDirection: "column",
     alignItems: "start",
-    margin: 20,
+    marginVertical: 10,
+    marginHorizontal: 20,
     padding: 20,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 10,
   },
   progressBar: {
-    fontSize: 25,
+    fontSize: 23,
     fontWeight: "bold",
     color: "#000",
-    marginBottom: 10
-  }
+    marginBottom: 10,
+  },
 });
 
 export default styles;

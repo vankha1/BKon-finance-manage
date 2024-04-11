@@ -23,9 +23,12 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         backgroundColor: 'rgba(255, 255, 255, 0.5)',
     },
-    progressContent: {
+    textContent: {
         flex: 1,
         flexDirection: 'column'
+    },
+    typeBank: {
+        fontSize: 13, 
     }
 })
 
