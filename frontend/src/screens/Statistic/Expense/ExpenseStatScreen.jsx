@@ -1,4 +1,4 @@
-import { ScrollView, Text, View } from "react-native";
+import { Pressable, ScrollView, Text, View } from "react-native";
 import PieChart from "react-native-pie-chart";
 import {
   BarChart,
@@ -8,7 +8,9 @@ import {
 
 import styles from "./styles";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import ProgressCard from "../../../components/ProgressCard/ProgressCard";
+import { COLORS } from "../../../constants";
+import HistoryCard from "../../../components/HistoryCard/HistoryCard";
+import { useState } from "react";
 
 const ExpenseStatScreen = () => {
   const widthAndHeight = 200;
@@ -21,6 +23,24 @@ const ExpenseStatScreen = () => {
     "Entertainment",
     "Others",
   ];
+  const bankNames = [
+    "BIDV",
+    "Mono Bank",
+    "Mono Bank",
+    "Mono Bank",
+    "Mono Bank",
+    "Mono Bank",
+  ];
+
+  const timeTransaction = [
+    "12:00AM",
+    "12:30AM",
+    "12:30AM",
+    "13:00AM",
+    "13:30AM",
+    "13:30AM",
+  ];
+
   const sumOfSeries = series.reduce((a, b) => a + b, 0);
   const sliceColor = [
     "#f59e0b",
@@ -51,36 +71,69 @@ const ExpenseStatScreen = () => {
 
   const data = [
     { value: 250, label: "M" },
-    { value: 500, label: "T", frontColor: "#177AD5" },
-    { value: 745, label: "W", frontColor: "#177AD5" },
+    { value: 500, label: "T" },
+    { value: 745, label: "W" },
     { value: 320, label: "T" },
-    { value: 600, label: "F", frontColor: "#177AD5" },
+    { value: 600, label: "F" },
     { value: 256, label: "S" },
     { value: 300, label: "S" },
   ];
 
+  const [selectedBtn, setSelectedBtn] = useState(0);
+  const filterByTime = ["D", "W", "M", "6M", "Y"];
   return (
-    <ScrollView style={styles.container}>
-      <BarChart
-        barWidth={25}
-        noOfSections={3}
-        barBorderRadius={4}
-        frontColor="#177AD5"
-        data={data}
-        yAxisThickness={0}
-        xAxisThickness={0}
-      />
+    <ScrollView contentContainerStyle={[styles.container]}>
+      <View style={styles.barContainer}>
+        <View style={styles.barChartBtn}>
+          {filterByTime.map((value, index) => (
+            <Pressable
+              key={index}
+              style={[
+                {
+                  backgroundColor: selectedBtn === index ? COLORS.gray2 : COLORS.gray3,
+                  paddingVertical: 2,
+                  width: "20%",
+                  alignContent: "center",
+                },
+                index !== filterByTime.length - 1
+                  ? { borderRightWidth: 1 }
+                  : null,
+              ]}
+              onPress={() => {
+                setSelectedBtn(index)
+
+              }}
+            >
+              <Text style={{ textAlign: "center" }}>{value}</Text>
+            </Pressable>
+          ))}
+        </View>
+        <BarChart
+          barWidth={25}
+          noOfSections={3}
+          barBorderRadius={4}
+          frontColor={COLORS.buttonBg}
+          data={data}
+          yAxisThickness={0}
+          xAxisThickness={0}
+          spacing={13}
+        />
+      </View>
       <View style={styles.chartContainer}>
         <PieChart
           widthAndHeight={widthAndHeight}
           series={series}
           sliceColor={sliceColor}
-          coverRadius={0.7}
+          coverRadius={0.8}
         />
         <View
-          style={{ flex: 1, flexDirection: "column", alignItems: "center" }}
+          style={{
+            flexDirection: "column",
+            alignItems: "start",
+            marginLeft: 10,
+          }}
         >
-          {series.map((value, index) => {
+          {categories.map((value, index) => {
             return (
               <View
                 style={{
@@ -103,19 +156,40 @@ const ExpenseStatScreen = () => {
       </View>
 
       <View style={styles.progressContainer}>
-        <Text style={styles.progressBar}>Progress Bars</Text>
-        {series.map((value, index) => {
-          return (
-            <ProgressCard
-              key={index}
-              type={categories[index]}
-              progress={+parseFloat(value / sumOfSeries).toFixed(2)}
-              iconType={iconTypes[index]}
-              bgColorIcon={bgColorIcon[index]}
-              colorIcon={sliceColor[index]}
-            />
-          );
-        })}
+        <Text style={styles.progressBar}>Transaction History</Text>
+        <View style={{ width: "100%", marginBottom: 20 }}>
+          <Text style={{ fontSize: 18 }}>Yesterday</Text>
+          {series.slice(0, 2).map((value, index) => {
+            return (
+              <HistoryCard
+                key={index}
+                type={categories[index]}
+                money={value}
+                bankName={bankNames[index]}
+                timeTransaction={timeTransaction[index]}
+                iconType={iconTypes[index]}
+                colorIcon={COLORS.buttonBg}
+              />
+            );
+          })}
+        </View>
+
+        <View style={{ width: "100%" }}>
+          <Text style={{ fontSize: 18 }}>25/03/2023</Text>
+          {series.slice(0, 2).map((value, index) => {
+            return (
+              <HistoryCard
+                key={index}
+                type={categories[index]}
+                money={value}
+                bankName={bankNames[index]}
+                timeTransaction={timeTransaction[index]}
+                iconType={iconTypes[index]}
+                colorIcon={COLORS.buttonBg}
+              />
+            );
+          })}
+        </View>
       </View>
     </ScrollView>
   );

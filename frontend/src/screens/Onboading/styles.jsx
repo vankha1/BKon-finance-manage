@@ -8,8 +8,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10
     },
     image: {
-        width: 330,
-        height: 330,
+        width: "100%",
+        height: "50%",
+        borderRadius: 0,
+        objectFit: "contain",
     },
     textWrapper: {
         marginVertical: 10,
