@@ -31,14 +31,14 @@ const StatisticScreen = () => {
         </Pressable>
 
         <Pressable
-          onPress={() => navigator.navigate("Expense")}
+          onPress={() => navigator.navigate("Receivable")}
           style={styles.btn}
         >
           <StatItem iconName="receipt" titleReport="Receivable report" />
         </Pressable>
 
         <Pressable
-          onPress={() => navigator.navigate("Expense")}
+          onPress={() => navigator.navigate("IncomeAndExpense")}
           style={styles.btn}
         >
           <StatItem iconName="chart-line" titleReport="Income vs Expense" />
