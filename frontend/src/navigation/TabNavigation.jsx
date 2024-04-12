@@ -8,6 +8,8 @@ import StatisticScreen from "../screens/Statistic/StatisticScreen";
 import ExpenseStatScreen from "../screens/Statistic/Expense/ExpenseStatScreen";
 import { COLORS } from "../constants";
 import AccountScreen from "../screens/Account/AccountScreen";
+import ReceivableScreen from "../screens/Statistic/Receivable/ReceivableScreen";
+import IncomeAndExpenseScreen from "../screens/Statistic/IncomeAndExpense/IncomeAndExpenseScreen";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -34,6 +36,48 @@ const StatisStack = () => {
         component={ExpenseStatScreen}
         options={{
           headerTitle: "Expense Report",
+          headerStyle: { backgroundColor: COLORS.headerBg, height: 100 },
+          headerTitleStyle: {
+            color: COLORS.white,
+          },
+          headerTitleAlign: "center",
+          title: "Statistics",
+          tabBarIcon: () => {
+            return <MaterialCommunityIcons name="chart-line" size={27} />;
+          },
+          tabBarLabelStyle: {
+            fontSize: 13,
+          },
+          tabBarActiveBackgroundColor: "primary",
+        }}
+      />
+
+      <Stack.Screen
+        name="Receivable"
+        component={ReceivableScreen}
+        options={{
+          headerTitle: "Receivable Report",
+          headerStyle: { backgroundColor: COLORS.headerBg, height: 100 },
+          headerTitleStyle: {
+            color: COLORS.white,
+          },
+          headerTitleAlign: "center",
+          title: "Statistics",
+          tabBarIcon: () => {
+            return <MaterialCommunityIcons name="chart-line" size={27} />;
+          },
+          tabBarLabelStyle: {
+            fontSize: 13,
+          },
+          tabBarActiveBackgroundColor: "primary",
+        }}
+      />
+      
+      <Stack.Screen
+        name="IncomeAndExpense"
+        component={IncomeAndExpenseScreen}
+        options={{
+          headerTitle: "Income vs Expense Report",
           headerStyle: { backgroundColor: COLORS.headerBg, height: 100 },
           headerTitleStyle: {
             color: COLORS.white,

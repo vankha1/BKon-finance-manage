@@ -2,8 +2,6 @@ import { Pressable, ScrollView, Text, View } from "react-native";
 import PieChart from "react-native-pie-chart";
 import {
   BarChart,
-  LineChart,
-  PopulationPyramid,
 } from "react-native-gifted-charts";
 
 import styles from "./styles";
@@ -41,7 +39,6 @@ const ExpenseStatScreen = () => {
     "13:30AM",
   ];
 
-  const sumOfSeries = series.reduce((a, b) => a + b, 0);
   const sliceColor = [
     "#f59e0b",
     "#facc15",
