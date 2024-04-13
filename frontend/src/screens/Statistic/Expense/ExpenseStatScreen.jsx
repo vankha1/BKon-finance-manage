@@ -9,8 +9,10 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { COLORS } from "../../../constants";
 import HistoryCard from "../../../components/HistoryCard/HistoryCard";
 import { useState } from "react";
+import { useRoute } from "@react-navigation/native";
 
 const ExpenseStatScreen = () => {
+  const params = useRoute().params;
   const widthAndHeight = 200;
   const series = [100, 321, 123, 789, 537, 123];
   const categories = [

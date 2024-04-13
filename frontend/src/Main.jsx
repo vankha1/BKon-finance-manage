@@ -3,7 +3,7 @@ import TabNavigator from "./navigation/TabNavigation";
 import AuthNavigator from "./navigation/AuthNavigation";
 
 const Main = () => {
-  const isLoggedIn = false;
+  const isLoggedIn = true;
 
   return (
     <NavigationContainer>

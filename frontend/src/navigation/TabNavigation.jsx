@@ -1,112 +1,147 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons, Feather } from "@expo/vector-icons";
-import { createStackNavigator } from "@react-navigation/stack";
 
 import HomeScreen from "../screens/Home/HomeScreen";
 import SettingScreen from "../screens/Settings/SettingScreen";
-import StatisticScreen from "../screens/Statistic/StatisticScreen";
-import ExpenseStatScreen from "../screens/Statistic/Expense/ExpenseStatScreen";
-import { COLORS } from "../constants";
 import AccountScreen from "../screens/Account/AccountScreen";
-import ReceivableScreen from "../screens/Statistic/Receivable/ReceivableScreen";
-import IncomeAndExpenseScreen from "../screens/Statistic/IncomeAndExpense/IncomeAndExpenseScreen";
+import { COLORS } from "../constants";
+import { StatisStack } from "../stacks/Statistic/StatisticStack";
+import {
+  Dimensions,
+  Pressable,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import Popover from "react-native-popover-view";
+import { useEffect, useRef, useState } from "react";
+import { TouchableHighlight } from "react-native-gesture-handler";
+import StatItem from "../components/StatItem/StatItem";
 
 const Tab = createBottomTabNavigator();
-const Stack = createStackNavigator();
 
-const StatisStack = () => {
+const CreateTransaction = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="StatisStack"
-        component={StatisticScreen}
-        options={{
-          headerTitle: "Statistics",
-          headerLeft: null,
-          headerStyle: { backgroundColor: COLORS.headerBg, height: 100 },
-          headerTitleStyle: {
-            color: COLORS.white,
-          },
-          headerTitleAlign: "center",
-          title: "Statistics",
+    <View
+      style={{
+        position: "absolute",
+        bottom: 90,
+        left: 20,
+        width: "90%",
+        backgroundColor: "rgba(52, 52, 52, 0.8)",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        marginRight: "auto",
+        gap: 15,
+        paddingVertical: 20,
+        borderRadius: 10,
+      }}
+    >
+      <View
+        style={{
+          position: "absolute",
+          bottom: -20,
+          left: 8,
+          width: "0%",
+          borderLeftWidth: 170,
+          borderLeftColor: "transparent",
+          borderRightWidth: 170,
+          borderRightColor: "transparent",
+          borderTopWidth: 20,
+          borderTopColor: "rgba(52, 52, 52, 0.8)",
+          backgroundColor: "transparent",
         }}
       />
-      <Stack.Screen
-        name="Expense"
-        component={ExpenseStatScreen}
-        options={{
-          headerTitle: "Expense Report",
-          headerStyle: { backgroundColor: COLORS.headerBg, height: 100 },
-          headerTitleStyle: {
-            color: COLORS.white,
-          },
-          headerTitleAlign: "center",
-          title: "Statistics",
-          tabBarIcon: () => {
-            return <MaterialCommunityIcons name="chart-line" size={27} />;
-          },
-          tabBarLabelStyle: {
-            fontSize: 13,
-          },
-          tabBarActiveBackgroundColor: "primary",
+      <StatItem
+        iconName="wallet-outline"
+        titleReport="Income"
+        className={{
+          width: "45%",
+          backgroundColor: "white",
+          paddingVertical: 10,
+          paddingHorizontal: 5,
+          borderRadius: 10,
         }}
       />
-
-      <Stack.Screen
-        name="Receivable"
-        component={ReceivableScreen}
-        options={{
-          headerTitle: "Receivable Report",
-          headerStyle: { backgroundColor: COLORS.headerBg, height: 100 },
-          headerTitleStyle: {
-            color: COLORS.white,
-          },
-          headerTitleAlign: "center",
-          title: "Statistics",
-          tabBarIcon: () => {
-            return <MaterialCommunityIcons name="chart-line" size={27} />;
-          },
-          tabBarLabelStyle: {
-            fontSize: 13,
-          },
-          tabBarActiveBackgroundColor: "primary",
+      <StatItem
+        iconName="bitcoin"
+        titleReport="Expense"
+        className={{
+          width: "45%",
+          backgroundColor: "white",
+          paddingVertical: 10,
+          paddingHorizontal: 5,
+          borderRadius: 10,
         }}
       />
-      
-      <Stack.Screen
-        name="IncomeAndExpense"
-        component={IncomeAndExpenseScreen}
-        options={{
-          headerTitle: "Income vs Expense Report",
-          headerStyle: { backgroundColor: COLORS.headerBg, height: 100 },
-          headerTitleStyle: {
-            color: COLORS.white,
-          },
-          headerTitleAlign: "center",
-          title: "Statistics",
-          tabBarIcon: () => {
-            return <MaterialCommunityIcons name="chart-line" size={27} />;
-          },
-          tabBarLabelStyle: {
-            fontSize: 13,
-          },
-          tabBarActiveBackgroundColor: "primary",
+      <StatItem
+        iconName="receipt"
+        titleReport="Receivable"
+        className={{
+          width: "45%",
+          backgroundColor: "white",
+          paddingVertical: 10,
+          paddingHorizontal: 5,
+          borderRadius: 10,
         }}
       />
-    </Stack.Navigator>
+      <StatItem
+        iconName="receipt"
+        titleReport="Debt"
+        className={{
+          width: "45%",
+          backgroundColor: "white",
+          paddingVertical: 10,
+          paddingHorizontal: 5,
+          borderRadius: 10,
+        }}
+      />
+    </View>
   );
 };
 
 function TabNavigator() {
+  const [isShowPopover, setShowPopover] = useState(false);
+  useEffect(() => {
+    setTimeout(() => setShowPopover(false), 2000);
+  }, []);
+
+  const CustomizeButton = ({ onPress }) => {
+    return (
+      <TouchableOpacity
+        style={{
+          width: 65,
+          height: 65,
+          backgroundColor: COLORS.gray2,
+          borderRadius: 35,
+          backgroundColor: COLORS.buttonBg,
+          marginVertical: "auto",
+          justifyContent: "center",
+          alignItems: "center",
+          bottom: 20,
+        }}
+        onPress={onPress}
+      >
+        <MaterialCommunityIcons name="plus" color={"black"} size={40} />
+      </TouchableOpacity>
+    );
+  };
+
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarActiveTintColor: COLORS.buttonBg,
+      }}
+    >
       <Tab.Screen
         name="HomeScreen"
         component={HomeScreen}
         options={{
           title: "Home",
-          tabBarIcon: () => {
-            return <MaterialCommunityIcons name="home" size={27} />;
+          tabBarIcon: ({ color, size }) => {
+            return (
+              <MaterialCommunityIcons name="home" color={color} size={size} />
+            );
           },
           tabBarLabelStyle: {
             fontSize: 13,
@@ -119,8 +154,44 @@ function TabNavigator() {
         component={StatisStack}
         options={{
           headerShown: false,
-          tabBarIcon: () => {
-            return <MaterialCommunityIcons name="chart-line" size={27} />;
+          tabBarIcon: ({ color, size }) => {
+            return (
+              <MaterialCommunityIcons
+                name="chart-line"
+                color={color}
+                size={size}
+              />
+            );
+          },
+          tabBarLabelStyle: {
+            fontSize: 13,
+          },
+          tabBarActiveBackgroundColor: "primary",
+        }}
+      />
+
+      <Tab.Screen
+        name="CreateButton"
+        component={HomeScreen}
+        listeners={{
+          tabPress: (e) => {
+            e.preventDefault();
+            setShowPopover(!isShowPopover);
+          },
+        }}
+        options={{
+          title: "",
+          headerShown: false,
+          tabBarButton: () => {
+            return (
+              <>
+                {isShowPopover && <CreateTransaction />}
+
+                <CustomizeButton
+                  onPress={() => setShowPopover(!isShowPopover)}
+                />
+              </>
+            );
           },
           tabBarLabelStyle: {
             fontSize: 13,
@@ -140,8 +211,14 @@ function TabNavigator() {
           },
           headerTitleAlign: "center",
           title: "Account",
-          tabBarIcon: () => {
-            return <MaterialCommunityIcons name="account-outline" size={27} />;
+          tabBarIcon: ({ color, size }) => {
+            return (
+              <MaterialCommunityIcons
+                name="account-outline"
+                color={color}
+                size={size}
+              />
+            );
           },
           tabBarLabelStyle: {
             fontSize: 13,
@@ -161,8 +238,8 @@ function TabNavigator() {
           },
           headerTitleAlign: "center",
           title: "Settings",
-          tabBarIcon: () => {
-            return <Feather name="settings" size={23} />;
+          tabBarIcon: ({ color, size }) => {
+            return <Feather name="settings" color={color} size={size} />;
           },
           tabBarLabelStyle: {
             fontSize: 13,

@@ -34,6 +34,7 @@ const SettingScreen = () => {
 
   return (
     <View style={styles.container}>
+     {/* Change to into FlatList */}
       <View
         style={styles.cardContainer}
       >
