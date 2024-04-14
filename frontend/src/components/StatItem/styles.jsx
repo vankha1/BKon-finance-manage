@@ -4,8 +4,8 @@ const styles = StyleSheet.create({
     statItemContainer: {
         flexDirection: "row",
         alignItems: "center",
-        marginHorizontal: 10,
-        gap: 10
+        gap: 10,
+        paddingHorizontal: 10
     },
     statItemText: {
         fontSize: 18,

@@ -9,47 +9,46 @@ const StatisticScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.pressableList}>
-        <Pressable
+        <StatItem
+          iconName="wallet-outline"
+          titleReport="Income report"
           onPress={() => navigator.navigate("Expense")}
-          style={styles.btn}
-        >
-          <StatItem iconName="wallet-outline" titleReport="Income report" />
-        </Pressable>
-
-        <Pressable
+          className={styles.btn}
+        />
+        <StatItem
+          iconName="bitcoin"
+          titleReport="Expense report"
           onPress={() => navigator.navigate("Expense")}
-          style={styles.btn}
-        >
-          <StatItem iconName="bitcoin" titleReport="Expense report" />
-        </Pressable>
+          className={styles.btn}
+        />
 
-        <Pressable
+        <StatItem
+          iconName="receipt"
+          titleReport="Debt report"
           onPress={() => navigator.navigate("Expense")}
-          style={styles.btn}
-        >
-          <StatItem iconName="receipt" titleReport="Debt report" />
-        </Pressable>
+          className={styles.btn}
+        />
 
-        <Pressable
+        <StatItem
+          iconName="receipt"
+          titleReport="Receivable report"
           onPress={() => navigator.navigate("Receivable")}
-          style={styles.btn}
-        >
-          <StatItem iconName="receipt" titleReport="Receivable report" />
-        </Pressable>
+          className={styles.btn}
+        />
 
-        <Pressable
+        <StatItem
+          iconName="chart-line"
+          titleReport="Income vs Expense"
           onPress={() => navigator.navigate("IncomeAndExpense")}
-          style={styles.btn}
-        >
-          <StatItem iconName="chart-line" titleReport="Income vs Expense" />
-        </Pressable>
+          className={styles.btn}
+        />
 
-        <Pressable
+        <StatItem
+          iconName="chart-line"
+          titleReport="Receivable vs debt"
           onPress={() => navigator.navigate("Expense")}
-          style={styles.btn}
-        >
-          <StatItem iconName="chart-line" titleReport="Receivable vs debt" />
-        </Pressable>
+          className={styles.btn}
+        />
       </View>
     </View>
   );

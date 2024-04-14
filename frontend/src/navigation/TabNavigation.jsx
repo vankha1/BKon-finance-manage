@@ -7,15 +7,10 @@ import AccountScreen from "../screens/Account/AccountScreen";
 import { COLORS } from "../constants";
 import { StatisStack } from "../stacks/Statistic/StatisticStack";
 import {
-  Dimensions,
-  Pressable,
-  Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import Popover from "react-native-popover-view";
-import { useEffect, useRef, useState } from "react";
-import { TouchableHighlight } from "react-native-gesture-handler";
+import { useEffect, useState } from "react";
 import StatItem from "../components/StatItem/StatItem";
 
 const Tab = createBottomTabNavigator();
@@ -31,9 +26,9 @@ const CreateTransaction = () => {
         backgroundColor: "rgba(52, 52, 52, 0.8)",
         flexDirection: "row",
         flexWrap: "wrap",
-        marginRight: "auto",
+        paddingRight: -10,
         gap: 15,
-        paddingVertical: 20,
+        padding: 20,
         borderRadius: 10,
       }}
     >
