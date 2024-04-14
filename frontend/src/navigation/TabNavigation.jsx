@@ -6,94 +6,11 @@ import SettingScreen from "../screens/Settings/SettingScreen";
 import AccountScreen from "../screens/Account/AccountScreen";
 import { COLORS } from "../constants";
 import { StatisStack } from "../stacks/Statistic/StatisticStack";
-import {
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { TouchableOpacity } from "react-native";
 import { useEffect, useState } from "react";
-import StatItem from "../components/StatItem/StatItem";
+import { CreateTransaction, HomeStack } from "../stacks/Home/HomeStack";
 
 const Tab = createBottomTabNavigator();
-
-const CreateTransaction = () => {
-  return (
-    <View
-      style={{
-        position: "absolute",
-        bottom: 90,
-        left: 20,
-        width: "90%",
-        backgroundColor: "rgba(52, 52, 52, 0.8)",
-        flexDirection: "row",
-        flexWrap: "wrap",
-        paddingRight: -10,
-        gap: 15,
-        padding: 20,
-        borderRadius: 10,
-      }}
-    >
-      <View
-        style={{
-          position: "absolute",
-          bottom: -20,
-          left: 8,
-          width: "0%",
-          borderLeftWidth: 170,
-          borderLeftColor: "transparent",
-          borderRightWidth: 170,
-          borderRightColor: "transparent",
-          borderTopWidth: 20,
-          borderTopColor: "rgba(52, 52, 52, 0.8)",
-          backgroundColor: "transparent",
-        }}
-      />
-      <StatItem
-        iconName="wallet-outline"
-        titleReport="Income"
-        className={{
-          width: "45%",
-          backgroundColor: "white",
-          paddingVertical: 10,
-          paddingHorizontal: 5,
-          borderRadius: 10,
-        }}
-      />
-      <StatItem
-        iconName="bitcoin"
-        titleReport="Expense"
-        className={{
-          width: "45%",
-          backgroundColor: "white",
-          paddingVertical: 10,
-          paddingHorizontal: 5,
-          borderRadius: 10,
-        }}
-      />
-      <StatItem
-        iconName="receipt"
-        titleReport="Receivable"
-        className={{
-          width: "45%",
-          backgroundColor: "white",
-          paddingVertical: 10,
-          paddingHorizontal: 5,
-          borderRadius: 10,
-        }}
-      />
-      <StatItem
-        iconName="receipt"
-        titleReport="Debt"
-        className={{
-          width: "45%",
-          backgroundColor: "white",
-          paddingVertical: 10,
-          paddingHorizontal: 5,
-          borderRadius: 10,
-        }}
-      />
-    </View>
-  );
-};
 
 function TabNavigator() {
   const [isShowPopover, setShowPopover] = useState(false);
@@ -125,13 +42,15 @@ function TabNavigator() {
   return (
     <Tab.Navigator
       screenOptions={{
+        tabBarStyle: { height: 60 },
         tabBarActiveTintColor: COLORS.buttonBg,
       }}
     >
       <Tab.Screen
-        name="HomeScreen"
-        component={HomeScreen}
+        name="HomeStack"
+        component={HomeStack}
         options={{
+          headerShown: false,
           title: "Home",
           tabBarIcon: ({ color, size }) => {
             return (
@@ -164,9 +83,8 @@ function TabNavigator() {
           tabBarActiveBackgroundColor: "primary",
         }}
       />
-
       <Tab.Screen
-        name="CreateButton"
+        name="HomeScreen"
         component={HomeScreen}
         listeners={{
           tabPress: (e) => {
@@ -180,7 +98,9 @@ function TabNavigator() {
           tabBarButton: () => {
             return (
               <>
-                {isShowPopover && <CreateTransaction />}
+                {isShowPopover && (
+                  <CreateTransaction/>
+                )}
 
                 <CustomizeButton
                   onPress={() => setShowPopover(!isShowPopover)}

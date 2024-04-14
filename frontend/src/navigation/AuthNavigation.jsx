@@ -6,6 +6,7 @@ import TabNavigator from "./TabNavigation";
 import OnBoardingScreen from "../screens/Onboading/OnboardingScreen";
 import OnBoardingScreen2 from "../screens/Onboading/OnboardingScreen2";
 import OnBoardingScreen3 from "../screens/Onboading/OnboardingScreen3";
+import { HomeStack } from "../stacks/Home/HomeStack";
 
 const Stack = createStackNavigator();
 
