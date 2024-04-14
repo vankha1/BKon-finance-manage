@@ -13,15 +13,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     gap: 20,
-    margin: 10,
   },
   btn: {
     width: "45%",
     height: 80,
     backgroundColor: "#ffffff",
     borderRadius: 10,
-    justifyContent: "center",
-    alignItems: "center",
   },
 });
 
