@@ -3,6 +3,9 @@ import { COLORS } from "../../constants";
 
 const styles = StyleSheet.create({
   container: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 10
   },
   selectInput: {
     width: "100%",
