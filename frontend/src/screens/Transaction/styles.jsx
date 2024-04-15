@@ -6,14 +6,14 @@ const iconSideWidth = 30;
 
 const styles = StyleSheet.create({
   container: { backgroundColor: COLORS.mainLightBackground },
-  
+
   content: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     marginTop: 20,
     height: "100%",
-    gap: 20
+    gap: 20,
   },
   card: {
     backgroundColor: "#fff",
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     gap: 20,
     height: 60,
     borderBottomColor: COLORS.gray,
-    borderBottomWidth: 2
+    borderBottomWidth: 2,
   },
   iconContainer: {
     flexDirection: "row",
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   cardEleWithIcon_Left: {
     width: iconSideWidth,
     alignItems: "center",
-    marginLeft: 10
+    marginLeft: 10,
   },
   cardTitle: {
     fontSize: 18,
@@ -49,15 +49,34 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: COLORS.buttonBg,
   },
+  buttonContainer: {
+    width: "90%",
+    display: "flex",
+    flexDirection: "row",
+    backgroundColor: "white",
+    alignItems: "center",
+    padding: 10,
+    borderRadius: 20,
+    gap: 10,
+  },
+  option: {
+    fontSize: 16,
+    padding: 10,
+    color: COLORS.gray2,
+  },
+  dateTitle: {
+    fontSize: 16,
+    color: COLORS.buttonBg,
+  },
   textAreaContainer: {
     borderColor: COLORS.gray2,
     borderWidth: 1,
-    padding: 5
+    padding: 5,
   },
   textArea: {
     height: 150,
-    justifyContent: "flex-start"
-  }
+    justifyContent: "flex-start",
+  },
 });
 
 export default styles;

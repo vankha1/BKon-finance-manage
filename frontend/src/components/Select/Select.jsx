@@ -12,11 +12,12 @@ const Select = ({
   iconStyle={ borderWidth: 1, borderColor: COLORS.buttonBg },
   inputStyle,
   nameCard,
+  chidren,
   data,
   onPress,
 }) => {
   const [isOpened, setIsOpened] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(null);
+  
   const Comp = onPress ? TouchableOpacity : View;
   return (
     <Comp style={styles.container} onPress={onPress}>
@@ -33,7 +34,7 @@ const Select = ({
         </View>
 
         <View style={styles.progressContent}>
-          <Text style={styles.typeName}>{data[selectedIndex] ? data[selectedIndex] : nameCard}</Text>
+          <Text style={styles.typeName}>{nameCard}</Text>
         </View>
         <Pressable onPress={() => setIsOpened(!isOpened)}>
           <MaterialCommunityIcons
@@ -43,42 +44,7 @@ const Select = ({
           />
         </Pressable>
       </View>
-      {isOpened && data && (
-        <View
-          style={{
-            marginTop: 10,
-            backgroundColor: COLORS.gray3,
-            borderRadius: 10,
-            borderWidth: 1,
-            borderColor: COLORS.gray3,
-            overflow: "scroll",
-          }}
-        >
-          {data.map((value, index) => (
-            <TouchableOpacity
-              style={[
-                { width: "100%", marginBottom: 10 },
-                index === selectedIndex
-                  ? { backgroundColor: COLORS.mainLightBackground }
-                  : { backgroundColor: COLORS.gray },
-                index === 0 && {
-                  borderTopLeftRadius: 10,
-                  borderTopRightRadius: 10,
-                },
-                index === data.length - 1 && {
-                  marginBottom: 0,
-                  borderBottomLeftRadius: 10,
-                  borderBottomRightRadius: 10,
-                },
-              ]}
-              key={index}
-              onPress={() => setSelectedIndex(index)}
-            >
-              <Text style={styles.option}>{value}</Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-      )}
+      {isOpened && data && chidren}
     </Comp>
   );
 };
