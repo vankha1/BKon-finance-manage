@@ -9,7 +9,7 @@ import { UpdateIncomeDto } from './dto/update-income.dto';
 export class IncomesService {
   constructor(
     @InjectModel(Income.name)
-    private readonly incomeModel: Model<Income>,
+    private readonly incomeModel: Model<IncomeDocument>,
   ) {}
 
   async findAll(): Promise<Income[]> {

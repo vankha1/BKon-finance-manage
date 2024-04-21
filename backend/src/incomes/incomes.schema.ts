@@ -1,8 +1,9 @@
-import { Prop, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 
 export type IncomeDocument = HydratedDocument<Income>;
 
+@Schema()
 export class Income {
   @Prop({ required: true })
   createAt: Date;
