@@ -8,7 +8,7 @@ import { IncomesModule } from './incomes/incomes.module';
 @Module({
   imports: [
     MongooseModule.forRoot(
-      'mongodb+srv://tintranthanh:sherlockhomes17@cluster0.fnukyrv.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+      '',
     ),
     UserModule,
     IncomesModule,
