@@ -9,11 +9,12 @@ import { UpdateIncomeDto } from './dto/update-income.dto';
 export class IncomesService {
   constructor(
     @InjectModel(Income.name)
-    private readonly incomeModel: Model<Income>,
+    private readonly incomeModel: Model<IncomeDocument>,
   ) {}
 
-  async findAll(): Promise<Income[]> {
-    return this.incomeModel.find({}).exec();
+  async findAll(){
+    const incomes = await this.incomeModel.find({}).lean().exec();
+    return incomes
   }
 
   async create(createIncomeDto: CreateIncomeDto): Promise<Income> {
@@ -25,7 +26,7 @@ export class IncomesService {
   }
 
   async findById(id: string): Promise<Income> {
-    const income = await this.incomeModel.findById(id).exec();
+    const income = await this.incomeModel.findById(id).lean().exec();
     if (!income) {
       throw new NotFoundException('Income not found');
     }
@@ -35,6 +36,7 @@ export class IncomesService {
   async update(id: string, updateIncomeDto: UpdateIncomeDto): Promise<Income> {
     const existingIncome = await this.incomeModel
       .findByIdAndUpdate(id, updateIncomeDto, { new: true })
+      .lean()
       .exec();
     if (!existingIncome) {
       throw new NotFoundException('Income not found');
@@ -43,7 +45,10 @@ export class IncomesService {
   }
 
   async delete(id: string): Promise<Income> {
-    const deletedIncome = await this.incomeModel.findByIdAndDelete(id).exec();
+    const deletedIncome = await this.incomeModel
+      .findByIdAndDelete(id)
+      .lean()
+      .exec();
     if (!deletedIncome) {
       throw new NotFoundException('Income not found');
     }
