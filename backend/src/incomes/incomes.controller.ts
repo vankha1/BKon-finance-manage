@@ -25,7 +25,7 @@ export class IncomesController {
 
   @Get()
   async findAll() {
-    return this.incomesService.findAll();
+    return await this.incomesService.findAll();
   }
 
   @Get(':id')
