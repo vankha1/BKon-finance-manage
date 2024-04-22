@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { BaseIncomeDto } from './base-income.dto';
+import { BaseUserDto } from './base-user.dto';
 
-export class UpdateIncomeDto extends BaseIncomeDto {
+export class UpdateUserDto extends BaseUserDto {
   @ApiProperty({
     type: Date,
     description: 'completedAt',

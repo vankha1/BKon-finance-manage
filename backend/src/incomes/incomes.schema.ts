@@ -1,29 +1,29 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsString } from 'class-validator';
+import { HydratedDocument } from 'mongoose';
 
-export type IncomeDocument = Income & Document;
-@Schema({
-  toJSON: {
-    getters: true,
-    virtuals: true,
-  },
-  timestamps: true,
-})
+export type IncomeDocument = HydratedDocument<Income>;
+
+@Schema()
 export class Income {
+  @ApiProperty({ type: Date, description: 'createdAt' })
   @Prop({ required: true })
-  createAt: Date;
+  createdAt: Date;
 
   @Prop({ required: true })
+  @IsString()
+  @ApiProperty({ type: String, description: 'account' })
   account: string;
 
+  @ApiProperty({ type: String, description: 'note' })
   @Prop()
+  @IsString()
   note?: string;
 
+  @ApiProperty({ type: Date, description: 'createdAt' })
   @Prop()
   completeAt?: Date;
-
-  @Prop()
-  deleteAt?: Date;
 }
 
 export const IncomeSchema = SchemaFactory.createForClass(Income);

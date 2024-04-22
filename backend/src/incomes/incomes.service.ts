@@ -20,7 +20,7 @@ export class IncomesService {
   async create(createIncomeDto: CreateIncomeDto): Promise<Income> {
     const createdIncome = new this.incomeModel({
       ...createIncomeDto,
-      createAt: new Date(),
+      createdAt: new Date(),
     });
     return await createdIncome.save();
   }
