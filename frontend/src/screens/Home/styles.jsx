@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { COLORS, SIZES } from "../../constants";
-let cardWidth = 309
-let iconSideWidth = 60
+const cardWidth = 309
+const iconSideWidth = 60
 const styles = StyleSheet.create({
     container: {
         flex: 1,
