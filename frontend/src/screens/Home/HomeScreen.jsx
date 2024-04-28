@@ -6,7 +6,7 @@ import {
 } from "@expo/vector-icons";
 import { View, Text } from "react-native";
 import styles from "./styles";
-import { COLORS, SIZES } from "../../constants";
+import { COLORS, SIZES, FONTFAMILIES } from "../../constants";
 import * as Progress from "react-native-progress";
 import HomeHeader from "../../components/Header/Home/HomeHeader";
 const HomeScreen = () => {
@@ -18,9 +18,8 @@ const HomeScreen = () => {
                     <Text
                         style={{
                             color: COLORS.white,
-                            fontFamily: "Poppins",
+                            fontFamily: FONTFAMILIES.medium,
                             fontSize: SIZES.xLarge,
-                            fontWeight: 600,
                         }}
                     >
                         Hi, {name}
@@ -46,7 +45,7 @@ const HomeScreen = () => {
                         <Text
                             style={{
                                 color: COLORS.white,
-                                fontFamily: "Poppins",
+                                fontFamily: FONTFAMILIES.medium,
                                 fontSize: SIZES.medium,
                                 fontWeight: 500,
                             }}
@@ -56,7 +55,7 @@ const HomeScreen = () => {
                         <Text
                             style={{
                                 color: COLORS.white,
-                                fontFamily: "Poppins",
+                                fontFamily: FONTFAMILIES.bold,
                                 fontSize: SIZES.xMedium,
                                 fontWeight: 700,
                             }}
@@ -74,14 +73,45 @@ const HomeScreen = () => {
             <View style={styles.container_cards}>
                 <HomeHeader />
                 <View style={styles.card}>
-                    <View style={styles.cardWith2Elements}>
-                        <Text>Cash</Text>
-                        <Text>8,100$</Text>
+                    <View
+                        style={[
+                            styles.cardWith2Elements,
+                            (fontFamily = FONTFAMILIES.medium),
+                        ]}
+                    >
+                        <Text
+                            style={{
+                                fontFamily: FONTFAMILIES.medium,
+                                fontSize: SIZES.xMedium,
+                            }}
+                        >
+                            Cash
+                        </Text>
+                        <Text
+                            style={{
+                                fontFamily: FONTFAMILIES.semiBold,
+                                fontSize: SIZES.xMedium,
+                            }}
+                        >
+                            8,100$
+                        </Text>
                     </View>
                     <View style={styles.cardWith2Elements}>
-                        <Text style={{ paddingLeft: 30 }}>Bank card</Text>
                         <Text
-                            style={{ fontSize: SIZES.xSmall, paddingLeft: 30 }}
+                            style={{
+                                paddingLeft: 30,
+                                fontFamily: FONTFAMILIES.medium,
+                                fontSize: SIZES.medium,
+                            }}
+                        >
+                            Bank card
+                        </Text>
+                        <Text
+                            style={{
+                                fontSize: SIZES.xSmall,
+                                fontFamily: FONTFAMILIES.medium,
+                                paddingLeft: 30,
+                            }}
                         >
                             Not available
                         </Text>
@@ -99,10 +129,22 @@ const HomeScreen = () => {
                         </View>
                     </View>
                     <View style={styles.cardEleWithIcon_Right}>
-                        <Text style={{ fontSize: SIZES.small }}>
+                        <Text
+                            style={{
+                                fontSize: SIZES.xSmall,
+                                fontFamily: FONTFAMILIES.medium,
+                            }}
+                        >
                             Monthly Budget
                         </Text>
-                        <Text>$8,100</Text>
+                        <Text
+                            style={{
+                                fontSize: SIZES.xMedium,
+                                fontFamily: FONTFAMILIES.semiBold,
+                            }}
+                        >
+                            $8,100
+                        </Text>
                         <Progress.Bar
                             progress={5 / 8.1}
                             width={220}

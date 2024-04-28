@@ -17,6 +17,7 @@ const COLORS = {
 const SIZES = {
   xSmall: 10,
   small: 12,
+  xSmall:14,
   medium: 16,
   xMedium: 18,
   large: 20,
@@ -24,5 +25,11 @@ const SIZES = {
   xxLarge: 32,
   xxxLarge: 40,
 };
+const FONTFAMILIES={
+  medium: "Poppins-Medium",
+  light: "Poppins-Light",
+  bold: "Poppins-Bold",
+  semiBold: "Poppins-SemiBold",
+}
 
-export { COLORS, SIZES };
+export { COLORS, SIZES, FONTFAMILIES};
