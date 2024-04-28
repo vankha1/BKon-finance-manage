@@ -1,0 +1,3 @@
+exports={
+    assets:['./assets/fonts/']
+}
