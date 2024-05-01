@@ -4,11 +4,18 @@ import {
     Octicons,
     FontAwesome6,
 } from "@expo/vector-icons";
-import { View, Text, ScrollView } from "react-native";
+import {
+    View,
+    Text,
+    ScrollView,
+    Button,
+    TouchableWithoutFeedback,
+} from "react-native";
 import styles from "./styles";
 import { COLORS, SIZES, FONTFAMILIES } from "../../constants";
 import * as Progress from "react-native-progress";
 import HomeHeader from "../../components/Header/Home/HomeHeader";
+
 const HomeScreen = () => {
     const name = "Diem";
     return (
@@ -215,23 +222,24 @@ const HomeScreen = () => {
                         </View>
                     </View>
                 </View>
-
-                <View style={styles.addWidget}>
-                    <AntDesign
-                        name="plus"
-                        size={SIZES.medium}
-                        color={"black"}
-                    />
-                    <Text
-                        style={{
-                            paddingLeft: 10,
-                            fontSize: SIZES.tiny,
-                            fontFamily: FONTFAMILIES.medium,
-                        }}
-                    >
-                        Add new widget
-                    </Text>
-                </View>
+                <TouchableWithoutFeedback>
+                    <View style={styles.addWidget}>
+                        <AntDesign
+                            name="plus"
+                            size={SIZES.medium}
+                            color={"black"}
+                        />
+                        <Text
+                            style={{
+                                paddingLeft: 10,
+                                fontSize: SIZES.tiny,
+                                fontFamily: FONTFAMILIES.medium,
+                            }}
+                        >
+                            Add new widget
+                        </Text>
+                    </View>
+                </TouchableWithoutFeedback>
             </View>
         </ScrollView>
     );
