@@ -10,6 +10,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         backgroundColor: COLORS.mainLightBackground,
         height: "100%",
+        //paddingBottom: ,
     },
     header: {
         backgroundColor: COLORS.headerBg,
@@ -72,8 +73,8 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "left",
-        paddingLeft: 30,
-        gap: 20,
+        paddingLeft: 25,
+        gap: 15,
         fontSize: SIZES.medium,
     },
     cardEleWithIcon_Left: {
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "flex-start",
-        gap: 6,
+        gap: 0,
         paddingTop: 10,
     },
     belowBarProgress: {
@@ -95,6 +96,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         gap: 20,
+        paddingTop: 8,
         paddingRight: 29,
     },
     iconContainer: {
@@ -116,6 +118,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "center",
         alignItems: "center",
+        marginBottom: 25,
     },
 });
 

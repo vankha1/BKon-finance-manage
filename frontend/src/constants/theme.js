@@ -15,9 +15,10 @@ const COLORS = {
 };
 
 const SIZES = {
-  xSmall: 10,
-  small: 12,
-  xSmall:14,
+  tiny: 8,
+  small: 10,
+  xSmall: 12,
+  xxSmall:14,
   medium: 16,
   xMedium: 18,
   large: 20,
@@ -28,6 +29,7 @@ const SIZES = {
 const FONTFAMILIES={
   medium: "Poppins-Medium",
   light: "Poppins-Light",
+  regular: "Poppins-Regular",
   bold: "Poppins-Bold",
   semiBold: "Poppins-SemiBold",
 }

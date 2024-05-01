@@ -4,15 +4,22 @@ import {
     Octicons,
     FontAwesome6,
 } from "@expo/vector-icons";
-import { View, Text } from "react-native";
+import {
+    View,
+    Text,
+    ScrollView,
+    Button,
+    TouchableWithoutFeedback,
+} from "react-native";
 import styles from "./styles";
 import { COLORS, SIZES, FONTFAMILIES } from "../../constants";
 import * as Progress from "react-native-progress";
 import HomeHeader from "../../components/Header/Home/HomeHeader";
+
 const HomeScreen = () => {
     const name = "Diem";
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <View style={styles.header}>
                 <View style={styles.upper_header}>
                     <Text
@@ -47,7 +54,6 @@ const HomeScreen = () => {
                                 color: COLORS.white,
                                 fontFamily: FONTFAMILIES.medium,
                                 fontSize: SIZES.medium,
-                                fontWeight: 500,
                             }}
                         >
                             Your balance
@@ -57,7 +63,6 @@ const HomeScreen = () => {
                                 color: COLORS.white,
                                 fontFamily: FONTFAMILIES.bold,
                                 fontSize: SIZES.xMedium,
-                                fontWeight: 700,
                             }}
                         >
                             $8,100
@@ -73,12 +78,7 @@ const HomeScreen = () => {
             <View style={styles.container_cards}>
                 <HomeHeader />
                 <View style={styles.card}>
-                    <View
-                        style={[
-                            styles.cardWith2Elements,
-                            (fontFamily = FONTFAMILIES.medium),
-                        ]}
-                    >
+                    <View style={styles.cardWith2Elements}>
                         <Text
                             style={{
                                 fontFamily: FONTFAMILIES.medium,
@@ -108,9 +108,10 @@ const HomeScreen = () => {
                         </Text>
                         <Text
                             style={{
-                                fontSize: SIZES.xSmall,
+                                fontSize: SIZES.small,
                                 fontFamily: FONTFAMILIES.medium,
                                 paddingLeft: 30,
+                                paddingTop: 10,
                             }}
                         >
                             Not available
@@ -131,7 +132,7 @@ const HomeScreen = () => {
                     <View style={styles.cardEleWithIcon_Right}>
                         <Text
                             style={{
-                                fontSize: SIZES.xSmall,
+                                fontSize: SIZES.xxSmall,
                                 fontFamily: FONTFAMILIES.medium,
                             }}
                         >
@@ -154,10 +155,20 @@ const HomeScreen = () => {
                             color={COLORS.buttonBg}
                         />
                         <View style={styles.belowBarProgress}>
-                            <Text style={{ fontSize: SIZES.xSmall }}>
+                            <Text
+                                style={{
+                                    fontSize: SIZES.small,
+                                    fontFamily: FONTFAMILIES.medium,
+                                }}
+                            >
                                 spent: $5,000
                             </Text>
-                            <Text style={{ fontSize: SIZES.xSmall }}>
+                            <Text
+                                style={{
+                                    fontSize: SIZES.small,
+                                    fontFamily: FONTFAMILIES.medium,
+                                }}
+                            >
                                 left: $3,100
                             </Text>
                         </View>
@@ -175,10 +186,22 @@ const HomeScreen = () => {
                         </View>
                     </View>
                     <View style={styles.cardEleWithIcon_Right}>
-                        <Text style={{ fontSize: SIZES.small }}>
+                        <Text
+                            style={{
+                                fontSize: SIZES.xxSmall,
+                                fontFamily: FONTFAMILIES.medium,
+                            }}
+                        >
                             Receivable
                         </Text>
-                        <Text>$8,100</Text>
+                        <Text
+                            style={{
+                                fontSize: SIZES.xMedium,
+                                fontFamily: FONTFAMILIES.semiBold,
+                            }}
+                        >
+                            $8,100
+                        </Text>
                         <View
                             style={{
                                 width: "100%",
@@ -188,23 +211,37 @@ const HomeScreen = () => {
                                 paddingRight: 29,
                             }}
                         >
-                            <Text style={{ fontSize: SIZES.xSmall }}>
+                            <Text
+                                style={{
+                                    fontSize: SIZES.small,
+                                    fontFamily: FONTFAMILIES.medium,
+                                }}
+                            >
                                 8,100/15,000
                             </Text>
                         </View>
                     </View>
                 </View>
-
-                <View style={styles.addWidget}>
-                    <AntDesign
-                        name="plus"
-                        size={SIZES.medium}
-                        color={"black"}
-                    />
-                    <Text style={{ paddingLeft: 10 }}>Add new widget</Text>
-                </View>
+                <TouchableWithoutFeedback>
+                    <View style={styles.addWidget}>
+                        <AntDesign
+                            name="plus"
+                            size={SIZES.medium}
+                            color={"black"}
+                        />
+                        <Text
+                            style={{
+                                paddingLeft: 10,
+                                fontSize: SIZES.tiny,
+                                fontFamily: FONTFAMILIES.medium,
+                            }}
+                        >
+                            Add new widget
+                        </Text>
+                    </View>
+                </TouchableWithoutFeedback>
             </View>
-        </View>
+        </ScrollView>
     );
 };
 export default HomeScreen;
