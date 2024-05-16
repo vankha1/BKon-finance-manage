@@ -1,22 +1,25 @@
 import { View, Text, Pressable } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 
 import styles from "./styles";
 import { useNavigation } from "@react-navigation/native";
+import { SIZES } from "../../constants";
 
 const Header = ({ title }) => {
-  const navigator = useNavigation()
-  return (
-    <View style={styles.header}>
-      <Pressable onPress={() => navigator.goBack()}>
-        <MaterialCommunityIcons
-          name="arrow-left"
-          size={40}
-          style={styles.backBtn}
-        />
-      </Pressable>
-      <Text style={styles.headerTitle}>{title}</Text>
-    </View>
-  );
+    const navigator = useNavigation();
+    return (
+        <View style={styles.header}>
+            <View style={styles.content}>
+                <Pressable onPress={() => navigator.goBack()}>
+                    <Ionicons
+                        name="chevron-back"
+                        size={SIZES.xLarge}
+                        style={styles.backBtn}
+                    />
+                </Pressable>
+                <Text style={styles.headerTitle}>{title}</Text>
+            </View>
+        </View>
+    );
 };
 export default Header;

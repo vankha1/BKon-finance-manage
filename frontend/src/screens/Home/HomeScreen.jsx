@@ -8,15 +8,31 @@ import {
     View,
     Text,
     ScrollView,
-    Button,
     TouchableWithoutFeedback,
+    Pressable,
 } from "react-native";
 import styles from "./styles";
+import Button from "../../components/Button/Button";
+import Finances from "./FinanceResources/Finances";
 import { COLORS, SIZES, FONTFAMILIES } from "../../constants";
 import * as Progress from "react-native-progress";
 import HomeHeader from "../../components/Header/Home/HomeHeader";
+import { useNavigation } from "@react-navigation/native";
 
+const addWidgetFunc = () => {
+    alert("addWidgetFunc");
+    // return (
+    //     <View>
+    //         <Text>addWidgetFunc</Text>
+    //     </View>
+    // );
+    // console.log("addWidgetFunc");
+};
 const HomeScreen = () => {
+    const navigator = useNavigation();
+    const handleFinances = () => {
+        navigator.navigate("Finances");
+    };
     const name = "Diem";
     return (
         <ScrollView style={styles.container}>
@@ -68,15 +84,16 @@ const HomeScreen = () => {
                             $8,100
                         </Text>
                     </View>
-                    <FontAwesome6
-                        name="pen-to-square"
-                        size={SIZES.xLarge}
-                        color={COLORS.white}
-                    />
+                    <Pressable onPress={handleFinances}>
+                        <FontAwesome6
+                            name="pen-to-square"
+                            size={SIZES.xLarge}
+                            color={COLORS.white}
+                        />
+                    </Pressable>
                 </View>
             </View>
             <View style={styles.container_cards}>
-                <HomeHeader />
                 <View style={styles.card}>
                     <View style={styles.cardWith2Elements}>
                         <Text
@@ -222,7 +239,7 @@ const HomeScreen = () => {
                         </View>
                     </View>
                 </View>
-                <TouchableWithoutFeedback>
+                <TouchableWithoutFeedback onPress={addWidgetFunc}>
                     <View style={styles.addWidget}>
                         <AntDesign
                             name="plus"
