@@ -7,12 +7,18 @@ const IconWrapper = ({
     colorIcon,
     LibIcon,
     className,
+    haveBorder,
+    borderSize,
 }) => {
     return (
         <View
             style={[
                 styles.iconWrapper,
                 { backgroundColor: bgColor, ...className },
+                haveBorder &&
+                    (borderSize === "small"
+                        ? styles.borderSmall
+                        : styles.borderLarge),
             ]}
         >
             <LibIcon name={iconType} size={size} color={colorIcon} />

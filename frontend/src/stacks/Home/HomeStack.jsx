@@ -5,7 +5,9 @@ import HomeScreen from "../../screens/Home/HomeScreen";
 import TransactionScreen from "../../screens/Transaction/TransactionScreen";
 import { View } from "react-native";
 import StatItem from "../../components/StatItem/StatItem";
+
 import { COLORS } from "../../constants";
+import Finances from "../../screens/Home/FinanceResources/Finances";
 
 const Stack = createStackNavigator();
 
@@ -113,6 +115,7 @@ export const HomeStack = () => {
                     headerShown: false,
                 }}
             />
+            <Stack.Screen name="Finances" component={Finances} />
         </Stack.Navigator>
     );
 };
