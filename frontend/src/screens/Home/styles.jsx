@@ -6,12 +6,13 @@ const border_card = 20;
 const addWidgetHeight = 35;
 const addWidgetWidth = 218;
 const styles = StyleSheet.create({
-    container: {
-        flexDirection: "column",
-        backgroundColor: COLORS.mainLightBackground,
-        height: "100%",
-        //paddingBottom: ,
-    },
+    container: {},
+    // containerScroll: {
+    //     flexDirection: "column",
+    //     backgroundColor: COLORS.mainLightBackground,
+    //     paddingBottom: 200,
+    //     //paddingBottom: ,
+    // },
     header: {
         backgroundColor: COLORS.headerBg,
         padding: 20,
@@ -53,7 +54,8 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: -30,
+        paddingBottom: 250,
+        backgroundColor: COLORS.mainLightBackground,
         gap: 26,
         // backgroundColor: COLORS.mainLightBackground,
     },
@@ -76,6 +78,7 @@ const styles = StyleSheet.create({
         paddingLeft: 25,
         gap: 15,
         fontSize: SIZES.medium,
+        zIndex: 1,
     },
     cardEleWithIcon_Left: {
         width: iconSideWidth,

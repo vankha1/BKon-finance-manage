@@ -5,10 +5,11 @@ import HomeScreen from "../../screens/Home/HomeScreen";
 import TransactionScreen from "../../screens/Transaction/TransactionScreen";
 import { View } from "react-native";
 import StatItem from "../../components/StatItem/StatItem";
-
 import { COLORS } from "../../constants";
 import Finances from "../../screens/Home/FinanceResources/Finances";
-
+import CurrentCash from "../../screens/Home/FinanceResources/FinancesInfo/CurrentCash/CurrentCash";
+import CurrentBankAccount from "../../screens/Home/FinanceResources/FinancesInfo/CurrentBankAccount/CurrentBankAccount";
+import CurrentEWallet from "../../screens/Home/FinanceResources/FinancesInfo/CurrentEwallet/CurrentEWallet";
 const Stack = createStackNavigator();
 
 export const CreateTransaction = () => {
@@ -116,6 +117,12 @@ export const HomeStack = () => {
                 }}
             />
             <Stack.Screen name="Finances" component={Finances} />
+            <Stack.Screen name="CurrentCash" component={CurrentCash} />
+            <Stack.Screen
+                name="CurrentBankAccount"
+                component={CurrentBankAccount}
+            ></Stack.Screen>
+            <Stack.Screen name="CurrentEWallet" component={CurrentEWallet} />
         </Stack.Navigator>
     );
 };

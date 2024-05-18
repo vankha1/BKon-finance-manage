@@ -11,10 +11,25 @@ const styles = StyleSheet.create({
         paddingBottom: 5,
         width: "100%",
     },
+    containerWithTitle: {
+        paddingLeft: 0,
+    },
     titleCard: {
         flexDirection: "row",
         alignItems: "center",
         gap: 10,
+    },
+    titleWithSubtitle: {
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "flex-start",
+        gap: 4,
+    },
+    amountWithTime: {
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "flex-end",
+        gap: 4,
     },
 });
 export default styles;
