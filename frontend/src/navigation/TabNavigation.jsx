@@ -98,7 +98,7 @@ function TabNavigator() {
                 listeners={{
                     tabPress: (e) => {
                         e.preventDefault();
-                        setShowPopover(!isShowPopover);
+                        setShowPopover(false);
                     },
                 }}
                 options={{
