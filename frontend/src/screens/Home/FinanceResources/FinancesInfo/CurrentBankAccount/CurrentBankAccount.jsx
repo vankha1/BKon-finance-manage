@@ -11,7 +11,7 @@ import styles from "../styles";
 import IconWrapper from "../../../../../components/Icon/Icon";
 import { SIZES } from "../../../../../constants";
 import { ScrollView } from "react-native-gesture-handler";
-const CurrentCash = () => {
+const CurrentBankAccount = () => {
     return (
         <View>
             <Header
@@ -99,4 +99,4 @@ const CurrentCash = () => {
         </View>
     );
 };
-export default CurrentCash;
+export default CurrentBankAccount;
