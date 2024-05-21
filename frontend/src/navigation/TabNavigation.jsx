@@ -6,16 +6,18 @@ import SettingScreen from "../screens/Settings/SettingScreen";
 import AccountScreen from "../screens/Account/AccountScreen";
 import { COLORS, FONTFAMILIES } from "../constants";
 import { StatisStack } from "../stacks/Statistic/StatisticStack";
-import { TouchableOpacity } from "react-native";
-import { useEffect, useState } from "react";
+import { TouchableOpacity, Modal } from "react-native";
+import { useEffect, useState, Pressable } from "react";
 import { CreateTransaction, HomeStack } from "../stacks/Home/HomeStack";
+import { CreateTransactionStack } from "../stacks/createTransactionStack";
+import StatItem from "../components/StatItem/StatItem";
 
 const Tab = createBottomTabNavigator();
 
 function TabNavigator() {
     const [isShowPopover, setShowPopover] = useState(false);
     useEffect(() => {
-        setTimeout(() => setShowPopover(false), 2000);
+        setTimeout(() => setShowPopover(false), 5);
     }, []);
 
     const CustomizeButton = ({ onPress }) => {
@@ -50,6 +52,13 @@ function TabNavigator() {
             <Tab.Screen
                 name="HomeStack"
                 component={HomeStack}
+                listeners={{
+                    tabPress: () => {
+                        //e.preventDefault();
+                        setShowPopover(false);
+                        // console.log(isShowPopover);
+                    },
+                }}
                 options={{
                     headerShown: false,
                     title: "Home",
@@ -73,6 +82,13 @@ function TabNavigator() {
             <Tab.Screen
                 name="Statistics"
                 component={StatisStack}
+                listeners={{
+                    tabPress: () => {
+                        //e.preventDefault();
+                        setShowPopover(false);
+                        // console.log(isShowPopover);
+                    },
+                }}
                 options={{
                     headerShown: false,
                     tabBarIcon: ({ color, size }) => {
@@ -99,6 +115,7 @@ function TabNavigator() {
                     tabPress: (e) => {
                         e.preventDefault();
                         setShowPopover(false);
+                        // console.log(isShowPopover);
                     },
                 }}
                 options={{
@@ -107,12 +124,17 @@ function TabNavigator() {
                     tabBarButton: () => {
                         return (
                             <>
-                                {isShowPopover && <CreateTransaction />}
+                                {isShowPopover && (
+                                    <CreateTransaction
+                                        onShow={() => setShowPopover(false)}
+                                    />
+                                )}
 
                                 <CustomizeButton
-                                    onPress={() =>
-                                        setShowPopover(!isShowPopover)
-                                    }
+                                    onPress={() => {
+                                        setShowPopover(!isShowPopover);
+                                        //console.log(isShowPopover);
+                                    }}
                                 />
                             </>
                         );
@@ -129,6 +151,13 @@ function TabNavigator() {
             <Tab.Screen
                 name="Account"
                 component={AccountScreen}
+                listeners={{
+                    tabPress: () => {
+                        //e.preventDefault();
+                        setShowPopover(false);
+                        //console.log(isShowPopover);
+                    },
+                }}
                 options={{
                     headerTitle: "Account",
                     headerStyle: {
@@ -161,6 +190,13 @@ function TabNavigator() {
             <Tab.Screen
                 name="Settings"
                 component={SettingScreen}
+                listeners={{
+                    tabPress: () => {
+                        //e.preventDefault();
+                        setShowPopover(false);
+                        //console.log(isShowPopover);
+                    },
+                }}
                 options={{
                     headerTitle: "Settings",
                     headerStyle: {
