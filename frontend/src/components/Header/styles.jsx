@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 import { COLORS, FONTFAMILIES, SIZES } from "../../constants";
-
+const leftMargin = 20;
+const rightMargin = 29;
 const styles = StyleSheet.create({
     headerWithIcon: {
         //marginTop: 30,
@@ -37,16 +38,16 @@ const styles = StyleSheet.create({
     },
     backBtn: {
         color: "white",
-        zIndex: 1,
-        marginLeft: 38,
-        marginRight: -38,
+        //zIndex: 1,
+        marginLeft: leftMargin,
+        marginRight: -leftMargin,
     },
     editStyle: {
         fontSize: SIZES.medium,
         fontFamily: FONTFAMILIES.semiBold,
         color: "white",
-        marginRight: 29,
-        marginLeft: -29,
+        marginRight: rightMargin,
+        marginLeft: -rightMargin,
     },
     headerTitle: {
         //flex: 1,

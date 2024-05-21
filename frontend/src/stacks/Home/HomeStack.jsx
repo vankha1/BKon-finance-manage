@@ -3,7 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import HomeScreen from "../../screens/Home/HomeScreen";
 import TransactionScreen from "../../screens/Transaction/TransactionScreen";
-import { View } from "react-native";
+import { View, Pressable } from "react-native";
 import StatItem from "../../components/StatItem/StatItem";
 import { COLORS } from "../../constants";
 import Finances from "../../screens/Home/FinanceResources/Finances";
@@ -16,119 +16,153 @@ import {
     AntDesign,
 } from "@expo/vector-icons";
 const Stack = createStackNavigator();
-
-export const CreateTransaction = () => {
+export const CreateTransaction = ({ onShow }) => {
     const navigator = useNavigation();
     return (
         <View
             style={{
                 position: "absolute",
-                bottom: 100,
-                left: 15,
-                right: 15,
-                //width: "90%",
-                backgroundColor: "rgba(52, 52, 52, 0.8)",
-                flexDirection: "column",
-                //flexWrap: "wrap",
-                justifyContent: "flex-start",
-                //paddingRight: -10,
-                gap: 15,
-                //height: 132,
-                padding: 13,
-                borderRadius: 10,
+                top: 0,
+                right: 0,
+                left: 0,
+                bottom: 0,
+                // backgroundColor: COLORS.black,
             }}
         >
-            <View
+            <Pressable
                 style={{
-                    position: "absolute",
-                    bottom: -34,
-                    left: 9,
-                    //right: -8,
-                    borderLeftWidth: 156,
-                    borderLeftColor: "transparent",
-                    borderRightWidth: 156,
-                    borderRightColor: "transparent",
-                    borderTopWidth: 34,
-                    borderTopColor: "rgba(52, 52, 52, 0.8)",
                     backgroundColor: "transparent",
+                    //width: "100%",
+                    height: "730%",
+                    bottom: 0,
+                    top: -433,
+                    left: 0,
+                    right: 0,
                 }}
-            />
-            <View
-                style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    width: "100%",
-                }}
+                onPress={onShow}
             >
-                <StatItem
-                    LibIcon={MaterialCommunityIcons}
-                    iconName={"bitcoin"}
-                    titleReport={"Expense"}
-                    className={{
-                        width: "45%",
-                        backgroundColor: "white",
-                        paddingVertical: 10,
-                        //paddingHorizontal: 5,
-                        borderRadius: 16,
-                    }}
-                />
-                <StatItem
-                    LibIcon={Octicons}
-                    iconName={"diff-added"}
-                    titleReport={"Receivable"}
-                    className={{
-                        width: "45%",
-                        backgroundColor: "white",
-                        paddingVertical: 10,
-                        //paddingHorizontal: 5,
-                        borderRadius: 16,
-                    }}
-                />
-            </View>
+                <View
+                    style={{
+                        position: "absolute",
+                        //width: "100%",
+                        bottom: 50,
 
-            <View
-                style={{
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    width: "100%",
-                }}
-            >
-                <StatItem
-                    LibIcon={AntDesign}
-                    iconName={"minussquareo"}
-                    titleReport={"Debt"}
-                    className={{
-                        width: "45%",
-                        backgroundColor: "white",
-                        paddingVertical: 10,
-                        //paddingHorizontal: 5,
-                        borderRadius: 16,
+                        left: 15,
+                        right: 15,
+                        //width: "90%",
+                        backgroundColor: "rgba(52, 52, 52, 0.8)",
+                        flexDirection: "column",
+                        //flexWrap: "wrap",
+                        justifyContent: "flex-start",
+                        //paddingRight: -10,
+                        gap: 15,
+                        //height: 132,
+                        padding: 13,
+                        borderRadius: 10,
                     }}
-                />
-                <StatItem
-                    LibIcon={MaterialCommunityIcons}
-                    iconName={"wallet-outline"}
-                    titleReport="Income"
-                    className={{
-                        width: "45%",
-                        backgroundColor: "white",
-                        paddingVertical: 10,
-                        //paddingHorizontal: 5,
-                        borderRadius: 16,
-                    }}
-                    onPress={() => {
-                        navigator.navigate("Transaction", {
-                            type: "Income",
-                        });
-                    }}
-                />
-            </View>
+                >
+                    <View
+                        style={{
+                            position: "absolute",
+                            bottom: -34,
+                            left: 9,
+                            //right: -8,
+                            borderLeftWidth: 156,
+                            borderLeftColor: "transparent",
+                            borderRightWidth: 156,
+                            borderRightColor: "transparent",
+                            borderTopWidth: 34,
+                            borderTopColor: "rgba(52, 52, 52, 0.8)",
+                            backgroundColor: "transparent",
+                        }}
+                    />
+                    <View
+                        style={{
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            width: "100%",
+                        }}
+                    >
+                        <StatItem
+                            LibIcon={MaterialCommunityIcons}
+                            iconName={"bitcoin"}
+                            titleReport={"Expense"}
+                            className={{
+                                width: "45%",
+                                backgroundColor: "white",
+                                paddingVertical: 10,
+                                //paddingHorizontal: 5,
+                                borderRadius: 16,
+                            }}
+                            onPress={() => {
+                                onShow();
+                            }}
+                        />
+                        <StatItem
+                            LibIcon={Octicons}
+                            iconName={"diff-added"}
+                            titleReport={"Receivable"}
+                            className={{
+                                width: "45%",
+                                backgroundColor: "white",
+                                paddingVertical: 10,
+                                //paddingHorizontal: 5,
+                                borderRadius: 16,
+                            }}
+                            onPress={() => {
+                                onShow();
+                            }}
+                        />
+                    </View>
+
+                    <View
+                        style={{
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            width: "100%",
+                        }}
+                    >
+                        <StatItem
+                            LibIcon={AntDesign}
+                            iconName={"minussquareo"}
+                            titleReport={"Debt"}
+                            className={{
+                                width: "45%",
+                                backgroundColor: "white",
+                                paddingVertical: 10,
+                                //paddingHorizontal: 5,
+                                borderRadius: 16,
+                            }}
+                            onPress={() => {
+                                onShow();
+                            }}
+                        />
+                        <StatItem
+                            LibIcon={MaterialCommunityIcons}
+                            iconName={"wallet-outline"}
+                            titleReport="Income"
+                            className={{
+                                width: "45%",
+                                backgroundColor: "white",
+                                paddingVertical: 10,
+                                //paddingHorizontal: 5,
+                                borderRadius: 16,
+                            }}
+                            onPress={() => {
+                                navigator.navigate("Transaction", {
+                                    type: "Income",
+                                });
+                                onShow();
+                            }}
+                        />
+                    </View>
+                </View>
+            </Pressable>
         </View>
     );
 };
-
 export const HomeStack = () => {
     return (
         <Stack.Navigator

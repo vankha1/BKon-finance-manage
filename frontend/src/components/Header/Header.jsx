@@ -11,11 +11,14 @@ const Header = ({ title, libIcon, iconName, subTitle }) => {
     return iconName ? (
         <View style={styles.headerWithIcon}>
             <View style={styles.contentWithEdit}>
-                <Pressable onPress={() => navigator.goBack()}>
+                <Pressable
+                    onPress={() => navigator.goBack()}
+                    style={styles.backBtn}
+                >
                     <Ionicons
                         name="chevron-back"
                         size={SIZES.xLarge}
-                        style={styles.backBtn}
+                        style={{ color: "white" }}
                     />
                 </Pressable>
                 <View style={styles.titleWithIcon}>
@@ -56,11 +59,14 @@ const Header = ({ title, libIcon, iconName, subTitle }) => {
         //     </View>
         // </View>
         <View style={styles.header}>
-            <Pressable onPress={() => navigator.goBack()}>
+            <Pressable
+                onPress={() => navigator.goBack()}
+                style={styles.backBtn}
+            >
                 <Ionicons
                     name="chevron-back"
                     size={SIZES.xLarge}
-                    style={styles.backBtn}
+                    style={{ color: "white" }}
                 />
             </Pressable>
             <Text style={styles.headerTitle}>{title}</Text>
