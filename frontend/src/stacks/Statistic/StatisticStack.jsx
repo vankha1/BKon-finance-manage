@@ -5,9 +5,19 @@ import ExpenseStatScreen from "../../screens/Statistic/Expense/ExpenseStatScreen
 import ReceivableScreen from "../../screens/Statistic/Receivable/ReceivableScreen";
 import IncomeAndExpenseScreen from "../../screens/Statistic/IncomeAndExpense/IncomeAndExpenseScreen";
 import { COLORS } from "../../constants";
+import { LocalizationKey, i18n } from "../../localization";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const Stack = createStackNavigator();
 export const StatisStack = () => {
+
+  const localeState = useSelector((state) => state.locale);
+
+  useEffect(() => {
+    i18n.locale = localeState.locale;
+  }, [])
+
   return (
     <Stack.Navigator
         screenOptions={{
@@ -17,7 +27,7 @@ export const StatisStack = () => {
         name="StatisStack"
         component={StatisticScreen}
         options={{
-          headerTitle: "Statistics",
+          headerTitle: `${i18n.t(LocalizationKey.STATISTICS)}`,
           headerLeft: null,
           headerStyle: { backgroundColor: COLORS.headerBg, height: 100 },
           headerTitleStyle: {
