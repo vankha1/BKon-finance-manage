@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     statItemText: {
         fontSize: SIZES.xxSmall,
         fontFamily: FONTFAMILIES.semiBold,
-        //flexShrink: 1
+        flexShrink: 1
     },
 });
 

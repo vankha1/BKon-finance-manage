@@ -12,7 +12,7 @@ const AccountCard = ({ iconName, infoTitle, infoText, data, onPress }) => {
   return (
     <>
       <Comp style={styles.cardContainer} onPress={() => setIsOpened(!isOpened)}>
-        <View style={styles.selectInput}>
+        <View style={[styles.selectInput]}>
           <IconWrapper
             iconType={iconName}
             LibIcon={MaterialCommunityIcons}

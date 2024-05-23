@@ -11,13 +11,18 @@ import { useEffect, useState, Pressable } from "react";
 import { CreateTransaction, HomeStack } from "../stacks/Home/HomeStack";
 import { CreateTransactionStack } from "../stacks/createTransactionStack";
 import StatItem from "../components/StatItem/StatItem";
+import { LocalizationKey, i18n } from "../localization";
+import { useSelector } from "react-redux";
 
 const Tab = createBottomTabNavigator();
 
 function TabNavigator() {
     const [isShowPopover, setShowPopover] = useState(false);
+    const localeState = useSelector(state => state.locale) 
+
     useEffect(() => {
         setTimeout(() => setShowPopover(false), 5);
+        i18n.locale = localeState.locale
     }, []);
 
     const CustomizeButton = ({ onPress }) => {
@@ -159,7 +164,7 @@ function TabNavigator() {
                     },
                 }}
                 options={{
-                    headerTitle: "Account",
+                    headerTitle: `${i18n.t(LocalizationKey.ACCOUNTS)}`,
                     headerStyle: {
                         backgroundColor: COLORS.headerBg,
                         height: 100,
@@ -198,7 +203,7 @@ function TabNavigator() {
                     },
                 }}
                 options={{
-                    headerTitle: "Settings",
+                    headerTitle: `${i18n.t(LocalizationKey.SETTINGS)}`,
                     headerStyle: {
                         backgroundColor: COLORS.headerBg,
                         height: 100,
