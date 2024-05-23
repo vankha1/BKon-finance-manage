@@ -75,44 +75,4 @@ export class ExpensesService {
     }
     return deletedExpense;
   }
-
-  async getExpenseReport(uid: string, startDate: Date, endDate: Date) {
-    const matchStage = {
-      $match: {
-        uid,
-        date: {
-          $gte: startDate,
-          $lte: endDate,
-        },
-      },
-    };
-
-    const groupStage = {
-      $group: {
-        _id: { day: { $dayOfWeek: '$date' }, category: '$category' },
-        totalAmount: { $sum: '$amount' },
-      },
-    };
-
-    const projectStage = {
-      $project: {
-        day: '$_id.day',
-        category: '$_id.category',
-        totalAmount: 1,
-        _id: 0,
-      },
-    };
-
-    const sortStage = {
-      $sort: {
-        day: 1 as 1 | -1,
-      },
-    };
-
-    const report = await this.expenseModel
-      .aggregate([matchStage, groupStage, projectStage, sortStage])
-      .exec();
-
-    return report;
-  }
 }

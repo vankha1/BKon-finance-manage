@@ -95,22 +95,4 @@ export class ExpensesController {
   async delete(@Param('id') id: string) {
     return this.expensesService.delete(id);
   }
-
-  @Get('report')
-  @ApiOkResponse({
-    type: Expense,
-    isArray: false,
-  })
-  @ApiQuery({ name: 'uid', type: String })
-  @ApiQuery({ name: 'startDate', type: String })
-  @ApiQuery({ name: 'endDate', type: String })
-  async getExpenseReport(
-    @Query('uid') uid: string,
-    @Query('startDate') startDate: string,
-    @Query('endDate') endDate: string,
-  ) {
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    return this.expensesService.getExpenseReport(uid, start, end);
-  }
 }
