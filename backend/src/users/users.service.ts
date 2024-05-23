@@ -14,7 +14,7 @@ export class UsersService {
   ) {}
 
   async findAll(): Promise<User[]> {
-    return this.userModel.find({}).exec();
+    return this.userModel.find({}, { password: 0 }).exec() || [];
   }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
@@ -28,7 +28,7 @@ export class UsersService {
   }
 
   async findById(id: string): Promise<User> {
-    const user = await this.userModel.findById(id).exec();
+    const user = await this.userModel.findById(id, { password: 0 }).exec();
     if (!user) {
       throw new NotFoundException('User not found');
     }

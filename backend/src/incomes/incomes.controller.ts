@@ -4,6 +4,7 @@ import {
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiTags,
+  ApiQuery,
 } from '@nestjs/swagger';
 import { IncomesService } from './incomes.service';
 import {
@@ -15,9 +16,11 @@ import {
   Body,
   Param,
   NotFoundException,
+  Query,
 } from '@nestjs/common';
 import { UpdateIncomeDto } from './dto/update-income.dto';
 import { CreateIncomeDto } from './dto/create-income.dto';
+import { FilterIncomeDto } from './dto/filter-income.dto';
 import { Income } from './incomes.schema';
 
 @Controller('incomes')
@@ -41,8 +44,11 @@ export class IncomesController {
     type: Income,
     isArray: true,
   })
-  async findAll() {
-    return await this.incomesService.findAll();
+  @ApiQuery({ name: 'uid', type: String })
+  @ApiQuery({ name: 'startDate', required: false, type: String })
+  @ApiQuery({ name: 'endDate', required: false, type: String })
+  async findAll(@Query() filterIncomeDto: FilterIncomeDto): Promise<Income[]> {
+    return await this.incomesService.findAll(filterIncomeDto);
   }
 
   @Get(':id')
