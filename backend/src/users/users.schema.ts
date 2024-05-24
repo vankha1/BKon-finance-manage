@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
-import { IsEmail, IsString, MinLength } from 'class-validator';
+import { IsEmail, IsNumber, IsString, MinLength } from 'class-validator';
 import { HydratedDocument } from 'mongoose';
 
 export type UserDocument = HydratedDocument<User>;
@@ -26,6 +26,11 @@ export class User {
   @ApiProperty({ type: String, description: 'username' })
   @Prop()
   username: string;
+
+  @IsNumber()
+  @ApiProperty({ type: String, description: 'budget' })
+  @Prop()
+  budget: number;
 
   @ApiProperty({ type: Date, description: 'createdAt' })
   @Prop()

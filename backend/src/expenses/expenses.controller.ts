@@ -6,7 +6,7 @@ import {
   ApiTags,
   ApiQuery,
 } from '@nestjs/swagger';
-import { IncomesService } from './incomes.service';
+import { ExpensesService } from './expenses.service';
 import {
   Controller,
   Get,
@@ -18,58 +18,60 @@ import {
   NotFoundException,
   Query,
 } from '@nestjs/common';
-import { UpdateIncomeDto } from './dto/update-income.dto';
-import { CreateIncomeDto } from './dto/create-income.dto';
-import { FilterIncomeDto } from './dto/filter-income.dto';
-import { Income } from './incomes.schema';
+import { UpdateExpenseDto } from './dto/update-expense.dto';
+import { CreateExpenseDto } from './dto/create-expense.dto';
+import { FilterExpenseDto } from './dto/filter-expense.dto';
+import { Expense } from './expenses.schema';
 
-@Controller('incomes')
-@ApiTags('incomes')
-export class IncomesController {
-  constructor(private readonly incomesService: IncomesService) {}
+@Controller('expense')
+@ApiTags('expense')
+export class ExpensesController {
+  constructor(private readonly expensesService: ExpensesService) {}
 
   @Post()
   @ApiCreatedResponse({
     description: 'Created Succesfully',
-    type: Income,
+    type: Expense,
     isArray: false,
   })
   @ApiBadRequestResponse({ description: 'Bad Request' })
-  async create(@Body() createIncomeDto: CreateIncomeDto) {
-    return this.incomesService.create(createIncomeDto);
+  async create(@Body() createExpenseDto: CreateExpenseDto) {
+    return this.expensesService.create(createExpenseDto);
   }
 
   @Get()
   @ApiOkResponse({
-    type: Income,
+    type: Expense,
     isArray: true,
   })
   @ApiQuery({ name: 'uid', type: String })
   @ApiQuery({ name: 'startDate', required: false, type: String })
   @ApiQuery({ name: 'endDate', required: false, type: String })
-  async findAll(@Query() filterIncomeDto: FilterIncomeDto): Promise<Income[]> {
-    return await this.incomesService.findAll(filterIncomeDto);
+  async findAll(
+    @Query() filterExpenseDto: FilterExpenseDto,
+  ): Promise<Expense[]> {
+    return await this.expensesService.findAll(filterExpenseDto);
   }
 
   @Get(':id')
   @ApiOkResponse({
-    type: Income,
+    type: Expense,
     isArray: false,
   })
   @ApiNotFoundResponse({
     description: 'Not Found',
   })
   async findOne(@Param('id') id: string) {
-    const income = await this.incomesService.findById(id);
-    if (!income) {
-      throw new NotFoundException('Income not found');
+    const expense = await this.expensesService.findById(id);
+    if (!expense) {
+      throw new NotFoundException('Expense not found');
     }
-    return income;
+    return expense;
   }
 
   @Put(':id')
   @ApiOkResponse({
-    type: Income,
+    type: Expense,
     isArray: false,
   })
   @ApiNotFoundResponse({
@@ -78,9 +80,9 @@ export class IncomesController {
   @ApiBadRequestResponse({ description: 'Bad Request' })
   async update(
     @Param('id') id: string,
-    @Body() updateIncomeDto: UpdateIncomeDto,
+    @Body() updateExpenseDto: UpdateExpenseDto,
   ) {
-    return this.incomesService.update(id, updateIncomeDto);
+    return this.expensesService.update(id, updateExpenseDto);
   }
 
   @Delete(':id')
@@ -91,6 +93,6 @@ export class IncomesController {
     description: 'Not Found',
   })
   async delete(@Param('id') id: string) {
-    return this.incomesService.delete(id);
+    return this.expensesService.delete(id);
   }
 }
