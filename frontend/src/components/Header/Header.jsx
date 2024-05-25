@@ -76,7 +76,19 @@ const Header = ({ title, libIcon, iconName, subTitle, addButton }) => {
                 </Pressable>
                 <Text style={styles.headerTitle}>{title}</Text>
                 {addButton ? (
-                    <Pressable>
+                    <Pressable
+                        onPress={
+                            title === "List of debts"
+                                ? () =>
+                                      navigator.navigate("Transaction", {
+                                          type: "Debt",
+                                      })
+                                : () =>
+                                      navigator.navigate("Transaction", {
+                                          type: "Receivable",
+                                      })
+                        }
+                    >
                         <IconWrapper
                             iconType={"add"}
                             LibIcon={FontAwesome6}
@@ -87,6 +99,15 @@ const Header = ({ title, libIcon, iconName, subTitle, addButton }) => {
                 ) : (
                     <Text></Text>
                 )}
+                {/* onPress={
+                            (title === "List of debts")
+                                ? navigator.navigate("Transaction", {
+                                      type: "Debt",
+                                  })
+                                : navigator.navigate("Transaction", {
+                                      type: "Receivable",
+                                  })
+                        } */}
             </View>
         </View>
     );
