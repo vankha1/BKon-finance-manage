@@ -3,20 +3,26 @@ import styles from "./styles";
 import SettingCard from "../../components/SettingCard/SettingCard";
 import { COLORS } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { LocalizationKey, i18n } from "../../localization";
 
 const SettingScreen = () => {
-  const currencies = ['USD', 'VND'];
-  const languages = ['English', 'Vietnamese'];
+  const currencies = ["USD", "VND"];
+  const languages = ["en-US", "vi-VN"];
   const navigator = useNavigation();
 
-  const optionsArray = [currencies, languages]
+  const [currency, setCurrency] = useState("USD");
+
+  const localeState = useSelector((state) => state.locale);
+  const optionsArray = [currencies, languages];
   const nameCard = [
-    "Main currency",
-    "Languages",
-    "Notifications",
-    "Security",
-    "Personal data and privacy",
-    "Log out",
+    i18n.t(LocalizationKey.CURRENCY),
+    i18n.t(LocalizationKey.LANGUAGE),
+    i18n.t(LocalizationKey.NOTIFICATION),
+    i18n.t(LocalizationKey.SECURITY),
+    i18n.t(LocalizationKey.PRIVACY),
+    i18n.t(LocalizationKey.LOGOUT),
   ];
 
   const iconTypes = [
@@ -29,16 +35,14 @@ const SettingScreen = () => {
   ];
 
   const handleLogout = () => {
-    navigator.navigate("Login")
-  }
+    navigator.navigate("Login");
+  };
 
   return (
     <View style={styles.container}>
-     {/* Change to into FlatList */}
-      <View
-        style={styles.cardContainer}
-      >
-        {nameCard.slice(0,3).map((name, index) => {
+      {/* Change to into FlatList */}
+      <View style={styles.cardContainer}>
+        {nameCard.slice(0, 3).map((name, index) => {
           return (
             <SettingCard
               key={index}
@@ -46,15 +50,16 @@ const SettingScreen = () => {
               bgColorIcon={COLORS.gray3}
               colorIcon={"black"}
               nameCard={name}
+              // onSelect={
+              //   index === 2 ? setLocale : index === 1 ? setCurrency : null
+              // }
               data={optionsArray[index]}
             />
           );
         })}
       </View>
 
-      <View
-        style={styles.cardContainer}
-      >
+      <View style={styles.cardContainer}>
         {nameCard.slice(3, 5).map((name, index) => {
           return (
             <SettingCard
@@ -69,9 +74,7 @@ const SettingScreen = () => {
         })}
       </View>
 
-      <View
-        style={styles.cardContainer}
-      >
+      <View style={styles.cardContainer}>
         {nameCard.slice(5).map((name, index) => {
           return (
             <SettingCard
@@ -85,8 +88,6 @@ const SettingScreen = () => {
           );
         })}
       </View>
-
-      
     </View>
   );
 };

@@ -2,8 +2,17 @@ import { Image, ScrollView, Text, View } from "react-native";
 
 import styles from "./styles";
 import AccountCard from "../../components/AccountCard/AccountCard";
+import { LocalizationKey, i18n } from "../../localization";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const AccountScreen = () => {
+  const localeState = useSelector(state => state.locale)
+
+  useEffect(() => {
+    i18n.locale = localeState.locale
+  }, [])
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
@@ -17,7 +26,7 @@ const AccountScreen = () => {
       <View style={styles.cardList}>
         <AccountCard
           iconName="monitor-screenshot"
-          infoTitle="Fullname"
+          infoTitle={i18n.t(LocalizationKey.FULLNAME)}
           infoText="Van Kha"
         />
         <AccountCard
@@ -27,12 +36,12 @@ const AccountScreen = () => {
         />
         <AccountCard
           iconName="lock-outline"
-          infoTitle="Password"
+          infoTitle={i18n.t(LocalizationKey.PASSWORD)} 
           infoText=".............."
         />
         <AccountCard
           iconName="bank-outline"
-          infoTitle="Bank account"
+          infoTitle={i18n.t(LocalizationKey.BANKACCOUNT)} 
           data={["BIDV", "Mono Bank"]}
           onPress={() => {}}
         />

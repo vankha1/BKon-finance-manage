@@ -6,16 +6,23 @@ import SettingScreen from "../screens/Settings/SettingScreen";
 import AccountScreen from "../screens/Account/AccountScreen";
 import { COLORS, FONTFAMILIES } from "../constants";
 import { StatisStack } from "../stacks/Statistic/StatisticStack";
-import { TouchableOpacity } from "react-native";
-import { useEffect, useState } from "react";
+import { TouchableOpacity, Modal } from "react-native";
+import { useEffect, useState, Pressable } from "react";
 import { CreateTransaction, HomeStack } from "../stacks/Home/HomeStack";
+import { CreateTransactionStack } from "../stacks/createTransactionStack";
+import StatItem from "../components/StatItem/StatItem";
+import { LocalizationKey, i18n } from "../localization";
+import { useSelector } from "react-redux";
 
 const Tab = createBottomTabNavigator();
 
 function TabNavigator() {
     const [isShowPopover, setShowPopover] = useState(false);
+    const localeState = useSelector(state => state.locale) 
+
     useEffect(() => {
-        setTimeout(() => setShowPopover(false), 2000);
+        setTimeout(() => setShowPopover(false), 5);
+        i18n.locale = localeState.locale
     }, []);
 
     const CustomizeButton = ({ onPress }) => {
@@ -50,6 +57,13 @@ function TabNavigator() {
             <Tab.Screen
                 name="HomeStack"
                 component={HomeStack}
+                listeners={{
+                    tabPress: () => {
+                        //e.preventDefault();
+                        setShowPopover(false);
+                        // console.log(isShowPopover);
+                    },
+                }}
                 options={{
                     headerShown: false,
                     title: "Home",
@@ -73,6 +87,13 @@ function TabNavigator() {
             <Tab.Screen
                 name="Statistics"
                 component={StatisStack}
+                listeners={{
+                    tabPress: () => {
+                        //e.preventDefault();
+                        setShowPopover(false);
+                        // console.log(isShowPopover);
+                    },
+                }}
                 options={{
                     headerShown: false,
                     tabBarIcon: ({ color, size }) => {
@@ -98,7 +119,8 @@ function TabNavigator() {
                 listeners={{
                     tabPress: (e) => {
                         e.preventDefault();
-                        setShowPopover(!isShowPopover);
+                        setShowPopover(false);
+                        // console.log(isShowPopover);
                     },
                 }}
                 options={{
@@ -107,12 +129,17 @@ function TabNavigator() {
                     tabBarButton: () => {
                         return (
                             <>
-                                {isShowPopover && <CreateTransaction />}
+                                {isShowPopover && (
+                                    <CreateTransaction
+                                        onShow={() => setShowPopover(false)}
+                                    />
+                                )}
 
                                 <CustomizeButton
-                                    onPress={() =>
-                                        setShowPopover(!isShowPopover)
-                                    }
+                                    onPress={() => {
+                                        setShowPopover(!isShowPopover);
+                                        //console.log(isShowPopover);
+                                    }}
                                 />
                             </>
                         );
@@ -129,8 +156,15 @@ function TabNavigator() {
             <Tab.Screen
                 name="Account"
                 component={AccountScreen}
+                listeners={{
+                    tabPress: () => {
+                        //e.preventDefault();
+                        setShowPopover(false);
+                        //console.log(isShowPopover);
+                    },
+                }}
                 options={{
-                    headerTitle: "Account",
+                    headerTitle: `${i18n.t(LocalizationKey.ACCOUNTS)}`,
                     headerStyle: {
                         backgroundColor: COLORS.headerBg,
                         height: 100,
@@ -161,8 +195,15 @@ function TabNavigator() {
             <Tab.Screen
                 name="Settings"
                 component={SettingScreen}
+                listeners={{
+                    tabPress: () => {
+                        //e.preventDefault();
+                        setShowPopover(false);
+                        //console.log(isShowPopover);
+                    },
+                }}
                 options={{
-                    headerTitle: "Settings",
+                    headerTitle: `${i18n.t(LocalizationKey.SETTINGS)}`,
                     headerStyle: {
                         backgroundColor: COLORS.headerBg,
                         height: 100,
