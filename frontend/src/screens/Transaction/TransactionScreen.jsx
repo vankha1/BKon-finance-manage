@@ -141,7 +141,7 @@ const TransactionScreen = () => {
         <Select
           iconType="database"
           inputStyle={{ width: "90%", backgroundColor: "white" }}
-          nameCard={data[selectedIndex] ? data[selectedIndex] : "Select option"}
+          nameCard={data[selectedIndex] ? data[selectedIndex] : "Select method"}
           data={data}
           chidren={
             <View

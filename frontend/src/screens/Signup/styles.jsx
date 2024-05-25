@@ -1,4 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
+import { COLORS } from "../../constants";
 
 var maxWidth = Dimensions.get("window").width; //full width
 var maxHeight = Dimensions.get("window").height; //full height
@@ -8,17 +9,10 @@ const styles = StyleSheet.create({
     width: maxWidth,
     height: maxHeight + 34,
     flexDirection: "column",
-    backgroundColor: "white",
+    backgroundColor: COLORS.mainLightBackground,
   },
   header: {
-    marginTop: 40,
-  },
-  img: {
-    width: 200,
-    height: 200,
-    borderRadius: 5,
-    marginBottom: 20,
-    alignSelf: "center",
+    marginTop: 150,
   },
   title: {
     fontSize: 35,

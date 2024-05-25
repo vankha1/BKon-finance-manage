@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { i18n } from "./localization";
 
 const Main = () => {
-  const isLoggedIn = true;
+  const isLoggedIn = true; // change to false if want to logout
 
   const localeState = useSelector(state => state.locale);
 

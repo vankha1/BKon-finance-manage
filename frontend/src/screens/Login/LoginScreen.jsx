@@ -6,6 +6,9 @@ import Input from "../../components/Input/Input";
 import { useState } from "react";
 import { COLORS } from "../../constants";
 import Button from "../../components/Button/Button";
+import axios from "axios";
+import { Config } from "../../config";
+
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,8 +16,12 @@ const LoginScreen = () => {
   const navigator = useNavigation();
 
   const handleLogin = () => {
-    navigator.navigate('MainStack')
-  }
+    // axios.post(`${Config.API_URL}/users`, {
+    //   email,
+    //   password,
+    // });
+    navigator.navigate("MainStack");
+  };
 
   return (
     <ScrollView contentContainerStyle={[styles.container]}>
@@ -57,7 +64,7 @@ const LoginScreen = () => {
         </Button>
       </View>
       <View style={styles.navigatePage}>
-        <Text style={{  fontWeight: "bold" }}>
+        <Text style={{ fontWeight: "bold" }}>
           Don't have an account{" "}
           <Text
             style={{ color: COLORS.buttonBg }}
