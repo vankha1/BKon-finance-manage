@@ -23,7 +23,7 @@ const StatisticScreen = () => {
                     LibIcon={MaterialCommunityIcons}
                     iconName="wallet-outline"
                     titleReport={i18n.t(LocalizationKey.INCOME_REPORT)}
-                    onPress={() => navigator.navigate("Expense")}
+                    onPress={() => navigator.navigate("Income")}
                     className={styles.btn}
                 />
                 <StatItem
@@ -38,7 +38,7 @@ const StatisticScreen = () => {
                     LibIcon={MaterialCommunityIcons}
                     iconName="receipt"
                     titleReport={i18n.t(LocalizationKey.DEBT_REPORT)}
-                    onPress={() => navigator.navigate("Expense")}
+                    onPress={() => navigator.navigate("Debt")}
                     className={styles.btn}
                 />
 
@@ -62,7 +62,7 @@ const StatisticScreen = () => {
                     LibIcon={MaterialCommunityIcons}
                     iconName="chart-line"
                     titleReport={i18n.t(LocalizationKey.RECEIVABLE_VS_DEBT)}
-                    onPress={() => navigator.navigate("Expense")}
+                    onPress={() => navigator.navigate("ReceivableAndDebt")}
                     className={styles.btn}
                 />
             </View>

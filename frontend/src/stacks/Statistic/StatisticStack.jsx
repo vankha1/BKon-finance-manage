@@ -8,10 +8,11 @@ import { COLORS } from "../../constants";
 import { LocalizationKey, i18n } from "../../localization";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import IncomeStatScreen from "../../screens/Statistic/Income/IncomeStatScreen";
+import DebtScreen from "../../screens/Statistic/Debt/DebtStatScreen";
 
 const Stack = createStackNavigator();
 export const StatisStack = () => {
-
   const localeState = useSelector((state) => state.locale);
 
   useEffect(() => {
@@ -38,10 +39,51 @@ export const StatisStack = () => {
         }}
       />
       <Stack.Screen
+        name="Income"
+        component={IncomeStatScreen}
+        options={{
+          headerTitle: "Income Report",
+          headerStyle: { backgroundColor: COLORS.headerBg, height: 100 },
+          headerTitleStyle: {
+            color: COLORS.white,
+          },
+          headerTitleAlign: "center",
+          title: "Statistics",
+          tabBarIcon: () => {
+            return <MaterialCommunityIcons name="chart-line" size={27} />;
+          },
+          tabBarLabelStyle: {
+            fontSize: 13,
+          },
+          tabBarActiveBackgroundColor: "primary",
+        }}
+      />
+      <Stack.Screen
         name="Expense"
         component={ExpenseStatScreen}
         options={{
           headerTitle: "Expense Report",
+          headerStyle: { backgroundColor: COLORS.headerBg, height: 100 },
+          headerTitleStyle: {
+            color: COLORS.white,
+          },
+          headerTitleAlign: "center",
+          title: "Statistics",
+          tabBarIcon: () => {
+            return <MaterialCommunityIcons name="chart-line" size={27} />;
+          },
+          tabBarLabelStyle: {
+            fontSize: 13,
+          },
+          tabBarActiveBackgroundColor: "primary",
+        }}
+      />
+
+      <Stack.Screen
+        name="Debt"
+        component={DebtScreen}
+        options={{
+          headerTitle: "Debt Report",
           headerStyle: { backgroundColor: COLORS.headerBg, height: 100 },
           headerTitleStyle: {
             color: COLORS.white,
@@ -84,6 +126,27 @@ export const StatisStack = () => {
         component={IncomeAndExpenseScreen}
         options={{
           headerTitle: "Income vs Expense Report",
+          headerStyle: { backgroundColor: COLORS.headerBg, height: 100 },
+          headerTitleStyle: {
+            color: COLORS.white,
+          },
+          headerTitleAlign: "center",
+          title: "Statistics",
+          tabBarIcon: () => {
+            return <MaterialCommunityIcons name="chart-line" size={27} />;
+          },
+          tabBarLabelStyle: {
+            fontSize: 13,
+          },
+          tabBarActiveBackgroundColor: "primary",
+        }}
+      />
+      
+      <Stack.Screen
+        name="ReceivableAndDebt"
+        component={IncomeAndExpenseScreen}
+        options={{
+          headerTitle: "Receivable vs Debt Report",
           headerStyle: { backgroundColor: COLORS.headerBg, height: 100 },
           headerTitleStyle: {
             color: COLORS.white,
