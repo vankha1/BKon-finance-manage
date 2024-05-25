@@ -15,6 +15,7 @@ import {
     MaterialCommunityIcons,
     AntDesign,
 } from "@expo/vector-icons";
+import ListDORScreen from "../../screens/ListDOR/ListDORScreen";
 const Stack = createStackNavigator();
 export const CreateTransaction = ({ onShow }) => {
     const navigator = useNavigation();
@@ -96,6 +97,9 @@ export const CreateTransaction = ({ onShow }) => {
                                 borderRadius: 16,
                             }}
                             onPress={() => {
+                                navigator.navigate("Transaction", {
+                                    type: "Expense",
+                                });
                                 onShow();
                             }}
                         />
@@ -111,6 +115,9 @@ export const CreateTransaction = ({ onShow }) => {
                                 borderRadius: 16,
                             }}
                             onPress={() => {
+                                navigator.navigate("ListDOR", {
+                                    type: "receivables",
+                                });
                                 onShow();
                             }}
                         />
@@ -136,6 +143,9 @@ export const CreateTransaction = ({ onShow }) => {
                                 borderRadius: 16,
                             }}
                             onPress={() => {
+                                navigator.navigate("ListDOR", {
+                                    type: "debts",
+                                });
                                 onShow();
                             }}
                         />
@@ -188,6 +198,7 @@ export const HomeStack = () => {
                 component={CurrentBankAccount}
             ></Stack.Screen>
             <Stack.Screen name="CurrentEWallet" component={CurrentEWallet} />
+            <Stack.Screen name="ListDOR" component={ListDORScreen} />
         </Stack.Navigator>
     );
 };
