@@ -3,13 +3,15 @@ import DORitem from "../../components/DeptOrReItem/DORitem";
 import { COLORS } from "../../constants";
 import styles from "./styles";
 import Header from "../../components/Header/Header";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 const ListDORScreen = () => {
     const params = useRoute().params;
+    //const navigator = useNavigation();
+
     return (
         <View style={styles.container}>
-            <Header title={`Lists of ${params.type}`} addButton={true} />
+            <Header title={`List of ${params.type}`} addButton={true} />
             <ScrollView>
                 <View style={styles.contentContainer}>
                     <DORitem
