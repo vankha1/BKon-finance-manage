@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { COLORS } from "../../constants";
+import { COLORS, FONTFAMILIES } from "../../constants";
 const CardWidth = 337;
 const CardHeight = 185;
 const RowPadding = 36;
@@ -51,6 +51,14 @@ const styles = StyleSheet.create({
         alignItems: "center",
         width: "100%",
         paddingRight: RowPadding,
+    },
+    headerText: {
+        fontFamily: FONTFAMILIES.regular,
+        fontSize: 16,
+    },
+    contentText: {
+        fontFamily: FONTFAMILIES.regular,
+        fontSize: 14,
     },
 });
 export default styles;

@@ -5,7 +5,7 @@ const cardWidth = "90%";
 const iconSideWidth = 30;
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: COLORS.mainLightBackground },
+    container: { backgroundColor: COLORS.mainLightBackground },
 
   content: {
     display: "flex",
