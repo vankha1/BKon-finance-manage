@@ -11,11 +11,17 @@ import styles from "../styles";
 import IconWrapper from "../../../../../components/Icon/Icon";
 import { SIZES } from "../../../../../constants";
 import { ScrollView } from "react-native-gesture-handler";
+import { useRoute } from "@react-navigation/native";
 const CurrentCash = () => {
+
+    const params = useRoute().params;
+
+    console.log(params)
+
     return (
         <View>
             <Header
-                title={"Current Cash"}
+                title={params.name}
                 iconName={"cash"}
                 libIcon={MaterialCommunityIcons}
             ></Header>
@@ -23,7 +29,7 @@ const CurrentCash = () => {
                 <View style={styles.contentContainer}>
                     <View style={styles.balance}>
                         <Text style={styles.title}>Current Balance</Text>
-                        <Text style={styles.amount}>$5000</Text>
+                        <Text style={styles.amount}>{`$ ${params.amount}`}</Text>
                     </View>
                     <View style={styles.content}>
                         <View style={styles.search}>

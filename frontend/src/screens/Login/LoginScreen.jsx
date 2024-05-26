@@ -8,6 +8,7 @@ import { COLORS } from "../../constants";
 import Button from "../../components/Button/Button";
 import axios from "axios";
 import { Config } from "../../config";
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -15,11 +16,16 @@ const LoginScreen = () => {
 
   const navigator = useNavigation();
 
-  const handleLogin = () => {
-    // axios.post(`${Config.API_URL}/users`, {
-    //   email,
-    //   password,
-    // });
+  const handleLogin = async () => {
+    const response = await axios.post(`${Config.API_URL}/auth/login`, {
+      email,
+      password,
+    });
+
+    console.log(response.data)
+    AsyncStorage.setItem("token", response.data?.access_token)
+    AsyncStorage.setItem("userInfo", response.data?.user)
+
     navigator.navigate("MainStack");
   };
 
