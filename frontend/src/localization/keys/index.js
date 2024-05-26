@@ -25,4 +25,15 @@ export const LocalizationKey = {
     RECEIVABLE_REPORT: "recipient_report",
     INCOME_VS_EXPENSE: "income_vs_expense",
     RECEIVABLE_VS_DEBT: "receivable_vs_debt",
+
+    // Home
+    YOUR_BALANCE: "your_balance",
+    HI: "hi",
+    CASH: "cash",
+    BANK_CARD: "bank_card",
+    NOT_AVAILABLE: "not_available",
+    MONTHLY_BUDGET: "monthly_budget",
+    SPENT: "spent",
+    LEFT: "left",
+    RECEIVABLE: "receivable",
 }
