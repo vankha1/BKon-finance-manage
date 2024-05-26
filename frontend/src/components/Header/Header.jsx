@@ -81,11 +81,11 @@ const Header = ({ title, libIcon, iconName, subTitle, addButton }) => {
                             title === "List of debts"
                                 ? () =>
                                       navigator.navigate("Transaction", {
-                                          type: "Debt",
+                                          type: "debts",
                                       })
                                 : () =>
                                       navigator.navigate("Transaction", {
-                                          type: "Receivable",
+                                          type: "receivables",
                                       })
                         }
                     >

@@ -23,7 +23,7 @@ const DORitem = ({
                     LibIcon={FontAwesome}
                     size={30}
                 />
-                <Text>{note}</Text>
+                <Text>{note ? note : "No note"}</Text>
                 <Text> </Text>
             </View>
             <View style={styles.mainContent}>

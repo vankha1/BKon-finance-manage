@@ -4,13 +4,15 @@ import SettingCard from "../../components/SettingCard/SettingCard";
 import { COLORS } from "../../constants";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { LocalizationKey, i18n } from "../../localization";
+import { logout } from "../../redux/slice/login";
 
 const SettingScreen = () => {
   const currencies = ["USD", "VND"];
   const languages = ["en-US", "vi-VN"];
   const navigator = useNavigation();
+  const dispatch = useDispatch();
 
   const [currency, setCurrency] = useState("USD");
 
@@ -35,7 +37,10 @@ const SettingScreen = () => {
   ];
 
   const handleLogout = () => {
-    navigator.navigate("Login");
+
+    dispatch(logout())
+
+    // navigator.navigate("Login");
   };
 
   return (

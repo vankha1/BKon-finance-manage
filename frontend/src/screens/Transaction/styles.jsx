@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { COLORS } from "../../constants";
 
 const cardWidth = "90%";
@@ -36,6 +36,23 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.buttonBg,
   },
+  amountText: {
+    marginBottom: 10,
+    fontSize: 16,
+  },
+  inputAmountWrapper: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "40%",
+  },
+  inputAmount: {
+    width: "90%",
+    backgroundColor: "white",
+    padding: 10,
+    borderRadius: 10,
+  },
   cardEleWithIcon_Left: {
     width: iconSideWidth,
     alignItems: "center",
@@ -59,6 +76,11 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     gap: 10,
   },
+  buttonText: {
+    fontSize: 18,
+    color: COLORS.white,
+    fontWeight: "bold",
+  },
   option: {
     fontSize: 16,
     padding: 10,
@@ -68,6 +90,36 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: COLORS.buttonBg,
   },
+  DORinputWrapper: {
+    width: "90%",
+    flexDirection: "row",
+    backgroundColor: "white",
+    alignItems: "center",
+    borderRadius: 20,
+  },
+  DORicon: {
+    borderWidth: 1,
+    borderColor: COLORS.buttonBg,
+    borderRadius: 30,
+    width: 45,
+    height: 45,
+    marginLeft: 10,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  DORinput: {
+    //width: Dimensions.get("window").width * 0.9,
+    paddingLeft: 10,
+    paddingRight: 10,
+    paddingTop: 20,
+    paddingBottom: 20,
+    borderRadius: 10,
+    textAlignVertical: "top",
+    backgroundColor: "white",
+    fontSize: 16,
+    flex: 1,
+  },
   textAreaContainer: {
     borderColor: COLORS.gray2,
     borderWidth: 1,
@@ -76,7 +128,32 @@ const styles = StyleSheet.create({
   textArea: {
     height: 150,
     justifyContent: "flex-start",
+    width: Dimensions.get("window").width * 0.9,
+    padding: 20,
+    borderRadius: 10,
+    textAlignVertical: "top",
+    backgroundColor: COLORS.gray,
+    fontSize: 16,
   },
+
+  // common styles
+  center: {
+    alignItems: "center",
+  },
+  underLine: {
+    width: 140,
+    borderWidth: 2,
+    borderColor: COLORS.buttonBg,
+    backgroundColor: COLORS.buttonBg,
+  },
+  optionSelectWrapper: {
+    marginTop: 10,
+    backgroundColor: COLORS.gray3,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: COLORS.gray3,
+    overflow: "scroll",
+  }
 });
 
 export default styles;
