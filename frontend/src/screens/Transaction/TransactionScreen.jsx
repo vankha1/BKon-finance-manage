@@ -15,7 +15,7 @@ import {
     FontAwesome6,
     MaterialCommunityIcons,
 } from "@expo/vector-icons";
-import { COLORS, SIZES } from "../../constants";
+import { COLORS, FONTFAMILIES, SIZES } from "../../constants";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useState } from "react";
 import Select from "../../components/Select/Select";
@@ -59,68 +59,104 @@ const TransactionScreen = () => {
     ];
 
     const data1 = ["Food and drink", "Shopping", "Refueling", "Others"];
-
+    //console.log(params.name);
     return (
         <ScrollView style={styles.container}>
-            <Header title={`New ${params.type}`} />
+            {params.type === "Paying" ? (
+                <Header title={`Paying ${params.name}`} />
+            ) : (
+                <Header title={`New ${params.type}`} />
+            )}
 
             <View style={styles.content}>
-                <Toggle
-                    iconType={"credit-card"}
-                    colorIcon={"#000"}
-                    inputStyle={{ width: "90%", backgroundColor: "white" }}
-                    nameCard={params.type}
-                    Children={
-                        <View
-                            style={{
-                                alignItems: "center",
-                            }}
-                        >
-                            <Text
-                                style={{
-                                    marginBottom: 10,
-                                    fontSize: 16,
-                                }}
-                            >
-                                Amount
-                            </Text>
-                            <View
-                                style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    width: "40%",
-                                }}
-                            >
-                                <Text style={{ fontSize: 25 }}>{`${
-                                    params.type === "Expense" ||
-                                    params.type === "Debt"
-                                        ? "-"
-                                        : "+"
-                                }`}</Text>
-                                <TextInput
-                                    style={{
-                                        width: "90%",
-                                        backgroundColor: "white",
-                                        padding: 10,
-                                        borderRadius: 10,
-                                    }}
-                                    placeholder="Enter amount"
-                                    keyboardType="numeric"
-                                />
-                            </View>
-                            <View
-                                style={{
-                                    width: 140,
-                                    borderWidth: 2,
-                                    borderColor: COLORS.buttonBg,
-                                    backgroundColor: COLORS.buttonBg,
-                                }}
-                            ></View>
+                {params.type === "Paying" ? (
+                    <View>
+                        <View style={styles.remaining}>
+                            <Text style={styles.contentText}>Remaining</Text>
+                            <Text style={styles.amountText}>$5000</Text>
                         </View>
-                    }
-                />
+                        <View style={styles.amount}>
+                            <Text style={styles.smallText}>Amount</Text>
+                            <View style={styles.blankAmount}>
+                                <Text>
+                                    {params.name === "debt" ? (
+                                        <IconWrapper
+                                            iconType={"minus"}
+                                            size={SIZES.xLarge}
+                                            LibIcon={AntDesign}
+                                        />
+                                    ) : (
+                                        <IconWrapper
+                                            iconType={"plus"}
+                                            size={SIZES.xLarge}
+                                            LibIcon={AntDesign}
+                                        />
+                                    )}{" "}
+                                </Text>
+                                <Text style={styles.amountText}>$4000</Text>
+                            </View>
+                            <View style={styles.underline}></View>
+                        </View>
+                    </View>
+                ) : (
+                    <Toggle
+                        iconType={"credit-card"}
+                        colorIcon={"#000"}
+                        inputStyle={{ width: "90%", backgroundColor: "white" }}
+                        nameCard={params.type}
+                        Children={
+                            <View
+                                style={{
+                                    alignItems: "center",
+                                }}
+                            >
+                                <Text
+                                    style={{
+                                        marginBottom: 10,
+                                        fontSize: 16,
+                                    }}
+                                >
+                                    Amount
+                                </Text>
+                                <View
+                                    style={{
+                                        display: "flex",
+                                        flexDirection: "row",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        width: "40%",
+                                    }}
+                                >
+                                    <Text style={{ fontSize: 25 }}>{`${
+                                        params.type === "Expense" ||
+                                        params.type === "Debt"
+                                            ? "-"
+                                            : "+"
+                                    }`}</Text>
+                                    <TextInput
+                                        style={{
+                                            width: "90%",
+                                            backgroundColor: "white",
+                                            padding: 10,
+                                            borderRadius: 10,
+                                        }}
+                                        placeholder="Enter amount"
+                                        keyboardType="numeric"
+                                    />
+                                </View>
+                                <View
+                                    style={{
+                                        width: 140,
+                                        borderWidth: 2,
+                                        borderColor: COLORS.buttonBg,
+                                        backgroundColor: COLORS.buttonBg,
+                                    }}
+                                ></View>
+                            </View>
+                        }
+                    />
+                )}
+
                 {/* Date picker */}
                 <Pressable
                     style={[styles.buttonContainer]}
@@ -137,7 +173,14 @@ const TransactionScreen = () => {
                         }}
                         LibIcon={AntDesign}
                     />
-                    <Text>Date</Text>
+                    <Text
+                        style={{
+                            fontFamily: FONTFAMILIES.medium,
+                            fontSize: 16,
+                        }}
+                    >
+                        Date
+                    </Text>
                     <Text style={styles.dateTitle}>
                         {date1 ? date1.toDateString() : ""}
                     </Text>
@@ -170,9 +213,11 @@ const TransactionScreen = () => {
                             LibIcon={AntDesign}
                         />
                         {params.type === "Debt" ? (
-                            <Text>Repaid Date</Text>
+                            <Text style={styles.contentText}>Repaid Date</Text>
                         ) : (
-                            <Text>Complete Date</Text>
+                            <Text style={styles.contentText}>
+                                Complete Date
+                            </Text>
                         )}
 
                         <Text style={styles.dateTitle}>
