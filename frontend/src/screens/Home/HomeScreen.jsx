@@ -18,6 +18,9 @@ import { COLORS, SIZES, FONTFAMILIES } from "../../constants";
 import * as Progress from "react-native-progress";
 import HomeHeader from "../../components/Header/Home/HomeHeader";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { LocalizationKey, i18n } from "../../localization";
 
 const addWidgetFunc = () => {
     alert("addWidgetFunc");
@@ -29,6 +32,11 @@ const addWidgetFunc = () => {
     // console.log("addWidgetFunc");
 };
 const HomeScreen = () => {
+    const localeState = useSelector((state) => state.locale);
+
+    useEffect(() => {
+        i18n.locale = localeState.locale;
+    }, []);
     const navigator = useNavigation();
     const handleFinances = () => {
         navigator.navigate("Finances");
