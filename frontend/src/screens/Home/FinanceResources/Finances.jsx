@@ -37,12 +37,16 @@ const Finances = () => {
   useEffect(() => {
     const getResources = async () => {
       const token = await AsyncStorage.getItem("token");
+      // console.log(token)
       const options = {
         method: "GET",
-        url: `${Config.API_URL}/cash`,
+        url: `${Config.API_URL}/cashes`,
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        params: {
+          
+        }
       };
       const response = await axios.request(options);
 
@@ -73,7 +77,7 @@ const Finances = () => {
     const token = await AsyncStorage.getItem("token");
     const options = {
       method: "POST",
-      url: `${Config.API_URL}/cash`,
+      url: `${Config.API_URL}/cashes`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
