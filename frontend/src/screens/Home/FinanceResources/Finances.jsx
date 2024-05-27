@@ -1,4 +1,11 @@
-import { View, Text, Pressable, TextInput, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  TextInput,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import Modal from "react-native-modal";
@@ -29,7 +36,7 @@ const Finances = () => {
     () => resources.reduce((acc, ele) => acc + ele.balance, 0),
     [resources]
   );
-  
+
   const navigator = useNavigation();
 
   const handleVisibleModal = () => {
@@ -46,9 +53,7 @@ const Finances = () => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        params: {
-          
-        }
+        params: {},
       };
       const response = await axios.request(options);
 
@@ -90,8 +95,8 @@ const Finances = () => {
     try {
       setIsLoading(true);
       const response = await axios.request(options);
-      setIsLoading(false);
       setResources([...resources, response.data]);
+      setIsLoading(false);
       handleClose();
     } catch (error) {
       throw new Error(error);
@@ -104,22 +109,32 @@ const Finances = () => {
 
   return (
     <View style={styles.container}>
-      <Header title={"Finance Resources"} />
-      <View style={styles.financeContainer}>
-        <FinanceResources title={"Current Balance"} amount={currentBalance} />
-        {!isLoading && <FlatList
-          data={resources}
-          renderItem={({ item }) => (
-            <RenderResourceItem
-              title={item.name}
-              amount={item.balance}
-              component={"CurrentCash"}
-              navigateOptions={{ name: item.name, amount: item.balance, id: item._id }}
+      {isLoading ? (
+        <ActivityIndicator size="large" />
+      ) : (
+        <>
+          <Header title={"Finance Resources"} />
+          <View style={styles.financeContainer}>
+            <FinanceResources title={"Current Balance"} amount={currentBalance} />
+            <FlatList
+              data={resources}
+              renderItem={({ item }) => (
+                <RenderResourceItem
+                  title={item.name}
+                  amount={item.balance}
+                  component={"CurrentCash"}
+                  navigateOptions={{
+                    name: item.name,
+                    amount: item.balance,
+                    id: item._id,
+                  }}
+                />
+              )}
+              keyExtractor={(item) => item._id}
             />
-          )}
-          keyExtractor={(item) => item._id}
-        />}
-      </View>
+          </View>
+        </>
+      )}
       <TouchableWithoutFeedback onPress={handleVisibleModal}>
         <View style={styles.addWidget}>
           <AntDesign name="plus" size={SIZES.medium} color={"black"} />

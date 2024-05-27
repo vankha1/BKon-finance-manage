@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
 import Header from "../../../../../components/Header/Header";
 import FinanceResources from "../../../../../components/FinanceResource/FinanceResources";
 import {
@@ -21,6 +21,7 @@ import { format } from "date-fns";
 const CurrentCash = () => {
   const params = useRoute().params;
   const [resource, setResource] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   console.log("Navigation options in each resource", params);
 
@@ -35,9 +36,11 @@ const CurrentCash = () => {
         },
       };
       try {
+        setIsLoading(true);
         const response = await axios.request(options);
         console.log(response.data);
         setResource(response.data);
+        setIsLoading(false);
       } catch (error) {
         throw new Error(error);
       }
@@ -69,18 +72,30 @@ const CurrentCash = () => {
               ></IconWrapper>
             </View>
             <View>
-              {resource?.incomes?.map((item, index) => {
-                return (
-                  <FinanceResources
-                    title={item.spendOn}
-                    iconName={"shirt-outline"}
-                    amount={item.amount}
-                    subTitle={params.name}
-                    Time={format(item.createdAt, "dd/MM/yyyy    HH.mm")}
-                    libIcon={Ionicons}
-                  />
-                );
-              })}
+              {isLoading ? (
+                <ActivityIndicator size={"large"} />
+              ) : resource &&
+                resource?.incomes?.length === 0 &&
+                resource?.expenses?.length === 0 ? (
+                <Text style={styles.text}>No transactions yet</Text>
+              ) : (
+                [
+                  ...(resource?.incomes || []),
+                  ...(resource?.expenses || []),
+                ]?.map((item, index) => {
+                  return (
+                    <FinanceResources
+                      title={item.spendOn}
+                      iconName={"shirt-outline"}
+                      amount={item.amount}
+                      subTitle={params.name}
+                      Time={format(item.createdAt, "dd/MM/yyyy    HH.mm")}
+                      libIcon={Ionicons}
+                      key={index}
+                    />
+                  );
+                })
+              )}
             </View>
           </View>
         </View>
