@@ -19,6 +19,7 @@ import * as Progress from "react-native-progress";
 import HomeHeader from "../../components/Header/Home/HomeHeader";
 import { useNavigation } from "@react-navigation/native";
 
+
 const addWidgetFunc = () => {
     alert("addWidgetFunc");
     // return (
