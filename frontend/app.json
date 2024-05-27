@@ -21,7 +21,9 @@
       "package": "com.group3.BKon"
     },
     "plugins": [
-      "@react-native-firebase/app"
+      "@react-native-firebase/app",
+      "expo-font",
+      "expo-localization"
     ],
     "web": {
       "favicon": "./assets/favicon.png"
