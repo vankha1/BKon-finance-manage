@@ -23,6 +23,8 @@ const Finances = () => {
   const [resourceName, setResourceName] = useState("");
   const [balance, setBalance] = useState("");
   const [resources, setResources] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   const currentBalance = useMemo(
     () => resources.reduce((acc, ele) => acc + ele.balance, 0),
     [resources]
@@ -86,7 +88,9 @@ const Finances = () => {
     };
 
     try {
+      setIsLoading(true);
       const response = await axios.request(options);
+      setIsLoading(false);
       setResources([...resources, response.data]);
       handleClose();
     } catch (error) {
@@ -103,18 +107,18 @@ const Finances = () => {
       <Header title={"Finance Resources"} />
       <View style={styles.financeContainer}>
         <FinanceResources title={"Current Balance"} amount={currentBalance} />
-        <FlatList
+        {!isLoading && <FlatList
           data={resources}
           renderItem={({ item }) => (
             <RenderResourceItem
               title={item.name}
               amount={item.balance}
               component={"CurrentCash"}
-              navigateOptions={{ name: item.name, amount: item.balance }}
+              navigateOptions={{ name: item.name, amount: item.balance, id: item._id }}
             />
           )}
           keyExtractor={(item) => item._id}
-        />
+        />}
       </View>
       <TouchableWithoutFeedback onPress={handleVisibleModal}>
         <View style={styles.addWidget}>

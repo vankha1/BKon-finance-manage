@@ -96,7 +96,7 @@ const TransactionScreen = () => {
     const token = await AsyncStorage.getItem("token");
 
     const data = {
-      amount: amount,
+      amount: +amount,
       [checkDOR ? "borrowDate" : "createdAt"]: date1.toString(),
       note: notes,
     };

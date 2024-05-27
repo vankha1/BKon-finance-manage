@@ -1,11 +1,12 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { COLORS, FONTFAMILIES, SIZES } from "../../../../constants";
 const itemWidth = 309;
 const itemHeight = 97;
 const styles = StyleSheet.create({
     container: {
-        // width: "100%",
-        // height: "100%",
+        flexDirection: "column",
+        height: "100%",
+        backgroundColor: COLORS.mainLightBackground,
     },
     contentContainer: {
         width: "100%",
