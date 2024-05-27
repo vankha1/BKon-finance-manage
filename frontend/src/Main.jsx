@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { i18n } from "./localization";
 
 const Main = () => {
-  const isLoggedIn = true;
+  const login = useSelector((state) => state.login)  // change to false if want to logout
 
   const localeState = useSelector(state => state.locale);
 
@@ -16,7 +16,8 @@ const Main = () => {
 
   return (
     <NavigationContainer>
-      {isLoggedIn ? <TabNavigator /> : <AuthNavigator />}
+      {login.isLoggin ? <TabNavigator /> : <AuthNavigator />}
+      {/* {true ? <TabNavigator /> : <AuthNavigator />} */}
     </NavigationContainer>
   );
 };

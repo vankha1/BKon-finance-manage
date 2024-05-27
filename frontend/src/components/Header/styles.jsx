@@ -3,7 +3,7 @@ import { COLORS, FONTFAMILIES, SIZES } from "../../constants";
 const leftMargin = 20;
 const rightMargin = 29;
 const styles = StyleSheet.create({
-    headerWithIcon: {
+    header: {
         //marginTop: 30,
         width: "100%",
         backgroundColor: COLORS.headerBg,
@@ -14,23 +14,13 @@ const styles = StyleSheet.create({
         paddingBottom: 20,
         justifyContent: "center",
     },
-    header: {
-        width: "100%",
-        backgroundColor: COLORS.headerBg,
-        height: 100,
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "flex-end",
-        paddingBottom: 20,
-        justifyContent: "space-between",
-    },
 
     titleWithIcon: {
         flexDirection: "row",
         alignItems: "center",
         gap: 16,
     },
-    contentWithEdit: {
+    content: {
         width: "100%",
         flexDirection: "row",
         justifyContent: "space-between",
