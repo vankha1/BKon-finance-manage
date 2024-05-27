@@ -16,7 +16,7 @@ const CurrentCash = () => {
 
     const params = useRoute().params;
 
-    console.log(params)
+    console.log( "Navigation options in each resource", params)
 
     return (
         <View>
