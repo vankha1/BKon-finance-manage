@@ -1,35 +1,31 @@
 import { Image, ScrollView, Text, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-
-import styles from "./styles";
-import Input from "../../components/Input/Input";
 import { useState } from "react";
-import { COLORS } from "../../constants";
-import Button from "../../components/Button/Button";
-import axios from "axios";
-import { Config } from "../../config";
+import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../redux/slice/login";
+
+import styles from "./styles";
+import Input from "@/components/Input/Input";
+import { COLORS } from "@/constants";
+import Button from "@/components/Button/Button";
+import { login } from "@/redux/slice/login";
+import { loginUser } from "@/services";
 
 const LoginScreen = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const { isLoggin, isValidAcc } = useSelector((state) => state.login);
+    // const { isLoggin, isValidAcc } = useSelector((state) => state.login);
     const dispatch = useDispatch();
 
     const navigator = useNavigation();
 
     const handleLogin = async () => {
-        // const response = await axios.post(`${Config.API_URL}/auth/login`, {
-        //     email,
-        //     password,
-        // });
+        const response = await loginUser({ email, password });
 
-        // console.log(response.data);
-        // AsyncStorage.setItem("token", response.data?.access_token);
-        // AsyncStorage.setItem("userInfo", JSON.stringify(response.data?.user));
+        console.log(response);
+        AsyncStorage.setItem("token", response?.access_token);
+        AsyncStorage.setItem("userInfo", JSON.stringify(response?.user));
 
         // dispatch(login({ isLoggin: true, isValidAcc: true }));
 

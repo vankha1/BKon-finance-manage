@@ -7,7 +7,7 @@ import {
 
 import styles from "./styles";
 import { useNavigation } from "@react-navigation/native";
-import { SIZES } from "../../constants";
+import { SIZES } from "@/constants";
 import IconWrapper from "../Icon/Icon";
 
 const Header = ({ title, libIcon, iconName, subTitle, addButton }) => {

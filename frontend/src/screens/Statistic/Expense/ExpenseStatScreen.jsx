@@ -1,28 +1,23 @@
 import { Pressable, ScrollView, Text, View } from "react-native";
+import { useEffect, useState } from "react";
 import PieChart from "react-native-pie-chart";
-import {
-  BarChart,
-} from "react-native-gifted-charts";
+import { BarChart } from "react-native-gifted-charts";
+import axios from "axios";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRoute } from "@react-navigation/native";
 
 import styles from "./styles";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { COLORS } from "../../../constants";
-import HistoryCard from "../../../components/HistoryCard/HistoryCard";
-import { useState } from "react";
-import { useRoute } from "@react-navigation/native";
+import { COLORS } from "@/constants";
+import HistoryCard from "@/components/HistoryCard/HistoryCard";
+import { Config } from "@/config";
+import { convertString, categories } from '@/utils'
 
 const ExpenseStatScreen = () => {
   const params = useRoute().params;
   const widthAndHeight = 200;
   const series = [100, 321, 123, 789, 537, 123];
-  const categories = [
-    "Electronics",
-    "Groceries",
-    "Education",
-    "Health",
-    "Entertainment",
-    "Others",
-  ];
+
   const bankNames = [
     "BIDV",
     "Mono Bank",
@@ -68,7 +63,7 @@ const ExpenseStatScreen = () => {
     "dots-horizontal-circle-outline",
   ];
 
-  const data = [
+  const data1 = [
     { value: 250, label: "M" },
     { value: 500, label: "T" },
     { value: 745, label: "W" },
@@ -79,7 +74,37 @@ const ExpenseStatScreen = () => {
   ];
 
   const [selectedBtn, setSelectedBtn] = useState(0);
-  const filterByTime = ["D", "W", "M", "6M", "Y"];
+  const filterByTime = ["D", "W", "M"];
+
+  useEffect(() => {
+    const filterOpt = filterByTime[selectedBtn];
+    console.log(filterByTime[selectedBtn]);
+
+    const getFilterData = async () => {
+      const token = await AsyncStorage.getItem("token");
+      const options = {
+        method: "GET",
+        url: `${Config.API_URL}/report/expenses/${
+          convertString(filterOpt).newStr
+        }`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          startDate: convertString(filterOpt).value,
+          endDate: convertString('D').value,
+        },
+      };
+      try {
+        const res = await axios.request(options);
+        console.log(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getFilterData();
+  }, []);
+
   return (
     <ScrollView contentContainerStyle={[styles.container]}>
       <View style={styles.barContainer}>
@@ -89,9 +114,10 @@ const ExpenseStatScreen = () => {
               key={index}
               style={[
                 {
-                  backgroundColor: selectedBtn === index ? COLORS.gray2 : COLORS.gray3,
+                  backgroundColor:
+                    selectedBtn === index ? COLORS.gray2 : COLORS.gray3,
                   paddingVertical: 2,
-                  width: "20%",
+                  width: "33.3%",
                   alignContent: "center",
                 },
                 index !== filterByTime.length - 1
@@ -99,8 +125,7 @@ const ExpenseStatScreen = () => {
                   : null,
               ]}
               onPress={() => {
-                setSelectedBtn(index)
-
+                setSelectedBtn(index);
               }}
             >
               <Text style={{ textAlign: "center" }}>{value}</Text>
@@ -112,7 +137,7 @@ const ExpenseStatScreen = () => {
           noOfSections={3}
           barBorderRadius={4}
           frontColor={COLORS.buttonBg}
-          data={data}
+          data={data1}
           yAxisThickness={0}
           xAxisThickness={0}
           spacing={13}

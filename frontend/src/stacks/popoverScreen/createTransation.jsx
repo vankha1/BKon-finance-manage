@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { View } from "react-native";
-import StatItem from "../../components/StatItem/StatItem";
+import StatItem from "@/components/StatItem/StatItem";
 
 const CreateTransaction = () => {
     const navigator = useNavigation();

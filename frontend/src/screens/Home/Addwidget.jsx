@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { ExpensePieChart } from "../Statistic/Expense/ExpenseStatScreen";
-import { COLORS } from "../../constants";
+import { COLORS } from "@/constants";
 export const Addwidget = ({ eventList, onShow }) => {
     return (
         <View style={styles.container}>

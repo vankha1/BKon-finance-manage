@@ -2,12 +2,11 @@ import { Image, ScrollView, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import styles from "./styles";
-import Input from "../../components/Input/Input";
+import Input from "@/components/Input/Input";
 import { useState } from "react";
-import { COLORS } from "../../constants";
-import Button from "../../components/Button/Button";
-import { Config } from "../../config";
-import axios from "axios";
+import { COLORS } from "@/constants";
+import Button from "@/components/Button/Button";
+import { createUser } from "@/services";
 
 const SignupScreen = () => {
     const [email, setEmail] = useState("");
@@ -18,21 +17,14 @@ const SignupScreen = () => {
     const navigator = useNavigation();
 
     const handleSignup = async () => {
-        // const options = {
-        //     method: "POST",
-        //     url: `${Config.API_URL}/users`,
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //     },
-        //     data: { email, password, fullname, username },
-        // };
-        // try {
-        //     const response = await axios.request(options);
-        //     console.log(response.data);
+        const response = await createUser({
+            email,
+            password,
+            fullname,
+            username,
+        });
+        console.log("User in sign up: ", response);
         navigator.navigate("Login");
-        // } catch (error) {
-        //     throw new Error(error);
-        // }
     };
 
     return (

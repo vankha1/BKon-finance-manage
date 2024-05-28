@@ -1,108 +1,98 @@
-import { View, Text } from "react-native";
-import Header from "../../../../../components/Header/Header";
-import FinanceResources from "../../../../../components/FinanceResource/FinanceResources";
+import { View, Text, ActivityIndicator } from "react-native";
 import {
-    MaterialCommunityIcons,
-    Ionicons,
-    Feather,
-    FontAwesome6,
+  MaterialCommunityIcons,
+  Ionicons,
+  Feather,
 } from "@expo/vector-icons";
-import styles from "../styles";
-import IconWrapper from "../../../../../components/Icon/Icon";
-import { SIZES } from "../../../../../constants";
 import { ScrollView } from "react-native-gesture-handler";
 import { useRoute } from "@react-navigation/native";
+import { useEffect, useState } from "react";
+import { format } from "date-fns";
+
+import styles from "../styles";
+import IconWrapper from "@/components/Icon/Icon";
+import { SIZES } from "@/constants";
+import Header from "@/components/Header/Header";
+import FinanceResources from "@/components/FinanceResource/FinanceResources";
+import { getResourceById } from '@/services'
+
 const CurrentCash = () => {
+  const params = useRoute().params;
+  const [resource, setResource] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
-    const params = useRoute().params;
+  console.log("Navigation options in each resource", params);
 
-    console.log( "Navigation options in each resource", params)
+  useEffect(() => {
+    const getResourseById = async () => {
+      try {
+        setIsLoading(true);
 
-    return (
-        <View>
-            <Header
-                title={params.name}
-                iconName={"cash"}
-                libIcon={MaterialCommunityIcons}
-            ></Header>
-            <ScrollView>
-                <View style={styles.contentContainer}>
-                    <View style={styles.balance}>
-                        <Text style={styles.title}>Current Balance</Text>
-                        <Text style={styles.amount}>{`$ ${params.amount}`}</Text>
-                    </View>
-                    <View style={styles.content}>
-                        <View style={styles.search}>
-                            <Text style={styles.searchTitle}>
-                                Transaction History
-                            </Text>
-                            <IconWrapper
-                                iconType={"search"}
-                                LibIcon={Feather}
-                                size={SIZES.medium}
-                            ></IconWrapper>
-                        </View>
-                        <View>
-                            <Text style={styles.titleContent}>Yesterday</Text>
-                            <FinanceResources
-                                title={"Shopping"}
-                                iconName={"shirt-outline"}
-                                amount={"$3000"}
-                                subTitle={"Cash"}
-                                Time={"10:12 AM"}
-                                libIcon={Ionicons}
-                            ></FinanceResources>
-                            <FinanceResources
-                                title={"Refueling"}
-                                iconName={"car-side"}
-                                amount={"$50"}
-                                subTitle={"Cash"}
-                                Time={"6:12 AM"}
-                                libIcon={FontAwesome6}
-                            ></FinanceResources>
-                        </View>
-                        <View>
-                            <Text style={styles.titleContent}>25/03/2024</Text>
-                            <FinanceResources
-                                title={"Shopping"}
-                                iconName={"shirt-outline"}
-                                amount={"$3000"}
-                                subTitle={"Cash"}
-                                Time={"10:12 AM"}
-                                libIcon={Ionicons}
-                            ></FinanceResources>
-                            <FinanceResources
-                                title={"Refueling"}
-                                iconName={"car-side"}
-                                amount={"$50"}
-                                subTitle={"Cash"}
-                                Time={"6:12 AM"}
-                                libIcon={FontAwesome6}
-                            ></FinanceResources>
-                        </View>
-                        <View>
-                            <Text style={styles.titleContent}>24/03/2024</Text>
-                            <FinanceResources
-                                title={"Shopping"}
-                                iconName={"shirt-outline"}
-                                amount={"$3000"}
-                                subTitle={"Cash"}
-                                Time={"10:12 AM"}
-                                libIcon={Ionicons}
-                            ></FinanceResources>
-                            <FinanceResources
-                                title={"Refueling"}
-                                iconName={"car-side"}
-                                amount={"$50"}
-                                subTitle={"Cash"}
-                                Time={"6:12 AM"}
-                                libIcon={FontAwesome6}
-                            ></FinanceResources>
-                        </View>
-                    </View>
-                </View>
-            </ScrollView>
+        const response = await getResourceById(params.id);
+        // console.log(response);
+        setResource(response);
+
+        setIsLoading(false);
+      } catch (error) {
+        throw new Error(error);
+      }
+    };
+    getResourseById();
+    // console.log(resource);
+  }, []);
+
+  return (
+    <View style={styles.container}>
+      <Header
+        title={params.name}
+        iconName={"cash"}
+        libIcon={MaterialCommunityIcons}
+      />
+      <ScrollView>
+        <View style={styles.contentContainer}>
+          <View style={styles.balance}>
+            <Text style={styles.title}>Current Balance</Text>
+            <Text style={styles.amount}>{`$ ${params.amount}`}</Text>
+          </View>
+          <View style={styles.content}>
+            <View style={styles.search}>
+              <Text style={styles.searchTitle}>Transaction History</Text>
+              <IconWrapper
+                iconType={"search"}
+                LibIcon={Feather}
+                size={SIZES.medium}
+              ></IconWrapper>
+            </View>
+            <View>
+              {isLoading ? (
+                <ActivityIndicator size={"large"} />
+              ) : resource &&
+                resource?.incomes?.length === 0 &&
+                resource?.expenses?.length === 0 ? (
+                <Text style={styles.text}>No transactions yet</Text>
+              ) : (
+                [
+                  ...(resource?.incomes || []),
+                  ...(resource?.expenses || []),
+                ]?.map((item, index) => {
+                  return (
+                    <FinanceResources
+                      title={item.spendOn}
+                      iconName={"shirt-outline"}
+                      amount={item.amount}
+                      subTitle={params.name}
+                      Time={format(item.createdAt, "dd/MM/yyyy    HH.mm")}
+                      libIcon={Ionicons}
+                      key={index}
+                    />
+                  );
+                })
+              )}
+            </View>
+          </View>
         </View>
-    );
+      </ScrollView>
+    </View>
+  );
 };
 export default CurrentCash;

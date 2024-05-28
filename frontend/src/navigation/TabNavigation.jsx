@@ -91,7 +91,7 @@ function TabNavigator() {
                 listeners={{
                     tabPress: async () => {
                         //e.preventDefault();
-                        await analytics().logEvent('statistic_usage');
+                        // await analytics().logEvent('statistic_usage');
                         setShowPopover(false);
                         // console.log(isShowPopover);
                     },

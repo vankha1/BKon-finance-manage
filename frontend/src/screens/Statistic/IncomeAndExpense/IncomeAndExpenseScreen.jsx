@@ -2,7 +2,7 @@ import { View, Text, Dimensions } from "react-native";
 import { LineChart } from "react-native-gifted-charts";
 
 import styles from "./styles";
-import { COLORS } from "../../../constants";
+import { COLORS } from "@/constants";
 
 const IncomeAndExpenseScreen = () => {
   const data = [
