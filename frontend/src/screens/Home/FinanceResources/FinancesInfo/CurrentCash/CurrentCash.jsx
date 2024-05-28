@@ -1,22 +1,20 @@
 import { View, Text, ActivityIndicator } from "react-native";
-import Header from "../../../../../components/Header/Header";
-import FinanceResources from "../../../../../components/FinanceResource/FinanceResources";
 import {
   MaterialCommunityIcons,
   Ionicons,
   Feather,
-  FontAwesome6,
 } from "@expo/vector-icons";
-import styles from "../styles";
-import IconWrapper from "../../../../../components/Icon/Icon";
-import { SIZES } from "../../../../../constants";
 import { ScrollView } from "react-native-gesture-handler";
 import { useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Config } from "../../../../../config";
-import axios from "axios";
 import { format } from "date-fns";
+
+import styles from "../styles";
+import IconWrapper from "../../../../../components/Icon/Icon";
+import { SIZES } from "../../../../../constants";
+import Header from "../../../../../components/Header/Header";
+import FinanceResources from "../../../../../components/FinanceResource/FinanceResources";
+import { getResourceById } from '../../../../../services/resourse'
 
 const CurrentCash = () => {
   const params = useRoute().params;
@@ -27,26 +25,20 @@ const CurrentCash = () => {
 
   useEffect(() => {
     const getResourseById = async () => {
-      const token = await AsyncStorage.getItem("token");
-      const options = {
-        method: "GET",
-        url: `${Config.API_URL}/cashes/${params.id}`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
       try {
         setIsLoading(true);
-        const response = await axios.request(options);
-        console.log(response.data);
-        setResource(response.data);
+
+        const response = await getResourceById(params.id);
+        // console.log(response);
+        setResource(response);
+
         setIsLoading(false);
       } catch (error) {
         throw new Error(error);
       }
     };
     getResourseById();
-    console.log(resource);
+    // console.log(resource);
   }, []);
 
   return (

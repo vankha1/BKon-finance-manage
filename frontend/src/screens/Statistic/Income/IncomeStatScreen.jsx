@@ -1,16 +1,15 @@
 import { Pressable, ScrollView, Text, View } from "react-native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 import PieChart from "react-native-pie-chart";
-import {
-  BarChart,
-} from "react-native-gifted-charts";
+import { BarChart } from "react-native-gifted-charts";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import styles from "./styles";
 import { COLORS } from "../../../constants";
 import HistoryCard from "../../../components/HistoryCard/HistoryCard";
-import { convertString, categories } from '../../../utils'
+import { convertString, categories } from "../../../utils";
+import { getReportByType } from "../../../services";
 import { Config } from "../../../config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
@@ -84,22 +83,29 @@ const IncomeStatScreen = () => {
 
     const getFilterData = async () => {
       const token = await AsyncStorage.getItem("token");
-      const options = {
-        method: "GET",
-        url: `${Config.API_URL}/report/incomes/${
-          convertString(filterOpt).newStr
-        }`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        params: {
-          startDate: convertString(filterOpt).value,
-          endDate: convertString('D').value,
-        },
-      };
+      // const options = {
+      //   method: "GET",
+      //   url: `${Config.API_URL}/report/incomes/${
+      //     convertString(filterOpt).newStr
+      //   }`,
+      //   headers: {
+      //     Authorization: `Bearer ${token}`,
+      //   },
+      //   params: {
+      //     startDate: convertString(filterOpt).value,
+      //     endDate: convertString("D").value,
+      //   },
+      // };
       try {
-        const res = await axios.request(options);
-        console.log(res.data);
+        const res = await getReportByType(
+          "incomes",
+          convertString(filterOpt).newStr,
+          {
+            startDate: convertString(filterOpt).value,
+            endDate: convertString("D").value,
+          }
+        );
+        console.log(res);
       } catch (error) {
         console.log(error);
       }
@@ -116,7 +122,8 @@ const IncomeStatScreen = () => {
               key={index}
               style={[
                 {
-                  backgroundColor: selectedBtn === index ? COLORS.gray2 : COLORS.gray3,
+                  backgroundColor:
+                    selectedBtn === index ? COLORS.gray2 : COLORS.gray3,
                   paddingVertical: 2,
                   width: "20%",
                   alignContent: "center",
@@ -126,8 +133,7 @@ const IncomeStatScreen = () => {
                   : null,
               ]}
               onPress={() => {
-                setSelectedBtn(index)
-
+                setSelectedBtn(index);
               }}
             >
               <Text style={{ textAlign: "center" }}>{value}</Text>
