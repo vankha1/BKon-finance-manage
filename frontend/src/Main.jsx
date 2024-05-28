@@ -16,8 +16,8 @@ const Main = () => {
 
   return (
     <NavigationContainer>
-      {/* {login.isLoggin ? <TabNavigator /> : <AuthNavigator />} */}
-      {true ? <TabNavigator /> : <AuthNavigator />}
+      {login.isLoggin ? <TabNavigator /> : <AuthNavigator />}
+      {/* {true ? <TabNavigator /> : <AuthNavigator />} */}
     </NavigationContainer>
   );
 };

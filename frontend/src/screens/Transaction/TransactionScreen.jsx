@@ -97,7 +97,7 @@ const TransactionScreen = () => {
 
     const data = {
       amount: +amount,
-      [checkDOR ? "borrowDate" : "createdAt"]: date1.toString(),
+      [checkDOR ? "borrowDate" : "createdAt"]: date1.toISOString(),
       note: notes,
     };
 
@@ -108,6 +108,7 @@ const TransactionScreen = () => {
       data["spendOn"] = categories[categoryIdx];
       data["cashId"] = methods[selectedIndex]._id.toString();
     }
+    console.log(data)
 
     const options = {
       method: "POST",

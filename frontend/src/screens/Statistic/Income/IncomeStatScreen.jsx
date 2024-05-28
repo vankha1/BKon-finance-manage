@@ -1,28 +1,25 @@
 import { Pressable, ScrollView, Text, View } from "react-native";
+import { useState } from "react";
+import { useRoute } from "@react-navigation/native";
 import PieChart from "react-native-pie-chart";
 import {
   BarChart,
 } from "react-native-gifted-charts";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import styles from "./styles";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { COLORS } from "../../../constants";
 import HistoryCard from "../../../components/HistoryCard/HistoryCard";
-import { useState } from "react";
-import { useRoute } from "@react-navigation/native";
+import { convertString, categories } from '../../../utils'
+import { Config } from "../../../config";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from "axios";
 
 const IncomeStatScreen = () => {
   const params = useRoute().params;
   const widthAndHeight = 200;
   const series = [100, 321, 123, 789, 537, 123];
-  const categories = [
-    "Electronics",
-    "Groceries",
-    "Education",
-    "Health",
-    "Entertainment",
-    "Others",
-  ];
+
   const bankNames = [
     "BIDV",
     "Mono Bank",
@@ -79,7 +76,37 @@ const IncomeStatScreen = () => {
   ];
 
   const [selectedBtn, setSelectedBtn] = useState(0);
-  const filterByTime = ["D", "W", "M", "6M", "Y"];
+  const filterByTime = ["D", "W", "M"];
+
+  useEffect(() => {
+    const filterOpt = filterByTime[selectedBtn];
+    console.log(filterByTime[selectedBtn]);
+
+    const getFilterData = async () => {
+      const token = await AsyncStorage.getItem("token");
+      const options = {
+        method: "GET",
+        url: `${Config.API_URL}/report/incomes/${
+          convertString(filterOpt).newStr
+        }`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          startDate: convertString(filterOpt).value,
+          endDate: convertString('D').value,
+        },
+      };
+      try {
+        const res = await axios.request(options);
+        console.log(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getFilterData();
+  }, []);
+
   return (
     <ScrollView contentContainerStyle={[styles.container]}>
       <View style={styles.barContainer}>
