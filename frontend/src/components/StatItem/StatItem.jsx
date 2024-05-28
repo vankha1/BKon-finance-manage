@@ -2,7 +2,7 @@ import { Pressable, Text, View } from "react-native";
 import { MaterialCommunityIcons, Octicons } from "@expo/vector-icons";
 import IconWrapper from "../Icon/Icon";
 import styles from "./styles";
-import { SIZES } from "../../constants";
+import { SIZES } from "@/constants";
 
 const StatItem = ({
     iconName,

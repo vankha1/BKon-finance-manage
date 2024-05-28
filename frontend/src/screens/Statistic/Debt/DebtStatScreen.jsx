@@ -3,11 +3,11 @@ import { LineChart } from "react-native-gifted-charts";
 import * as Progress from "react-native-progress";
 
 import styles from "./styles";
-import { COLORS } from "../../../constants";
+import { COLORS } from "@/constants";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Config } from "../../../config";
+import { Config } from "@/config";
 import axios from "axios";
 
 const DebtScreen = () => {

@@ -1,15 +1,15 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
-import StatisticScreen from "../../screens/Statistic/StatisticScreen";
-import ExpenseStatScreen from "../../screens/Statistic/Expense/ExpenseStatScreen";
-import ReceivableScreen from "../../screens/Statistic/Receivable/ReceivableScreen";
-import IncomeAndExpenseScreen from "../../screens/Statistic/IncomeAndExpense/IncomeAndExpenseScreen";
-import { COLORS } from "../../constants";
-import { LocalizationKey, i18n } from "../../localization";
+import StatisticScreen from "@/screens/Statistic/StatisticScreen";
+import ExpenseStatScreen from "@/screens/Statistic/Expense/ExpenseStatScreen";
+import ReceivableScreen from "@/screens/Statistic/Receivable/ReceivableScreen";
+import IncomeAndExpenseScreen from "@/screens/Statistic/IncomeAndExpense/IncomeAndExpenseScreen";
+import { COLORS } from "@/constants";
+import { LocalizationKey, i18n } from "@/localization";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import IncomeStatScreen from "../../screens/Statistic/Income/IncomeStatScreen";
-import DebtScreen from "../../screens/Statistic/Debt/DebtStatScreen";
+import IncomeStatScreen from "@/screens/Statistic/Income/IncomeStatScreen";
+import DebtScreen from "@/screens/Statistic/Debt/DebtStatScreen";
 
 const Stack = createStackNavigator();
 export const StatisStack = () => {

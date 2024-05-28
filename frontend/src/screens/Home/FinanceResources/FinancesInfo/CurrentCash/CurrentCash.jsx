@@ -10,11 +10,11 @@ import { useEffect, useState } from "react";
 import { format } from "date-fns";
 
 import styles from "../styles";
-import IconWrapper from "../../../../../components/Icon/Icon";
-import { SIZES } from "../../../../../constants";
-import Header from "../../../../../components/Header/Header";
-import FinanceResources from "../../../../../components/FinanceResource/FinanceResources";
-import { getResourceById } from '../../../../../services/resourse'
+import IconWrapper from "@/components/Icon/Icon";
+import { SIZES } from "@/constants";
+import Header from "@/components/Header/Header";
+import FinanceResources from "@/components/FinanceResource/FinanceResources";
+import { getResourceById } from '@/services'
 
 const CurrentCash = () => {
   const params = useRoute().params;

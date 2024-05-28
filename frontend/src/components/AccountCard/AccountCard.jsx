@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import styles from "./styles";
 import IconWrapper from "../Icon/Icon";
-import { COLORS } from "../../constants";
+import { COLORS } from "@/constants";
 
 const AccountCard = ({ iconName, infoTitle, infoText, data, onPress }) => {
   const [isOpened, setIsOpened] = useState(false);

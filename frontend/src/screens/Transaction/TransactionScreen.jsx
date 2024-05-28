@@ -12,20 +12,17 @@ import { useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { AntDesign, FontAwesome6 } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import styles from "./styles";
-import { COLORS, SIZES } from "../../constants";
-import Select from "../../components/Select/Select";
-import Header from "../../components/Header/Header";
-import Button from "../../components/Button/Button";
-import Toggle from "../../components/Toggle/Toggle";
-import IconWrapper from "../../components/Icon/Icon";
-import axios from "axios";
-import { Config } from "../../config";
-import { addDebt } from "../../redux/slice/debts";
-import { categories } from "../../utils";
-import { createTransaction, getResources } from "../../services";
+import { COLORS, SIZES } from "@/constants";
+import Select from "@/components/Select/Select";
+import Header from "@/components/Header/Header";
+import Button from "@/components/Button/Button";
+import Toggle from "@/components/Toggle/Toggle";
+import IconWrapper from "@/components/Icon/Icon";
+import { addDebt } from "@/redux/slice/debts";
+import { categories } from "@/utils";
+import { createTransaction, getResources } from "@/services";
 
 const getType = (type) => {
   if (type === "Debt") return "debts";

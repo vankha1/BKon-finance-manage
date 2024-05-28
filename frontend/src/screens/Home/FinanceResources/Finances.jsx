@@ -16,12 +16,12 @@ import {
   AntDesign,
 } from "@expo/vector-icons";
 
-import FinanceResources from "../../../components/FinanceResource/FinanceResources";
-import { SIZES, FONTFAMILIES, COLORS } from "../../../constants";
-import Header from "../../../components/Header/Header";
+import FinanceResources from "@/components/FinanceResource/FinanceResources";
+import { SIZES, FONTFAMILIES, COLORS } from "@/constants";
+import Header from "@/components/Header/Header";
 import styles from "./styles";
-import Button from "../../../components/Button/Button";
-import { getResources, createResource } from "../../../services";
+import Button from "@/components/Button/Button";
+import { getResources, createResource } from "@/services";
 
 const Finances = () => {
   const [isVisible, setIsVisible] = useState(false);

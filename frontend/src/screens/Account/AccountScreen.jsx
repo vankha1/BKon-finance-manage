@@ -1,8 +1,8 @@
 import { Image, ScrollView, Text, View } from "react-native";
 
 import styles from "./styles";
-import AccountCard from "../../components/AccountCard/AccountCard";
-import { LocalizationKey, i18n } from "../../localization";
+import AccountCard from "@/components/AccountCard/AccountCard";
+import { LocalizationKey, i18n } from "@/localization";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";

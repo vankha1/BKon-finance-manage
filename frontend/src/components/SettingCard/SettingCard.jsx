@@ -2,12 +2,11 @@ import { Button, Pressable, Text, TouchableOpacity, View } from "react-native";
 import styles from "./styles";
 import IconWrapper from "../Icon/Icon";
 import { MaterialCommunityIcons, Feather } from "@expo/vector-icons";
-import { COLORS } from "../../constants";
+import { COLORS } from "@/constants";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateLocale } from "../../redux/slice/locale";
-import * as Localization from "expo-localization";
-import { i18n } from "../../localization";
+import { updateLocale } from "@/redux/slice/locale";
+import { i18n } from "@/localization";
 
 const SettingCard = ({
   iconType,

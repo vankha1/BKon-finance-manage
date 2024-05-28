@@ -2,9 +2,9 @@ import { Pressable, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import styles from "./styles";
-import StatItem from "../../components/StatItem/StatItem";
+import StatItem from "@/components/StatItem/StatItem";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { LocalizationKey, i18n } from "../../localization";
+import { LocalizationKey, i18n } from "@/localization";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 // import analytics from "@react-native-firebase/analytics";

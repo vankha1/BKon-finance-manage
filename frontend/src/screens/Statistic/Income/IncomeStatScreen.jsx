@@ -4,15 +4,13 @@ import { useRoute } from "@react-navigation/native";
 import PieChart from "react-native-pie-chart";
 import { BarChart } from "react-native-gifted-charts";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import styles from "./styles";
-import { COLORS } from "../../../constants";
-import HistoryCard from "../../../components/HistoryCard/HistoryCard";
-import { convertString, categories } from "../../../utils";
-import { getReportByType } from "../../../services";
-import { Config } from "../../../config";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
+import { COLORS } from "@/constants";
+import HistoryCard from "@/components/HistoryCard/HistoryCard";
+import { convertString, categories } from "@/utils";
+import { getReportByType } from "@/services";
 
 const IncomeStatScreen = () => {
   const params = useRoute().params;

@@ -5,11 +5,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./styles";
-import Input from "../../components/Input/Input";
-import { COLORS } from "../../constants";
-import Button from "../../components/Button/Button";
-import { login } from "../../redux/slice/login";
-import { loginUser } from '../../services'
+import Input from "@/components/Input/Input";
+import { COLORS } from "@/constants";
+import Button from "@/components/Button/Button";
+import { login } from "@/redux/slice/login";
+import { loginUser } from '@/services'
 
 const LoginScreen = () => {
     const [email, setEmail] = useState("");

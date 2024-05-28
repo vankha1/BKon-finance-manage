@@ -8,10 +8,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRoute } from "@react-navigation/native";
 
 import styles from "./styles";
-import { COLORS } from "../../../constants";
-import HistoryCard from "../../../components/HistoryCard/HistoryCard";
-import { Config } from "../../../config";
-import { convertString, categories } from '../../../utils'
+import { COLORS } from "@/constants";
+import HistoryCard from "@/components/HistoryCard/HistoryCard";
+import { Config } from "@/config";
+import { convertString, categories } from '@/utils'
 
 const ExpenseStatScreen = () => {
   const params = useRoute().params;

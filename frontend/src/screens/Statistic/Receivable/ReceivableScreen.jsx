@@ -3,7 +3,7 @@ import { LineChart } from "react-native-gifted-charts";
 import * as Progress from "react-native-progress";
 
 import styles from "./styles";
-import { COLORS } from "../../../constants";
+import { COLORS } from "@/constants";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 const ReceivableScreen = () => {
   const data = [

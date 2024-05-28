@@ -2,11 +2,11 @@ import { Image, ScrollView, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import styles from "./styles";
-import Input from "../../components/Input/Input";
+import Input from "@/components/Input/Input";
 import { useState } from "react";
-import { COLORS } from "../../constants";
-import Button from "../../components/Button/Button";
-import { createUser } from "../../services";
+import { COLORS } from "@/constants";
+import Button from "@/components/Button/Button";
+import { createUser } from "@/services";
 
 const SignupScreen = () => {
   const [email, setEmail] = useState("");

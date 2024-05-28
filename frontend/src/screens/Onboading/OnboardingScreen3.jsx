@@ -2,9 +2,9 @@ import { View, Text, Image, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 
-import Button from "../../components/Button/Button";
+import Button from "@/components/Button/Button";
 import styles from "./styles";
-import { COLORS } from "../../constants";
+import { COLORS } from "@/constants";
 
 const OnBoardingScreen3 = () => {
   const navigator = useNavigation();

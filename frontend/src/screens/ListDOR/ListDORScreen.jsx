@@ -1,18 +1,15 @@
 import { View, Text, ScrollView, FlatList } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { format } from "date-fns";
 import { useDispatch, useSelector } from "react-redux";
 
-import DORitem from "../../components/DeptOrReItem/DORitem";
-import { COLORS } from "../../constants";
+import DORitem from "@/components/DeptOrReItem/DORitem";
+import { COLORS } from "@/constants";
 import styles from "./styles";
-import Header from "../../components/Header/Header";
-import { Config } from "../../config";
-import { addDebt } from "../../redux/slice/debts";
-import { getTransactions } from '../../services'
+import Header from "@/components/Header/Header";
+import { addDebt } from "@/redux/slice/debts";
+import { getTransactions } from '@/services'
  
 const ListDORScreen = () => {
   const params = useRoute().params;
