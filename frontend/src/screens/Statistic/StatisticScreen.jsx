@@ -26,7 +26,7 @@ const StatisticScreen = () => {
           titleReport={i18n.t(LocalizationKey.INCOME_REPORT)}
           onPress={ async () => {
             navigator.navigate("Income");
-            await analytics().logEvent("statistic_usage", { type: "income" });
+            // await analytics().logEvent("statistic_usage", { type: "income" });
           }}
           className={styles.btn}
         />
@@ -34,9 +34,9 @@ const StatisticScreen = () => {
           LibIcon={MaterialCommunityIcons}
           iconName="bitcoin"
           titleReport={i18n.t(LocalizationKey.EXPENSE_REPORT)}
-          onPress={async() => {
+          onPress={() => {
             navigator.navigate("Expense");
-            await analytics().logEvent("statistic_usage", { type: "expense" });
+            // await analytics().logEvent("statistic_usage", { type: "expense" });
           }}
           className={styles.btn}
         />
@@ -47,7 +47,7 @@ const StatisticScreen = () => {
           titleReport={i18n.t(LocalizationKey.DEBT_REPORT)}
           onPress={async() => {
             navigator.navigate("Debt");
-            await analytics().logEvent("statistic_usage", { type: "debt" });
+            // await analytics().logEvent("statistic_usage", { type: "debt" });
           }}
           className={styles.btn}
         />
@@ -58,7 +58,7 @@ const StatisticScreen = () => {
           titleReport={i18n.t(LocalizationKey.RECEIVABLE_REPORT)}
           onPress={async() => {
             navigator.navigate("Receivable");
-            await analytics().logEvent("statistic_usage", { type: "receivable" });
+            // await analytics().logEvent("statistic_usage", { type: "receivable" });
           }}
           className={styles.btn}
         />

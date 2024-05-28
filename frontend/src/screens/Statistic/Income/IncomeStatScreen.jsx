@@ -4,18 +4,19 @@ import { useRoute } from "@react-navigation/native";
 import PieChart from "react-native-pie-chart";
 import { BarChart } from "react-native-gifted-charts";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { format } from "date-fns";
 
 import styles from "./styles";
 import { COLORS } from "@/constants";
 import HistoryCard from "@/components/HistoryCard/HistoryCard";
-import { convertString, categories } from "@/utils";
+import { convertString, categories, formatReportData } from "@/utils";
 import { getReportByType } from "@/services";
 
 const IncomeStatScreen = () => {
   const params = useRoute().params;
   const widthAndHeight = 200;
   const series = [100, 321, 123, 789, 537, 123];
+  const [data, setData] = useState([]);
 
   const bankNames = [
     "BIDV",
@@ -62,54 +63,37 @@ const IncomeStatScreen = () => {
     "dots-horizontal-circle-outline",
   ];
 
-  const data = [
-    { value: 250, label: "M" },
-    { value: 500, label: "T" },
-    { value: 745, label: "W" },
-    { value: 320, label: "T" },
-    { value: 600, label: "F" },
-    { value: 256, label: "S" },
-    { value: 300, label: "S" },
-  ];
-
   const [selectedBtn, setSelectedBtn] = useState(0);
   const filterByTime = ["D", "W", "M"];
 
   useEffect(() => {
     const filterOpt = filterByTime[selectedBtn];
-    console.log(filterByTime[selectedBtn]);
+    // console.log(filterOpt, convertString(filterOpt).value, new Date());
 
     const getFilterData = async () => {
-      const token = await AsyncStorage.getItem("token");
-      // const options = {
-      //   method: "GET",
-      //   url: `${Config.API_URL}/report/incomes/${
-      //     convertString(filterOpt).newStr
-      //   }`,
-      //   headers: {
-      //     Authorization: `Bearer ${token}`,
-      //   },
-      //   params: {
-      //     startDate: convertString(filterOpt).value,
-      //     endDate: convertString("D").value,
-      //   },
-      // };
-      try {
-        const res = await getReportByType(
-          "incomes",
-          convertString(filterOpt).newStr,
-          {
-            startDate: convertString(filterOpt).value,
-            endDate: convertString("D").value,
-          }
-        );
-        console.log(res);
-      } catch (error) {
-        console.log(error);
-      }
+      const res = await getReportByType(
+        "incomes",
+        convertString(filterOpt).newStr,
+        {
+          startDate: convertString(filterOpt).value,
+          endDate: new Date(),
+        }
+      );
+
+      const dataByType =
+        filterOpt === "D"
+          ? res.dailyReport
+          : filterOpt === "W"
+          ? res.weeklyReport
+          : res.monthlyReport;
+
+      const formattedData = formatReportData(filterOpt, dataByType);
+
+      setData(formattedData);
     };
+
     getFilterData();
-  }, []);
+  }, [selectedBtn]);
 
   return (
     <ScrollView contentContainerStyle={[styles.container]}>
@@ -123,7 +107,7 @@ const IncomeStatScreen = () => {
                   backgroundColor:
                     selectedBtn === index ? COLORS.gray2 : COLORS.gray3,
                   paddingVertical: 2,
-                  width: "20%",
+                  width: "33.3%",
                   alignContent: "center",
                 },
                 index !== filterByTime.length - 1
@@ -139,14 +123,15 @@ const IncomeStatScreen = () => {
           ))}
         </View>
         <BarChart
-          barWidth={25}
-          noOfSections={3}
-          barBorderRadius={4}
+          barWidth={30}
+          noOfSections={10}
+          barBorderRadius={2}
           frontColor={COLORS.buttonBg}
           data={data}
-          yAxisThickness={0}
+          yAxisThickness={1}
           xAxisThickness={0}
-          spacing={13}
+          spacing={15}
+          rulesLength={270}
         />
       </View>
       <View style={styles.chartContainer}>
@@ -165,15 +150,7 @@ const IncomeStatScreen = () => {
         >
           {categories.map((value, index) => {
             return (
-              <View
-                style={{
-                  flex: 1,
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: 10,
-                }}
-                key={index}
-              >
+              <View style={styles.pieChartNotes} key={index}>
                 <MaterialCommunityIcons
                   name="circle"
                   color={sliceColor[index]}
