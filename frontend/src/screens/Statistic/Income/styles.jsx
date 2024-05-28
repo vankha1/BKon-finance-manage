@@ -40,6 +40,12 @@ const styles = StyleSheet.create({
     width: "90%",
     borderRadius: 10,
   },
+  pieChartNotes: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
   progressContainer: {
     flex: 1,
     flexDirection: "column",

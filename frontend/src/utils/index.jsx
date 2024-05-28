@@ -1,3 +1,5 @@
+import { format, getWeek } from "date-fns";
+
 export const categories = [
   "Electronics",
   "Groceries",
@@ -16,6 +18,11 @@ export const getType = (name) => {
 
 export const convertString = (str) => {
   const today = new Date();
+  const yesterday = new Date(
+    today.getFullYear(),
+    today.getMonth(),
+    today.getDate() - 1
+  );
   const lastWeek = new Date(
     today.getFullYear(),
     today.getMonth(),
@@ -30,7 +37,7 @@ export const convertString = (str) => {
     case "D":
       return {
         newStr: "day",
-        value: today,
+        value: yesterday,
       };
 
     case "W":
@@ -49,3 +56,34 @@ export const convertString = (str) => {
       break;
   }
 };
+
+export const formatReportData = (type, data) => {
+  switch (type) {
+    case 'D':
+      return data.map(item => {
+        return {
+          value: item.amount / 1000,
+          label: format(item.date, "dd-MM"),
+        };
+      })
+    
+    case 'W':
+      return data.map(item => {
+        return {
+          value: item.amount / 1000,
+          label: `${getWeek(item.startDate)}-${getWeek(item.endDate)}`,
+        };
+      })
+    
+    case 'M':
+      return data.map(item => {
+        return {
+          value: item.amount / 1000,
+          label: format(item.month, "MM"),
+        }
+      })
+
+    default:
+      break;
+  }
+}
