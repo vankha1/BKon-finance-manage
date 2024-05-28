@@ -22,16 +22,16 @@ const LoginScreen = () => {
     const navigator = useNavigation();
 
     const handleLogin = async () => {
-        const response = await axios.post(`${Config.API_URL}/auth/login`, {
-            email,
-            password,
-        });
+        // const response = await axios.post(`${Config.API_URL}/auth/login`, {
+        //     email,
+        //     password,
+        // });
 
-        console.log(response.data);
-        AsyncStorage.setItem("token", response.data?.access_token);
-        AsyncStorage.setItem("userInfo", JSON.stringify(response.data?.user));
+        // console.log(response.data);
+        // AsyncStorage.setItem("token", response.data?.access_token);
+        // AsyncStorage.setItem("userInfo", JSON.stringify(response.data?.user));
 
-        dispatch(login({ isLoggin: true, isValidAcc: true }));
+        // dispatch(login({ isLoggin: true, isValidAcc: true }));
 
         navigator.navigate("MainStack");
     };

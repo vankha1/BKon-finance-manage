@@ -36,4 +36,25 @@ export const LocalizationKey = {
     SPENT: "spent",
     LEFT: "left",
     RECEIVABLE: "receivable",
+    ADD_NEW_WIDGET: "add_new_widget",
+
+    // Pop over
+    EXPENSE: "Expense",
+    DEBT: "Debt",
+    INCOME: "Income",
+
+    // Transaction
+    NEW_RECEIVABLE: "new_receivable",
+    NEW_EXPENSE: "new_expense",
+    AMOUNT: "Amount",
+    DATE: "Date",
+    COMPLETE_DATE: "Complete date",
+    SELECT_OPTION: "Select option",
+    WHATACCOUNTDIDYOUREC: "What account did you receive ?",
+    WHODIDYOULENDMONEY: "Who did you lend money ?",
+    SELECT_CATEGORY: "Select category",
+    SELECT: "Select",
+    ADDNOTE: "Add notes",
+
+    
 }

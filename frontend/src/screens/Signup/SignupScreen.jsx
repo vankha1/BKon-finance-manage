@@ -18,21 +18,21 @@ const SignupScreen = () => {
     const navigator = useNavigation();
 
     const handleSignup = async () => {
-        const options = {
-            method: "POST",
-            url: `${Config.API_URL}/users`,
-            headers: {
-                "Content-Type": "application/json",
-            },
-            data: { email, password, fullname, username },
-        };
-        try {
-            const response = await axios.request(options);
-            console.log(response.data);
-            navigator.navigate("Login");
-        } catch (error) {
-            throw new Error(error);
-        }
+        // const options = {
+        //     method: "POST",
+        //     url: `${Config.API_URL}/users`,
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     data: { email, password, fullname, username },
+        // };
+        // try {
+        //     const response = await axios.request(options);
+        //     console.log(response.data);
+        navigator.navigate("Login");
+        // } catch (error) {
+        //     throw new Error(error);
+        // }
     };
 
     return (

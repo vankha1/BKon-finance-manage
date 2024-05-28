@@ -53,7 +53,7 @@ const HomeScreen = () => {
                             fontSize: SIZES.xLarge,
                         }}
                     >
-                        Hi, {name}
+                        {i18n.t(LocalizationKey.HI)}, {name}
                     </Text>
                     <View
                         style={{
@@ -80,7 +80,7 @@ const HomeScreen = () => {
                                 fontSize: SIZES.medium,
                             }}
                         >
-                            Your balance
+                            {i18n.t(LocalizationKey.YOUR_BALANCE)}
                         </Text>
                         <Text
                             style={{
@@ -112,7 +112,7 @@ const HomeScreen = () => {
                                     fontSize: SIZES.xMedium,
                                 }}
                             >
-                                Cash
+                                {i18n.t(LocalizationKey.CASH)}
                             </Text>
                             <Text
                                 style={{
@@ -131,7 +131,7 @@ const HomeScreen = () => {
                                     fontSize: SIZES.medium,
                                 }}
                             >
-                                Bank card
+                                {i18n.t(LocalizationKey.BANK_CARD)}
                             </Text>
                             <Text
                                 style={{
@@ -141,7 +141,7 @@ const HomeScreen = () => {
                                     paddingTop: 10,
                                 }}
                             >
-                                Not available
+                                {i18n.t(LocalizationKey.NOT_AVAILABLE)}
                             </Text>
                         </View>
                     </View>
@@ -163,7 +163,7 @@ const HomeScreen = () => {
                                     fontFamily: FONTFAMILIES.medium,
                                 }}
                             >
-                                Monthly Budget
+                                {i18n.t(LocalizationKey.MONTHLY_BUDGET)}
                             </Text>
                             <Text
                                 style={{
@@ -188,7 +188,7 @@ const HomeScreen = () => {
                                         fontFamily: FONTFAMILIES.medium,
                                     }}
                                 >
-                                    spent: $5,000
+                                    {i18n.t(LocalizationKey.SPENT)}: $5,000
                                 </Text>
                                 <Text
                                     style={{
@@ -196,7 +196,7 @@ const HomeScreen = () => {
                                         fontFamily: FONTFAMILIES.medium,
                                     }}
                                 >
-                                    left: $3,100
+                                    {i18n.t(LocalizationKey.LEFT)}: $3,100
                                 </Text>
                             </View>
                         </View>
@@ -219,7 +219,7 @@ const HomeScreen = () => {
                                     fontFamily: FONTFAMILIES.medium,
                                 }}
                             >
-                                Receivable
+                                {i18n.t(LocalizationKey.RECEIVABLE)}
                             </Text>
                             <Text
                                 style={{
@@ -263,7 +263,7 @@ const HomeScreen = () => {
                                     fontFamily: FONTFAMILIES.medium,
                                 }}
                             >
-                                Add new widget
+                                {i18n.t(LocalizationKey.ADD_NEW_WIDGET)}
                             </Text>
                         </View>
                     </TouchableWithoutFeedback>
