@@ -24,14 +24,14 @@ const StatisticScreen = () => {
                     LibIcon={MaterialCommunityIcons}
                     iconName="wallet-outline"
                     titleReport={i18n.t(LocalizationKey.INCOME_REPORT)}
-                    onPress={async () => {navigator.navigate("Expense"); await analytics.logEvent('statistic_usage', {type: 'expense'})}}
+                    onPress={async () => {navigator.navigate("Expense"); await analytics().logEvent('statistic_usage', {type: 'expense'})}}
                     className={styles.btn}
                 />
                 <StatItem
                     LibIcon={MaterialCommunityIcons}
                     iconName="bitcoin"
                     titleReport={i18n.t(LocalizationKey.EXPENSE_REPORT)}
-                    onPress={async () => {navigator.navigate("Expense"); await analytics.logEvent('statistic_usage', {type: 'expense'})}}
+                    onPress={async () => {navigator.navigate("Expense"); await analytics().logEvent('statistic_usage', {type: 'expense'})}}
                     className={styles.btn}
                 />
 
@@ -39,7 +39,7 @@ const StatisticScreen = () => {
                     LibIcon={MaterialCommunityIcons}
                     iconName="receipt"
                     titleReport={i18n.t(LocalizationKey.DEBT_REPORT)}
-                    onPress={async () => {navigator.navigate("Expense"); await analytics.logEvent('statistic_usage', {type: 'expense'})}}
+                    onPress={async () => {navigator.navigate("Expense"); await analytics().logEvent('statistic_usage', {type: 'expense'})}}
                     className={styles.btn}
                 />
 
@@ -47,7 +47,7 @@ const StatisticScreen = () => {
                     LibIcon={MaterialCommunityIcons}
                     iconName="receipt"
                     titleReport={i18n.t(LocalizationKey.RECEIVABLE_REPORT)}
-                    onPress={async () => {navigator.navigate("Receivable"); await analytics.logEvent('statistic_usage', {type: 'receivable'})}}
+                    onPress={async () => {navigator.navigate("Receivable"); await analytics().logEvent('statistic_usage', {type: 'receivable'})}}
                     className={styles.btn}
                 />
 
@@ -55,7 +55,7 @@ const StatisticScreen = () => {
                     LibIcon={MaterialCommunityIcons}
                     iconName="chart-line"
                     titleReport={i18n.t(LocalizationKey.INCOME_VS_EXPENSE)}
-                    onPress={async () => {navigator.navigate("IncomeAndExpense"); await analytics.logEvent('statistic_usage', {type: 'incomeAndExpense'})}}
+                    onPress={async () => {navigator.navigate("IncomeAndExpense"); await analytics().logEvent('statistic_usage', {type: 'incomeAndExpense'})}}
                     className={styles.btn}
                 />
 
@@ -63,7 +63,7 @@ const StatisticScreen = () => {
                     LibIcon={MaterialCommunityIcons}
                     iconName="chart-line"
                     titleReport={i18n.t(LocalizationKey.RECEIVABLE_VS_DEBT)}
-                    onPress={async () => {navigator.navigate("Expense"); await analytics.logEvent('statistic_usage', {type: 'expense'})}}
+                    onPress={async () => {navigator.navigate("Expense"); await analytics().logEvent('statistic_usage', {type: 'expense'})}}
                     className={styles.btn}
                 />
             </View>
