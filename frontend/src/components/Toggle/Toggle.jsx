@@ -2,7 +2,7 @@ import { Button, Pressable, Text, TouchableOpacity, View } from "react-native";
 import styles from "./styles";
 import IconWrapper from "../Icon/Icon";
 import { MaterialCommunityIcons, Feather } from "@expo/vector-icons";
-import { COLORS } from "../../constants";
+import { COLORS } from "@/constants";
 import { useState } from "react";
 
 const Toggle = ({

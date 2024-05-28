@@ -12,28 +12,26 @@ import { useEffect, useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { AntDesign, FontAwesome6 } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import styles from "./styles";
-import { COLORS, SIZES } from "../../constants";
-import Select from "../../components/Select/Select";
-import Header from "../../components/Header/Header";
-import Button from "../../components/Button/Button";
-import Toggle from "../../components/Toggle/Toggle";
-import IconWrapper from "../../components/Icon/Icon";
-import axios from "axios";
-import { Config } from "../../config";
-import { addDebt } from "../../redux/slice/debts";
-import { categories } from "../../utils";
+import { COLORS, SIZES } from "@/constants";
+import Select from "@/components/Select/Select";
+import Header from "@/components/Header/Header";
+import Button from "@/components/Button/Button";
+import Toggle from "@/components/Toggle/Toggle";
+import IconWrapper from "@/components/Icon/Icon";
+import { addDebt } from "@/redux/slice/debts";
+import { categories } from "@/utils";
+import { createTransaction, getResources } from "@/services";
 
 const getType = (type) => {
-    if (type === "Debt") return "incomes";
-    return "receivables";
-}
+  if (type === "Debt") return "debts";
+  return "receivables";
+};
 
 const TransactionScreen = () => {
   const params = useRoute().params;
-  console.log(params)
+  console.log(params);
   const navigator = useNavigation();
   const checkDOR = params.type === "Debt" || params.type === "Receivable";
   const dispatch = useDispatch();
@@ -76,56 +74,33 @@ const TransactionScreen = () => {
 
   useEffect(() => {
     const getMethods = async () => {
-      const token = await AsyncStorage.getItem("token");
-      // console.log(token)
-      const options = {
-        method: "GET",
-        url: `${Config.API_URL}/cashes`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        params: {},
-      };
-      const response = await axios.request(options);
-      setMethods(response.data);
+      const response = await getResources();
+      setMethods(response);
     };
     getMethods();
   }, [listDebts]);
 
   const handleSave = async () => {
-    const token = await AsyncStorage.getItem("token");
-
     const data = {
-      amount: amount,
-      [checkDOR ? "borrowDate" : "createdAt"]: date1.toString(),
+      amount: +amount,
+      [checkDOR ? "borrowDate" : "createdAt"]: date1.toISOString(),
       note: notes,
     };
 
     if (checkDOR) {
-      data["repaidDate"] = date2.toString();
+      data["repaidDate"] = date2.toISOString();
       data["lenderName"] = lender;
     } else {
       data["spendOn"] = categories[categoryIdx];
       data["cashId"] = methods[selectedIndex]._id.toString();
     }
+    // console.log(data);
 
-    const options = {
-      method: "POST",
-      url: `${Config.API_URL}/${!checkDOR ? params.type : getType(params.type)}`,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      data,
-    };
-    try {
-      const response = await axios.request(options);
-      console.log("Data after creating transaction: ",response.data);
-      dispatch(addDebt({ value: !listDebts }));
-      navigator.goBack();
-    } catch (error) {
-      throw new Error(error);
-    }
+    const transactionType = !checkDOR ? params.type : getType(params.type);
+    // console.log("transaction type", transactionType);
+    const response = await createTransaction(transactionType, data);
+    dispatch(addDebt({ value: !listDebts }));
+    navigator.goBack();
   };
 
   return (
@@ -210,9 +185,8 @@ const TransactionScreen = () => {
             }}
             LibIcon={AntDesign}
           />
-          <Text style={styles.contentText}>Date</Text>
-          <Text style={styles.dateTitle}>
-            {date1 ? date1.toDateString() : ""}
+          <Text style={date1 ? styles.dateTitle : styles.contentText}>
+            {date1 ? date1.toDateString() : "Created Date"}
           </Text>
         </Pressable>
         {showPicker1 && (
@@ -242,14 +216,10 @@ const TransactionScreen = () => {
               }}
               LibIcon={AntDesign}
             />
-            {params.type === "Debt" ? (
-              <Text style={styles.contentText}>Repaid Date</Text>
-            ) : (
-              <Text style={styles.contentText}>Complete Date</Text>
-            )}
-
-            <Text style={styles.dateTitle}>
-              {date2 ? date2.toDateString() : ""}
+            <Text style={date2 ? styles.dateTitle : styles.contentText}>
+              {date2
+                ? date2.toDateString()
+                : `${params.type === "Debt" ? "Repaid Date" : "Complete Date"}`}
             </Text>
           </Pressable>
         ) : (

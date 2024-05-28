@@ -1,11 +1,11 @@
 import { View, Text, Pressable } from "react-native";
-import IconWrapper from "../Icon/Icon";
-import ProgressCard from "../ProgressCard/ProgressCard";
 import * as Progress from "react-native-progress";
-import { COLORS } from "../../constants";
-import styles from "./styles";
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+
+import IconWrapper from "../Icon/Icon";
+import { COLORS } from "@/constants";
+import styles from "./styles";
 const DORitem = ({
     note,
     type,

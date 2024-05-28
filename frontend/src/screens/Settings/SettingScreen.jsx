@@ -1,12 +1,12 @@
 import { View, Text } from "react-native";
 import styles from "./styles";
-import SettingCard from "../../components/SettingCard/SettingCard";
-import { COLORS } from "../../constants";
+import SettingCard from "@/components/SettingCard/SettingCard";
+import { COLORS } from "@/constants";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LocalizationKey, i18n } from "../../localization";
-import { logout } from "../../redux/slice/login";
+import { LocalizationKey, i18n } from "@/localization";
+import { logout } from "@/redux/slice/login";
 
 const SettingScreen = () => {
   const currencies = ["USD", "VND"];

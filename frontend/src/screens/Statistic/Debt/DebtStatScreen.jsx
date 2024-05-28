@@ -3,8 +3,13 @@ import { LineChart } from "react-native-gifted-charts";
 import * as Progress from "react-native-progress";
 
 import styles from "./styles";
-import { COLORS } from "../../../constants";
+import { COLORS } from "@/constants";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Config } from "@/config";
+import axios from "axios";
+
 const DebtScreen = () => {
   const data = [
     { value: 50 },
@@ -35,6 +40,26 @@ const DebtScreen = () => {
     "Nov",
     "Dec",
   ];
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const token = await AsyncStorage.getItem("token");
+        const options = {
+          method: "GET",
+          url: `${Config.API_URL}/report/debts`,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+        const res = await axios.request(options);
+        console.log(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    // getData();
+  }, [])
 
   return (
     <ScrollView contentContainerStyle={[styles.container]}>

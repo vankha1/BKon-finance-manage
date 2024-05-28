@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 import IconWrapper from "../Icon/Icon";
-import { COLORS, FONTFAMILIES, SIZES } from "../../constants";
+import { COLORS, FONTFAMILIES, SIZES } from "@/constants";
 import styles from "./styles";
 
 const FinanceResources = ({

@@ -62,11 +62,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
-  dateTitle: {
-    fontFamily: FONTFAMILIES.medium,
-    fontSize: SIZES.xSmall,
-    color: COLORS.buttonBg,
-  },
+  // dateTitle: {
+  //   fontFamily: FONTFAMILIES.medium,
+  //   fontSize: SIZES.xSmall,
+  //   color: COLORS.buttonBg,
+  // },
   buttonContainer: {
     width: "90%",
     display: "flex",

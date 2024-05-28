@@ -1,33 +1,40 @@
-import { View, Text, Pressable, TextInput, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  TextInput,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import Modal from "react-native-modal";
 import { useEffect, useMemo, useState } from "react";
-import axios from "axios";
-import { Config } from "../../../config";
-
-import FinanceResources from "../../../components/FinanceResource/FinanceResources";
 import {
   MaterialCommunityIcons,
   Ionicons,
   AntDesign,
 } from "@expo/vector-icons";
-import { SIZES, FONTFAMILIES, COLORS } from "../../../constants";
-import Header from "../../../components/Header/Header";
+
+import FinanceResources from "@/components/FinanceResource/FinanceResources";
+import { SIZES, FONTFAMILIES, COLORS } from "@/constants";
+import Header from "@/components/Header/Header";
 import styles from "./styles";
-import Button from "../../../components/Button/Button";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import Button from "@/components/Button/Button";
+import { getResources, createResource } from "@/services";
 
 const Finances = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [resourceName, setResourceName] = useState("");
   const [balance, setBalance] = useState("");
   const [resources, setResources] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
   const currentBalance = useMemo(
     () => resources.reduce((acc, ele) => acc + ele.balance, 0),
     [resources]
   );
-  
+
   const navigator = useNavigation();
 
   const handleVisibleModal = () => {
@@ -35,24 +42,12 @@ const Finances = () => {
   };
 
   useEffect(() => {
-    const getResources = async () => {
-      const token = await AsyncStorage.getItem("token");
-      // console.log(token)
-      const options = {
-        method: "GET",
-        url: `${Config.API_URL}/cashes`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        params: {
-          
-        }
-      };
-      const response = await axios.request(options);
-
-      setResources(response.data);
+    const getData = async () => {
+      const response = await getResources();
+      // console.log(response)
+      setResources(response);
     };
-    getResources();
+    getData();
   }, []);
 
   const RenderResourceItem = ({
@@ -74,24 +69,14 @@ const Finances = () => {
   };
 
   const handleSave = async () => {
-    const token = await AsyncStorage.getItem("token");
-    const options = {
-      method: "POST",
-      url: `${Config.API_URL}/cashes`,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      data: { name: resourceName, balance },
-    };
+    setIsLoading(true);
 
-    try {
-      const response = await axios.request(options);
-      setResources([...resources, response.data]);
-      handleClose();
-    } catch (error) {
-      throw new Error(error);
-    }
+    const response = await createResource(resourceName, balance);
+    setResources([...resources, response]);
+
+    setIsLoading(false);
+
+    handleClose();
   };
 
   const handleClose = () => {
@@ -100,22 +85,35 @@ const Finances = () => {
 
   return (
     <View style={styles.container}>
-      <Header title={"Finance Resources"} />
-      <View style={styles.financeContainer}>
-        <FinanceResources title={"Current Balance"} amount={currentBalance} />
-        <FlatList
-          data={resources}
-          renderItem={({ item }) => (
-            <RenderResourceItem
-              title={item.name}
-              amount={item.balance}
-              component={"CurrentCash"}
-              navigateOptions={{ name: item.name, amount: item.balance }}
+      {isLoading ? (
+        <ActivityIndicator size="large" />
+      ) : (
+        <>
+          <Header title={"Finance Resources"} />
+          <View style={styles.financeContainer}>
+            <FinanceResources
+              title={"Current Balance"}
+              amount={currentBalance}
             />
-          )}
-          keyExtractor={(item) => item._id}
-        />
-      </View>
+            <FlatList
+              data={resources}
+              renderItem={({ item }) => (
+                <RenderResourceItem
+                  title={item.name}
+                  amount={item.balance}
+                  component={"CurrentCash"}
+                  navigateOptions={{
+                    name: item.name,
+                    amount: item.balance,
+                    id: item._id,
+                  }}
+                />
+              )}
+              keyExtractor={(item) => item._id}
+            />
+          </View>
+        </>
+      )}
       <TouchableWithoutFeedback onPress={handleVisibleModal}>
         <View style={styles.addWidget}>
           <AntDesign name="plus" size={SIZES.medium} color={"black"} />

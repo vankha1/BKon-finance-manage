@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 import * as Progress from "react-native-progress";
 
-import { COLORS } from "../../constants";
+import { COLORS } from "@/constants";
 import styles from "./styles";
 import IconWrapper from "../Icon/Icon";
 import { MaterialCommunityIcons } from "@expo/vector-icons";

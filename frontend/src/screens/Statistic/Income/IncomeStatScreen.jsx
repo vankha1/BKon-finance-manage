@@ -1,28 +1,22 @@
 import { Pressable, ScrollView, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import { useRoute } from "@react-navigation/native";
 import PieChart from "react-native-pie-chart";
-import {
-  BarChart,
-} from "react-native-gifted-charts";
+import { BarChart } from "react-native-gifted-charts";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import styles from "./styles";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { COLORS } from "../../../constants";
-import HistoryCard from "../../../components/HistoryCard/HistoryCard";
-import { useState } from "react";
-import { useRoute } from "@react-navigation/native";
+import { COLORS } from "@/constants";
+import HistoryCard from "@/components/HistoryCard/HistoryCard";
+import { convertString, categories } from "@/utils";
+import { getReportByType } from "@/services";
 
 const IncomeStatScreen = () => {
   const params = useRoute().params;
   const widthAndHeight = 200;
   const series = [100, 321, 123, 789, 537, 123];
-  const categories = [
-    "Electronics",
-    "Groceries",
-    "Education",
-    "Health",
-    "Entertainment",
-    "Others",
-  ];
+
   const bankNames = [
     "BIDV",
     "Mono Bank",
@@ -79,7 +73,44 @@ const IncomeStatScreen = () => {
   ];
 
   const [selectedBtn, setSelectedBtn] = useState(0);
-  const filterByTime = ["D", "W", "M", "6M", "Y"];
+  const filterByTime = ["D", "W", "M"];
+
+  useEffect(() => {
+    const filterOpt = filterByTime[selectedBtn];
+    console.log(filterByTime[selectedBtn]);
+
+    const getFilterData = async () => {
+      const token = await AsyncStorage.getItem("token");
+      // const options = {
+      //   method: "GET",
+      //   url: `${Config.API_URL}/report/incomes/${
+      //     convertString(filterOpt).newStr
+      //   }`,
+      //   headers: {
+      //     Authorization: `Bearer ${token}`,
+      //   },
+      //   params: {
+      //     startDate: convertString(filterOpt).value,
+      //     endDate: convertString("D").value,
+      //   },
+      // };
+      try {
+        const res = await getReportByType(
+          "incomes",
+          convertString(filterOpt).newStr,
+          {
+            startDate: convertString(filterOpt).value,
+            endDate: convertString("D").value,
+          }
+        );
+        console.log(res);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getFilterData();
+  }, []);
+
   return (
     <ScrollView contentContainerStyle={[styles.container]}>
       <View style={styles.barContainer}>
@@ -89,7 +120,8 @@ const IncomeStatScreen = () => {
               key={index}
               style={[
                 {
-                  backgroundColor: selectedBtn === index ? COLORS.gray2 : COLORS.gray3,
+                  backgroundColor:
+                    selectedBtn === index ? COLORS.gray2 : COLORS.gray3,
                   paddingVertical: 2,
                   width: "20%",
                   alignContent: "center",
@@ -99,8 +131,7 @@ const IncomeStatScreen = () => {
                   : null,
               ]}
               onPress={() => {
-                setSelectedBtn(index)
-
+                setSelectedBtn(index);
               }}
             >
               <Text style={{ textAlign: "center" }}>{value}</Text>

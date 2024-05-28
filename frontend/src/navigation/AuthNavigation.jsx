@@ -1,11 +1,11 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
-import LoginScreen from "../screens/Login/LoginScreen";
-import SignupScreen from "../screens/Signup/SignupScreen";
+import LoginScreen from "@/screens/Login/LoginScreen";
+import SignupScreen from "@/screens/Signup/SignupScreen";
 import TabNavigator from "./TabNavigation";
-import OnBoardingScreen from "../screens/Onboading/OnboardingScreen";
-import OnBoardingScreen2 from "../screens/Onboading/OnboardingScreen2";
-import OnBoardingScreen3 from "../screens/Onboading/OnboardingScreen3";
+import OnBoardingScreen from "@/screens/Onboading/OnboardingScreen";
+import OnBoardingScreen2 from "@/screens/Onboading/OnboardingScreen2";
+import OnBoardingScreen3 from "@/screens/Onboading/OnboardingScreen3";
 
 const Stack = createStackNavigator();
 

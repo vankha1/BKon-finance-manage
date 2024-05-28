@@ -7,14 +7,14 @@ import {
   AntDesign,
 } from "@expo/vector-icons";
 
-import HomeScreen from "../../screens/Home/HomeScreen";
-import TransactionScreen from "../../screens/Transaction/TransactionScreen";
-import StatItem from "../../components/StatItem/StatItem";
-import Finances from "../../screens/Home/FinanceResources/Finances";
-import CurrentCash from "../../screens/Home/FinanceResources/FinancesInfo/CurrentCash/CurrentCash";
-import CurrentBankAccount from "../../screens/Home/FinanceResources/FinancesInfo/CurrentBankAccount/CurrentBankAccount";
-import CurrentEWallet from "../../screens/Home/FinanceResources/FinancesInfo/CurrentEwallet/CurrentEWallet";
-import ListDORScreen from "../../screens/ListDOR/ListDORScreen";
+import HomeScreen from "@/screens/Home/HomeScreen";
+import TransactionScreen from "@/screens/Transaction/TransactionScreen";
+import StatItem from "@/components/StatItem/StatItem";
+import Finances from "@/screens/Home/FinanceResources/Finances";
+import CurrentCash from "@/screens/Home/FinanceResources/FinancesInfo/CurrentCash/CurrentCash";
+import CurrentBankAccount from "@/screens/Home/FinanceResources/FinancesInfo/CurrentBankAccount/CurrentBankAccount";
+import CurrentEWallet from "@/screens/Home/FinanceResources/FinancesInfo/CurrentEwallet/CurrentEWallet";
+import ListDORScreen from "@/screens/ListDOR/ListDORScreen";
 import styles from "./styles";
 
 const Stack = createStackNavigator();
