@@ -13,6 +13,7 @@ import { CreateTransactionStack } from "../stacks/createTransactionStack";
 import StatItem from "../components/StatItem/StatItem";
 import { LocalizationKey, i18n } from "../localization";
 import { useSelector } from "react-redux";
+import analytics from "@react-native-firebase/analytics";
 
 const Tab = createBottomTabNavigator();
 
@@ -88,8 +89,9 @@ function TabNavigator() {
                 name="Statistics"
                 component={StatisStack}
                 listeners={{
-                    tabPress: () => {
+                    tabPress: async () => {
                         //e.preventDefault();
+                        await analytics().logEvent('statistic_usage');
                         setShowPopover(false);
                         // console.log(isShowPopover);
                     },

@@ -22,6 +22,7 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { LocalizationKey, i18n } from "../../localization";
 
+
 const addWidgetFunc = () => {
     alert("addWidgetFunc");
     // return (
