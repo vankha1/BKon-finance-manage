@@ -53,23 +53,14 @@ const TransactionScreen = () => {
 
   const { listDebts } = useSelector((state) => state.debt);
 
-  const handleOnChangeDate1 = (e, selectedDate) => {
+  const handleOnChangeDate = (setDate, setShowPicker) => (e, selectedDate) => {
     if (e.type === "set") {
-      const currentDate = selectedDate || date1;
-      console.log(currentDate, date1);
-      setDate1(currentDate);
+      const currentDate = selectedDate || new Date();
+      console.log(currentDate);
+      setDate(currentDate);
     }
 
-    setShowPicker1(false);
-  };
-  const handleOnChangeDate2 = (e, selectedDate) => {
-    if (e.type === "set") {
-      const currentDate = selectedDate || date2;
-      console.log(currentDate, date2);
-      setDate2(currentDate);
-    }
-
-    setShowPicker2(false);
+    setShowPicker(false);
   };
 
   useEffect(() => {
@@ -83,7 +74,7 @@ const TransactionScreen = () => {
   const handleSave = async () => {
     const data = {
       amount: +amount,
-      [checkDOR ? "borrowDate" : "createdAt"]: date1.toISOString(),
+      [checkDOR ? "borrowDate" : "tradedDate"]: date1.toISOString(),
       note: notes,
     };
 
@@ -94,10 +85,10 @@ const TransactionScreen = () => {
       data["spendOn"] = categories[categoryIdx];
       data["cashId"] = methods[selectedIndex]._id.toString();
     }
-    // console.log(data);
+    console.log(data);
 
     const transactionType = !checkDOR ? params.type : getType(params.type);
-    // console.log("transaction type", transactionType);
+    console.log("transaction type", transactionType);
     const response = await createTransaction(transactionType, data);
     dispatch(addDebt({ value: !listDebts }));
     navigator.goBack();
@@ -196,7 +187,7 @@ const TransactionScreen = () => {
             mode="date"
             is24Hour={true}
             display="default"
-            onChange={handleOnChangeDate1}
+            onChange={handleOnChangeDate(setDate1, setShowPicker1)}
           />
         )}
         {/* Pay options || RepaidDate */}
@@ -261,7 +252,7 @@ const TransactionScreen = () => {
             mode="date"
             is24Hour={true}
             display="default"
-            onChange={handleOnChangeDate2}
+            onChange={handleOnChangeDate(setDate2, setShowPicker2)}
           />
         )}
 

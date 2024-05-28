@@ -1,21 +1,26 @@
-import { View, Text, ScrollView, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import { useDispatch, useSelector } from "react-redux";
 
 import DORitem from "@/components/DeptOrReItem/DORitem";
-import { COLORS } from "@/constants";
 import styles from "./styles";
 import Header from "@/components/Header/Header";
 import { addDebt } from "@/redux/slice/debts";
-import { getTransactions } from '@/services'
- 
+import { getTransactions } from "@/services";
+
 const ListDORScreen = () => {
   const params = useRoute().params;
   const [data, setData] = useState([]);
-  const { listDebts } = useSelector(state => state.debt)
-  const dispatch = useDispatch();
+  const { listDebts } = useSelector((state) => state.debt);
+  const [isLoading, setIsLoading] = useState(false);
 
   const RenderItem = ({ notes, type, amount, date }) => {
     return (
@@ -32,34 +37,39 @@ const ListDORScreen = () => {
   useEffect(() => {
     const getListDOR = async () => {
       console.log(params.type);
+      setIsLoading(true);
       const response = await getTransactions(params.type);
       // console.log(response.data);
-      dispatch(addDebt(...response));
+      setIsLoading(false);
       setData(response);
     };
 
     getListDOR();
   }, [listDebts]);
 
-
   return (
     <View style={styles.container}>
       <Header title={`List of ${params.type}`} addButton={true} />
-      <View style={styles.contentContainer}>
+      {isLoading ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : data?.length !== 0 ? (
+        <Text style={{ marginTop: 10, textAlign: "center" }}>No {params.type} found!!</Text>
+      ) : (
         <FlatList
+          contentContainerStyle={styles.contentContainer}
           showsVerticalScrollIndicator={false} // remove scrollbar
           data={data}
           renderItem={({ item }) => (
             <RenderItem
               notes={item?.note}
               type={params.type}
-              amount={item?.amount} 
+              amount={item?.amount}
               date={format(item?.createdAt, "dd/MM/yyyy")}
             />
           )}
           keyExtractor={(item) => item?._id}
         />
-      </View>
+      )}
     </View>
   );
 };
