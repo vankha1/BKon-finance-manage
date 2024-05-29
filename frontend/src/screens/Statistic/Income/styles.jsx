@@ -8,6 +8,7 @@ const styles = StyleSheet.create({
     justifyContent: "start",
     alignItems: "center",
     backgroundColor: COLORS.mainLightBackground,
+    height: "100%",
   },
   barContainer: {
     display: "flex",
@@ -39,6 +40,11 @@ const styles = StyleSheet.create({
     padding: 20,
     width: "90%",
     borderRadius: 10,
+  },
+  pieChartNotesWrapper: {
+    flexDirection: "column",
+    alignItems: "start",
+    marginLeft: 10,
   },
   pieChartNotes: {
     flex: 1,

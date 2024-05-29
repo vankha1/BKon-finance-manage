@@ -5,41 +5,44 @@ import * as Progress from "react-native-progress";
 import styles from "./styles";
 import { COLORS } from "@/constants";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-const ReceivableScreen = () => {
-  const data = [
-    { value: 50 },
-    { value: 80 },
-    { value: 90 },
-    { value: 70 },
-    { value: 50 },
-    { value: 80 },
-    { value: 90 },
-    { value: 70 },
-    { value: 50 },
-    { value: 80 },
-    { value: 90 },
-    { value: 70 },
-  ];
+import { getReportByType } from "@/services";
+import { useEffect, useState } from "react";
+import { convertString } from "@/utils";
+import { format } from "date-fns";
+import { useRoute } from "@react-navigation/native";
 
-  const xLabels = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
+const ReceivableScreen = () => {
+  const params = useRoute().params;
+  console.log(params)
+  const [data, setData] = useState([]);
+  const [xLabels, setXLabels] = useState([]);
+
+  useEffect(() => {
+    const getFilterData = async () => {
+      const res = await getReportByType(params.type, "month", {
+        startDate: convertString("Y").value,
+        endDate: new Date(),
+      });
+
+      const data = res.monthlyReport.map((item) => {
+        return {
+          value: item.amount / 1000,
+        };
+      });
+
+      const xLabelArr = res.monthlyReport.map((item) => `${format(item.month, "LLL")}`);
+      // console.log(data, xLabelArr)
+
+      setData(data);
+      setXLabels(xLabelArr);
+    };
+
+    getFilterData();
+  }, []);
 
   return (
     <ScrollView contentContainerStyle={[styles.container]}>
       <View style={styles.chartContainer}>
-        <Text style={styles.title}>Receivable report</Text>
         <LineChart
           // pointerConfig={{
           //     showDataPointOnFocus: true,
