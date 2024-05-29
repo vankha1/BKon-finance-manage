@@ -23,6 +23,16 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   title: { fontSize: 20, fontWeight: "bold" },
+  pieChartNotesWrapper: {
+    flexDirection: "column",
+    alignItems: "start",
+    marginLeft: 10,
+  },
+  pieChartNotes: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
 });
 
 export default styles;

@@ -52,7 +52,7 @@ const ListDORScreen = () => {
       <Header title={`List of ${params.type}`} addButton={true} />
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
-      ) : data?.length !== 0 ? (
+      ) : data?.length === 0 ? (
         <Text style={{ marginTop: 10, textAlign: "center" }}>No {params.type} found!!</Text>
       ) : (
         <FlatList

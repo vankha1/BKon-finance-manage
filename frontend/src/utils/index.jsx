@@ -33,6 +33,13 @@ export const convertString = (str) => {
     today.getMonth() - 1,
     today.getDate()
   );
+
+  const lastYear = new Date(
+    today.getFullYear() - 1,
+    today.getMonth(),
+    today.getDate()
+  );
+
   switch (str) {
     case "D":
       return {
@@ -53,37 +60,69 @@ export const convertString = (str) => {
       };
 
     default:
-      break;
+      return {
+        newStr: "year",
+        value: lastYear,
+      };
   }
 };
 
 export const formatReportData = (type, data) => {
   switch (type) {
-    case 'D':
-      return data.map(item => {
+    case "D":
+      return data.map((item) => {
         return {
           value: item.amount / 1000,
           label: format(item.date, "dd-MM"),
         };
-      })
-    
-    case 'W':
-      return data.map(item => {
+      });
+
+    case "W":
+      return data.map((item) => {
         return {
           value: item.amount / 1000,
           label: `${getWeek(item.startDate)}-${getWeek(item.endDate)}`,
         };
-      })
-    
-    case 'M':
-      return data.map(item => {
+      });
+
+    case "M":
+      return data.map((item) => {
         return {
           value: item.amount / 1000,
           label: format(item.month, "MM"),
-        }
-      })
+        };
+      });
 
     default:
       break;
   }
+};
+
+export const balanceTwoArray = (arr1, arr2, amount) => {
+
+  const diff = Math.abs(arr1.length - arr2.length);
+  const longerArr = arr1.length > arr2.length ? arr1 : arr2;
+  const shorterArr = arr1.length < arr2.length ? arr1 : arr2;
+
+  for (let i = 0; i < diff; i++) {
+    shorterArr.push({...longerArr[i], amount});
+  }
+
+  return {
+    arr1,
+    arr2
+  }
+};
+
+export const formatDataForCompare = (data) => {
+  const formattedData = data.map((item) => {
+    return {
+      amount: item.amount / 1000,
+      monthNumber: format(item.month, "M"),
+      monthName: format(item.month, "LLL"),
+    };
+  });
+
+  return formattedData;
 }
+
