@@ -1,7 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
 import StatisticScreen from "@/screens/Statistic/StatisticScreen";
-import ExpenseStatScreen from "@/screens/Statistic/Expense/ExpenseStatScreen";
 import ReceivableScreen from "@/screens/Statistic/Receivable/ReceivableScreen";
 import IncomeAndExpenseScreen from "@/screens/Statistic/IncomeAndExpense/IncomeAndExpenseScreen";
 import { COLORS } from "@/constants";
@@ -9,7 +8,6 @@ import { LocalizationKey, i18n } from "@/localization";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import IncomeStatScreen from "@/screens/Statistic/Income/IncomeStatScreen";
-import DebtScreen from "@/screens/Statistic/Debt/DebtStatScreen";
 
 const Stack = createStackNavigator();
 export const StatisStack = () => {
@@ -60,7 +58,7 @@ export const StatisStack = () => {
       />
       <Stack.Screen
         name="Expense"
-        component={ExpenseStatScreen}
+        component={IncomeStatScreen}
         options={{
           headerTitle: "Expense Report",
           headerStyle: { backgroundColor: COLORS.headerBg, height: 100 },
@@ -81,7 +79,7 @@ export const StatisStack = () => {
 
       <Stack.Screen
         name="Debt"
-        component={DebtScreen}
+        component={ReceivableScreen}
         options={{
           headerTitle: "Debt Report",
           headerStyle: { backgroundColor: COLORS.headerBg, height: 100 },
