@@ -33,6 +33,7 @@ export const LocalizationKey = {
     BANK_CARD: "bank_card",
     NOT_AVAILABLE: "not_available",
     MONTHLY_BUDGET: "monthly_budget",
+    MONTHLY_INCOME: "monthly_income",
     SPENT: "spent",
     LEFT: "left",
     RECEIVABLE: "receivable",

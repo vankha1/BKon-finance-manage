@@ -35,6 +35,7 @@ export const en = {
   [LocalizationKey.BANK_CARD]: "Bank card",
   [LocalizationKey.NOT_AVAILABLE]: "Not available",
   [LocalizationKey.MONTHLY_BUDGET]: "Monthly Budget",
+  [LocalizationKey.MONTHLY_INCOME]: "Monthly Income",
   [LocalizationKey.SPENT]: "spent",
   [LocalizationKey.LEFT]: "left",
   [LocalizationKey.RECEIVABLE]: "Receivable",

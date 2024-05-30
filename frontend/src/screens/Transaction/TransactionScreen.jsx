@@ -25,7 +25,7 @@ import { categories } from "@/utils";
 import { createTransaction, getResources } from "@/services";
 
 const getType = (type) => {
-    if (type === "Debt") return "incomes";
+    if (type === "Debt") return "debts";
     return "receivables";
 };
 
@@ -69,387 +69,288 @@ const TransactionScreen = () => {
             const response = await getResources();
             setMethods(response);
         };
-        const handleOnChangeDate2 = (e, selectedDate) => {
-            if (e.type === "set") {
-                const currentDate = selectedDate || date2;
-                console.log(currentDate, date2);
-                setDate2(currentDate);
-            }
+        getMethods();
+    }, [listDebts]);
+
+    const handleSave = async () => {
+        const data = {
+            amount: +amount,
+            [checkDOR ? "borrowDate" : "tradedDate"]: date1.toISOString(),
+            note: notes,
         };
 
-        const handleSave = async () => {
-            const data = {
-                amount: +amount,
-                [checkDOR ? "borrowDate" : "tradedDate"]: date1.toISOString(),
-                note: notes,
-            };
+        if (checkDOR) {
+            data["repaidDate"] = date2.toISOString();
+            data["lenderName"] = lender;
+        } else {
+            data["spendOn"] = categories[categoryIdx];
+            data["cashId"] = methods[selectedIndex]._id.toString();
+        }
+        console.log(data);
 
-            if (checkDOR) {
-                data["repaidDate"] = date2.toISOString();
-                data["lenderName"] = lender;
-            } else {
-                data["spendOn"] = categories[categoryIdx];
-                data["cashId"] = methods[selectedIndex]._id.toString();
-            }
-            console.log(data);
+        const transactionType = !checkDOR ? params.type : getType(params.type);
+        console.log("transaction type", transactionType);
+        const response = await createTransaction(transactionType, data);
+        dispatch(addDebt({ value: !listDebts }));
+        navigator.goBack();
+    };
 
-            const transactionType = !checkDOR
-                ? params.type
-                : getType(params.type);
-            console.log("transaction type", transactionType);
-            const response = await createTransaction(transactionType, data);
-            dispatch(addDebt({ value: !listDebts }));
-            navigator.goBack();
+    return (
+        <ScrollView style={styles.container}>
+            {params.type === "Paying" ? (
+                <Header title={`Paying ${params.name}`} />
+            ) : (
+                <Header title={`New ${params.type.toLowerCase()}`} />
+            )}
 
-            useEffect(() => {
-                const getMethods = async () => {
-                    const token = await AsyncStorage.getItem("token");
-                    // console.log(token)
-                    const options = {
-                        method: "GET",
-                        url: `${Config.API_URL}/cashes`,
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                        params: {},
-                    };
-                    const response = await axios.request(options);
-                    setMethods(response.data);
-                };
-                getMethods();
-            }, [listDebts]);
-
-            const handleSave = async () => {
-                const token = await AsyncStorage.getItem("token");
-
-                const data = {
-                    amount: amount,
-                    [checkDOR ? "borrowDate" : "createdAt"]: date1.toString(),
-                    note: notes,
-                };
-
-                if (checkDOR) {
-                    data["repaidDate"] = date2.toString();
-                    data["lenderName"] = lender;
-                } else {
-                    data["spendOn"] = categories[categoryIdx];
-                    data["cashId"] = methods[selectedIndex]._id.toString();
-                }
-
-                const options = {
-                    method: "POST",
-                    url: `${Config.API_URL}/${
-                        !checkDOR ? params.type : getType(params.type)
-                    }`,
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                    data,
-                };
-                try {
-                    const response = await axios.request(options);
-                    console.log(
-                        "Data after creating transaction: ",
-                        response.data
-                    );
-                    dispatch(addDebt({ value: !listDebts }));
-                    navigator.goBack();
-                } catch (error) {
-                    throw new Error(error);
-                }
-            };
-
-            return (
-                <ScrollView style={styles.container}>
-                    {params.type === "Paying" ? (
-                        <Header title={`Paying ${params.name}`} />
-                    ) : (
-                        <Header title={`New ${params.type.toLowerCase()}`} />
-                    )}
-
-                    <View style={styles.content}>
-                        {params.type === "Paying" ? (
-                            <View>
-                                <View style={styles.remaining}>
-                                    <Text style={styles.contentText}>
-                                        Remaining
-                                    </Text>
-                                    <Text style={styles.amountText}>$5000</Text>
-                                </View>
-                                <View style={styles.amount}>
-                                    <Text style={styles.smallText}>Amount</Text>
-                                    <View style={styles.blankAmount}>
-                                        <Text>
-                                            {params.name === "debt" ? (
-                                                <IconWrapper
-                                                    iconType={"plus"}
-                                                    size={SIZES.xLarge}
-                                                    LibIcon={AntDesign}
-                                                />
-                                            ) : (
-                                                <IconWrapper
-                                                    iconType={"minus"}
-                                                    size={SIZES.xLarge}
-                                                    LibIcon={AntDesign}
-                                                />
-                                            )}{" "}
-                                        </Text>
-                                        <Text style={styles.amountText}>
-                                            $4000
-                                        </Text>
-                                    </View>
-                                    <View style={styles.underLine} />
-                                </View>
-                            </View>
-                        ) : (
-                            <Toggle
-                                iconType={"credit-card"}
-                                colorIcon={"#000"}
-                                inputStyle={{
-                                    width: "90%",
-                                    backgroundColor: "white",
-                                }}
-                                nameCard={params.type}
-                                Children={
-                                    <View style={styles.center}>
-                                        <Text style={styles.amountText}>
-                                            Amount
-                                        </Text>
-                                        <View style={styles.inputAmountWrapper}>
-                                            <Text style={{ fontSize: 25 }}>{`${
-                                                params.type === "Expense" ||
-                                                params.type === "Debt"
-                                                    ? "+"
-                                                    : "-"
-                                            }`}</Text>
-                                            <TextInput
-                                                value={amount}
-                                                onChangeText={setAmount}
-                                                style={styles.inputAmount}
-                                                placeholder="Enter amount"
-                                                keyboardType="numeric"
-                                            />
-                                        </View>
-                                        <View style={styles.underLine} />
-                                    </View>
-                                }
-                            />
-                        )}
-                        {/* Date picker */}
-                        <Pressable
-                            style={[styles.buttonContainer]}
-                            onPress={() => setShowPicker1(!showPicker1)}
-                        >
-                            <IconWrapper
-                                iconType="calendar"
-                                size={24}
-                                colorIcon="#000"
-                                bgColor={"#fff"}
-                                className={{
-                                    borderWidth: 1,
-                                    borderColor: COLORS.buttonBg,
-                                }}
-                                LibIcon={AntDesign}
-                            />
-                            <Text style={styles.contentText}>Date</Text>
-                            <Text style={styles.dateTitle}>
-                                {date1 ? date1.toDateString() : ""}
-                            </Text>
-                        </Pressable>
-                        {showPicker1 && (
-                            <DateTimePicker
-                                testID="dateTimePicker"
-                                value={date1 || new Date()}
-                                mode="date"
-                                is24Hour={true}
-                                display="default"
-                                onChange={handleOnChangeDate1}
-                            />
-                        )}
-                        {/* Pay options || RepaidDate */}
-                        {checkDOR ? (
-                            <Pressable
-                                style={[styles.buttonContainer]}
-                                onPress={() => setShowPicker2(!showPicker2)}
-                            >
-                                <IconWrapper
-                                    iconType="calendar"
-                                    size={24}
-                                    colorIcon="#000"
-                                    bgColor={"#fff"}
-                                    className={{
-                                        borderWidth: 1,
-                                        borderColor: COLORS.buttonBg,
-                                    }}
-                                    LibIcon={AntDesign}
-                                />
-                                {params.type === "Debt" ? (
-                                    <Text style={styles.contentText}>
-                                        Repaid Date
-                                    </Text>
-                                ) : (
-                                    <Text style={styles.contentText}>
-                                        Complete Date
-                                    </Text>
-                                )}
-
-                                <Text style={styles.dateTitle}>
-                                    {date2 ? date2.toDateString() : ""}
+            <View style={styles.content}>
+                {params.type === "Paying" ? (
+                    <View>
+                        <View style={styles.remaining}>
+                            <Text style={styles.contentText}>Remaining</Text>
+                            <Text style={styles.amountText}>$5000</Text>
+                        </View>
+                        <View style={styles.amount}>
+                            <Text style={styles.smallText}>Amount</Text>
+                            <View style={styles.blankAmount}>
+                                <Text>
+                                    {params.name === "debt" ? (
+                                        <IconWrapper
+                                            iconType={"minus"}
+                                            size={SIZES.xLarge}
+                                            LibIcon={AntDesign}
+                                        />
+                                    ) : (
+                                        <IconWrapper
+                                            iconType={"plus"}
+                                            size={SIZES.xLarge}
+                                            LibIcon={AntDesign}
+                                        />
+                                    )}{" "}
                                 </Text>
-                            </Pressable>
-                        ) : (
-                            <Select
-                                iconType="database"
-                                inputStyle={{
-                                    width: "90%",
-                                    backgroundColor: "white",
-                                }}
-                                nameCard={
-                                    methods[selectedIndex]?.name
-                                        ? methods[selectedIndex]?.name
-                                        : "Select method"
-                                }
-                                data={methods}
-                                chidren={
-                                    <View style={styles.optionSelectWrapper}>
-                                        {methods.map((value, index) => (
-                                            <TouchableOpacity
-                                                style={[
-                                                    {
-                                                        width: "100%",
-                                                        marginBottom: 2,
-                                                    },
-                                                    index === selectedIndex
-                                                        ? styles.selectedOption
-                                                        : styles.unSelectedOption,
-                                                    index === 0 &&
-                                                        styles.firstOptionSelect,
-                                                    index ===
-                                                        methods.length - 1 &&
-                                                        styles.lastOptionSelect,
-                                                ]}
-                                                key={index}
-                                                onPress={() =>
-                                                    setSelectedIndex(index)
-                                                }
-                                            >
-                                                <Text style={styles.option}>
-                                                    {value.name}
-                                                </Text>
-                                            </TouchableOpacity>
-                                        ))}
-                                    </View>
-                                }
-                            />
-                        )}
-                        {checkDOR && showPicker2 && (
-                            <DateTimePicker
-                                testID="dateTimePicker"
-                                value={date2 || new Date()}
-                                mode="date"
-                                is24Hour={true}
-                                display="default"
-                                onChange={handleOnChangeDate2}
-                            />
-                        )}
-
-                        {/* Category options */}
-                        {checkDOR ? (
-                            <View style={styles.DORinputWrapper}>
-                                <IconWrapper
-                                    iconType={"person"}
-                                    size={SIZES.xLarge}
-                                    LibIcon={FontAwesome6}
-                                    className={styles.DORicon}
-                                />
-                                <TextInput
-                                    style={styles.DORinput}
-                                    placeholder={
-                                        params.type === "Debt"
-                                            ? "Lender (Who lend you money?)"
-                                            : "Borrower (Who you lend money?)"
-                                    }
-                                    placeholderTextColor="grey"
-                                    numberOfLines={1}
-                                    value={lender}
-                                    onChangeText={setLender}
-                                />
+                                <Text style={styles.amountText}>$4000</Text>
                             </View>
-                        ) : (
-                            <Select
-                                iconType="book"
-                                inputStyle={{
-                                    width: "90%",
-                                    backgroundColor: "white",
-                                }}
-                                nameCard={
-                                    categories[categoryIdx]
-                                        ? categories[categoryIdx]
-                                        : "Select category"
-                                }
-                                data={categories}
-                                chidren={
-                                    <View style={styles.optionSelectWrapper}>
-                                        {categories.map((value, index) => (
-                                            <TouchableOpacity
-                                                style={[
-                                                    {
-                                                        width: "100%",
-                                                        marginBottom: 2,
-                                                    },
-                                                    index === categoryIdx
-                                                        ? styles.selectedOption
-                                                        : styles.unSelectedOption,
-                                                    index === 0 &&
-                                                        styles.firstOptionSelect,
-                                                    index ===
-                                                        categories.length - 1 &&
-                                                        styles.lastOptionSelect,
-                                                ]}
-                                                key={index}
-                                                onPress={() =>
-                                                    setCategoryIdx(index)
-                                                }
-                                            >
-                                                <Text style={styles.option}>
-                                                    {value}
-                                                </Text>
-                                            </TouchableOpacity>
-                                        ))}
-                                    </View>
-                                }
-                            />
-                        )}
-
-                        <Toggle
-                            iconType={"message-circle"}
-                            colorIcon={"#000"}
-                            inputStyle={{
-                                width: "90%",
-                                backgroundColor: "white",
-                            }}
-                            nameCard={"Add notes"}
-                            Children={
-                                <TextInput
-                                    style={styles.textArea}
-                                    placeholder="Type something"
-                                    placeholderTextColor="grey"
-                                    numberOfLines={5}
-                                    multiline={true}
-                                    value={notes}
-                                    onChangeText={setNotes}
-                                />
-                            }
-                        />
-                        <Button onPress={handleSave}>
-                            <Text style={styles.buttonText}>Save</Text>
-                        </Button>
+                            <View style={styles.underLine} />
+                        </View>
                     </View>
-                </ScrollView>
-            );
-        };
-    });
-};
+                ) : (
+                    <Toggle
+                        iconType={"credit-card"}
+                        colorIcon={"#000"}
+                        inputStyle={{ width: "90%", backgroundColor: "white" }}
+                        nameCard={params.type}
+                        Children={
+                            <View style={styles.center}>
+                                <Text style={styles.amountText}>Amount</Text>
+                                <View style={styles.inputAmountWrapper}>
+                                    <Text style={{ fontSize: 25 }}>{`${
+                                        params.type === "Expense" ||
+                                        params.type === "Debt"
+                                            ? "-"
+                                            : "+"
+                                    }`}</Text>
+                                    <TextInput
+                                        value={amount}
+                                        onChangeText={setAmount}
+                                        style={styles.inputAmount}
+                                        placeholder="Enter amount"
+                                        keyboardType="numeric"
+                                    />
+                                </View>
+                                <View style={styles.underLine} />
+                            </View>
+                        }
+                    />
+                )}
+                {/* Date picker */}
+                <Pressable
+                    style={[styles.buttonContainer]}
+                    onPress={() => setShowPicker1(!showPicker1)}
+                >
+                    <IconWrapper
+                        iconType="calendar"
+                        size={24}
+                        colorIcon="#000"
+                        bgColor={"#fff"}
+                        className={{
+                            borderWidth: 1,
+                            borderColor: COLORS.buttonBg,
+                        }}
+                        LibIcon={AntDesign}
+                    />
+                    <Text style={date1 ? styles.dateTitle : styles.contentText}>
+                        {date1 ? date1.toDateString() : "Created Date"}
+                    </Text>
+                </Pressable>
+                {showPicker1 && (
+                    <DateTimePicker
+                        testID="dateTimePicker"
+                        value={date1 || new Date()}
+                        mode="date"
+                        is24Hour={true}
+                        display="default"
+                        onChange={handleOnChangeDate(setDate1, setShowPicker1)}
+                    />
+                )}
+                {/* Pay options || RepaidDate */}
+                {checkDOR ? (
+                    <Pressable
+                        style={[styles.buttonContainer]}
+                        onPress={() => setShowPicker2(!showPicker2)}
+                    >
+                        <IconWrapper
+                            iconType="calendar"
+                            size={24}
+                            colorIcon="#000"
+                            bgColor={"#fff"}
+                            className={{
+                                borderWidth: 1,
+                                borderColor: COLORS.buttonBg,
+                            }}
+                            LibIcon={AntDesign}
+                        />
+                        <Text
+                            style={
+                                date2 ? styles.dateTitle : styles.contentText
+                            }
+                        >
+                            {date2
+                                ? date2.toDateString()
+                                : `${
+                                      params.type === "Debt"
+                                          ? "Repaid Date"
+                                          : "Complete Date"
+                                  }`}
+                        </Text>
+                    </Pressable>
+                ) : (
+                    <Select
+                        iconType="database"
+                        inputStyle={{ width: "90%", backgroundColor: "white" }}
+                        nameCard={
+                            methods[selectedIndex]?.name
+                                ? methods[selectedIndex]?.name
+                                : "Select method"
+                        }
+                        data={methods}
+                        chidren={
+                            <View style={styles.optionSelectWrapper}>
+                                {methods.map((value, index) => (
+                                    <TouchableOpacity
+                                        style={[
+                                            { width: "100%", marginBottom: 2 },
+                                            index === selectedIndex
+                                                ? styles.selectedOption
+                                                : styles.unSelectedOption,
+                                            index === 0 &&
+                                                styles.firstOptionSelect,
+                                            index === methods.length - 1 &&
+                                                styles.lastOptionSelect,
+                                        ]}
+                                        key={index}
+                                        onPress={() => setSelectedIndex(index)}
+                                    >
+                                        <Text style={styles.option}>
+                                            {value.name}
+                                        </Text>
+                                    </TouchableOpacity>
+                                ))}
+                            </View>
+                        }
+                    />
+                )}
+                {checkDOR && showPicker2 && (
+                    <DateTimePicker
+                        testID="dateTimePicker"
+                        value={date2 || new Date()}
+                        mode="date"
+                        is24Hour={true}
+                        display="default"
+                        onChange={handleOnChangeDate(setDate2, setShowPicker2)}
+                    />
+                )}
 
+                {/* Category options */}
+                {checkDOR ? (
+                    <View style={styles.DORinputWrapper}>
+                        <IconWrapper
+                            iconType={"person"}
+                            size={SIZES.xLarge}
+                            LibIcon={FontAwesome6}
+                            className={styles.DORicon}
+                        />
+                        <TextInput
+                            style={styles.DORinput}
+                            placeholder={
+                                params.type === "Debt"
+                                    ? "Lender (Who lend you money?)"
+                                    : "Borrower (Who you lend money?)"
+                            }
+                            placeholderTextColor="grey"
+                            numberOfLines={1}
+                            value={lender}
+                            onChangeText={setLender}
+                        />
+                    </View>
+                ) : (
+                    <Select
+                        iconType="book"
+                        inputStyle={{ width: "90%", backgroundColor: "white" }}
+                        nameCard={
+                            categories[categoryIdx]
+                                ? categories[categoryIdx]
+                                : "Select category"
+                        }
+                        data={categories}
+                        chidren={
+                            <View style={styles.optionSelectWrapper}>
+                                {categories.map((value, index) => (
+                                    <TouchableOpacity
+                                        style={[
+                                            { width: "100%", marginBottom: 2 },
+                                            index === categoryIdx
+                                                ? styles.selectedOption
+                                                : styles.unSelectedOption,
+                                            index === 0 &&
+                                                styles.firstOptionSelect,
+                                            index === categories.length - 1 &&
+                                                styles.lastOptionSelect,
+                                        ]}
+                                        key={index}
+                                        onPress={() => setCategoryIdx(index)}
+                                    >
+                                        <Text style={styles.option}>
+                                            {value}
+                                        </Text>
+                                    </TouchableOpacity>
+                                ))}
+                            </View>
+                        }
+                    />
+                )}
+
+                <Toggle
+                    iconType={"message-circle"}
+                    colorIcon={"#000"}
+                    inputStyle={{ width: "90%", backgroundColor: "white" }}
+                    nameCard={"Add notes"}
+                    Children={
+                        <TextInput
+                            style={styles.textArea}
+                            placeholder="Type something"
+                            placeholderTextColor="grey"
+                            numberOfLines={5}
+                            multiline={true}
+                            value={notes}
+                            onChangeText={setNotes}
+                        />
+                    }
+                />
+                <Button onPress={handleSave}>
+                    <Text style={styles.buttonText}>Save</Text>
+                </Button>
+            </View>
+        </ScrollView>
+    );
+};
 export default TransactionScreen;

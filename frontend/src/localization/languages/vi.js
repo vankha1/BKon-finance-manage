@@ -35,6 +35,7 @@ export const vi = {
   [LocalizationKey.BANK_CARD]: "Bank card",
   [LocalizationKey.NOT_AVAILABLE]: "Không có sẵn",
   [LocalizationKey.MONTHLY_BUDGET]: "Ngân sách hàng tháng",
+  [LocalizationKey.MONTHLY_INCOME]: "Thu nhập hàng tháng",
   [LocalizationKey.SPENT]: "đã tiêu",
   [LocalizationKey.LEFT]: "còn lại",
   [LocalizationKey.RECEIVABLE]: "Cho mượn",

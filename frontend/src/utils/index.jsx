@@ -99,19 +99,18 @@ export const formatReportData = (type, data) => {
 };
 
 export const balanceTwoArray = (arr1, arr2, amount) => {
-
   const diff = Math.abs(arr1.length - arr2.length);
   const longerArr = arr1.length > arr2.length ? arr1 : arr2;
   const shorterArr = arr1.length < arr2.length ? arr1 : arr2;
 
   for (let i = 0; i < diff; i++) {
-    shorterArr.push({...longerArr[i], amount});
+    shorterArr.push({ ...longerArr[i], amount });
   }
 
   return {
     arr1,
-    arr2
-  }
+    arr2,
+  };
 };
 
 export const formatDataForCompare = (data) => {
@@ -124,5 +123,21 @@ export const formatDataForCompare = (data) => {
   });
 
   return formattedData;
+};
+export function getFirstDateOfMonth() {
+  let date = new Date();
+  date.setDate(1);
+  date.setHours(0, 0, 0, 0);
+  return date;
 }
-
+export function getReceivableValue(receivables) {
+  const latestItem = receivables.reduce((acc, ele) => {
+    return acc.createAt > ele.createAt ? acc : ele;
+  }, receivables[0]);
+  //console.log(receivables);
+  console.log("latest: ", latestItem);
+  return {
+    amount: 5,
+    received: 1,
+  };
+}
