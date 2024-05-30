@@ -27,4 +27,24 @@ export const en = {
   [LocalizationKey.RECEIVABLE_REPORT]: "Receivable report",
   [LocalizationKey.INCOME_VS_EXPENSE]: "Income vs Expense",
   [LocalizationKey.RECEIVABLE_VS_DEBT]: "Receivable vs Debt",
+
+  //Home
+  [LocalizationKey.YOUR_BALANCE]: "Your balance",
+  [LocalizationKey.HI]: "Hi",
+  [LocalizationKey.CASH]: "Cash",
+  [LocalizationKey.BANK_CARD]: "Bank card",
+  [LocalizationKey.NOT_AVAILABLE]: "Not available",
+  [LocalizationKey.MONTHLY_BUDGET]: "Monthly Budget",
+  [LocalizationKey.MONTHLY_INCOME]: "Monthly Income",
+  [LocalizationKey.SPENT]: "spent",
+  [LocalizationKey.LEFT]: "left",
+  [LocalizationKey.RECEIVABLE]: "Receivable",
+  [LocalizationKey.ADD_NEW_WIDGET]: "Add new widget",
+
+  //Pop over
+  [LocalizationKey.EXPENSE]: "Expense",
+  [LocalizationKey.DEBT]: "Debt",
+  [LocalizationKey.INCOME]: "Income",
+
+
 };

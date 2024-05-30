@@ -9,7 +9,7 @@ import Input from "@/components/Input/Input";
 import { COLORS } from "@/constants";
 import Button from "@/components/Button/Button";
 import { login } from "@/redux/slice/login";
-import { loginUser } from '@/services'
+import { loginUser } from "@/services";
 
 const LoginScreen = () => {
     const [email, setEmail] = useState("");
@@ -27,7 +27,7 @@ const LoginScreen = () => {
         AsyncStorage.setItem("token", response?.access_token);
         AsyncStorage.setItem("userInfo", JSON.stringify(response?.user));
 
-        dispatch(login({ isLoggin: true, isValidAcc: true }));
+        // dispatch(login({ isLoggin: true, isValidAcc: true }));
 
         navigator.navigate("MainStack");
     };

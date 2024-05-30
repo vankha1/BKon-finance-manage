@@ -22,13 +22,13 @@ const ListDORScreen = () => {
   const { listDebts } = useSelector((state) => state.debt);
   const [isLoading, setIsLoading] = useState(false);
 
-  const RenderItem = ({ notes, type, amount, date }) => {
+  const RenderItem = ({ notes, type, amount, date, remaining }) => {
     return (
       <DORitem
         note={notes}
         type={type}
         amount={amount}
-        remaining="$1000"
+        remaining={remaining}
         date={date}
       />
     );
@@ -39,21 +39,23 @@ const ListDORScreen = () => {
       console.log(params.type);
       setIsLoading(true);
       const response = await getTransactions(params.type);
-      // console.log(response.data);
+      //console.log("running");
       setIsLoading(false);
       setData(response);
     };
-
     getListDOR();
   }, [listDebts]);
 
+  console.log(listDebts);
   return (
     <View style={styles.container}>
       <Header title={`List of ${params.type}`} addButton={true} />
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : data?.length === 0 ? (
-        <Text style={{ marginTop: 10, textAlign: "center" }}>No {params.type} found!!</Text>
+        <Text style={{ marginTop: 10, textAlign: "center" }}>
+          No {params.type} found!!
+        </Text>
       ) : (
         <FlatList
           contentContainerStyle={styles.contentContainer}
@@ -65,6 +67,11 @@ const ListDORScreen = () => {
               type={params.type}
               amount={item?.amount}
               date={format(item?.createdAt, "dd/MM/yyyy")}
+              remaining={
+                params.type === "debts"
+                  ? item?.amount - item?.paid
+                  : item?.amount - item?.received
+              }
             />
           )}
           keyExtractor={(item) => item?._id}

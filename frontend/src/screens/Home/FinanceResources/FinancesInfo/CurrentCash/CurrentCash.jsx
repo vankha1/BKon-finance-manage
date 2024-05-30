@@ -1,9 +1,5 @@
 import { View, Text, ActivityIndicator } from "react-native";
-import {
-  MaterialCommunityIcons,
-  Ionicons,
-  Feather,
-} from "@expo/vector-icons";
+import { MaterialCommunityIcons, Ionicons, Feather } from "@expo/vector-icons";
 import { ScrollView } from "react-native-gesture-handler";
 import { useRoute } from "@react-navigation/native";
 import { useEffect, useState } from "react";
@@ -14,7 +10,7 @@ import IconWrapper from "@/components/Icon/Icon";
 import { SIZES } from "@/constants";
 import Header from "@/components/Header/Header";
 import FinanceResources from "@/components/FinanceResource/FinanceResources";
-import { getResourceById } from '@/services'
+import { getResourceById } from "@/services";
 
 const CurrentCash = () => {
   const params = useRoute().params;
