@@ -8,6 +8,8 @@ import { COLORS } from "@/constants";
 import { useEffect, useState } from "react";
 import { balanceTwoArray, formatDataForCompare } from "@/utils";
 import { fetchTwoReports } from "@/services";
+import { LocalizationKey, i18n } from "@/localization";
+import { useSelector } from "react-redux";
 
 const IncomeAndExpenseScreen = () => {
   const params = useRoute().params;
@@ -16,10 +18,16 @@ const IncomeAndExpenseScreen = () => {
   const [expenseData, setExpenseData] = useState([]);
   const [xLabels, setXLabels] = useState([]);
   const sliceColor = [COLORS.buttonBg, "red"];
-
+  const localeState = useSelector((state) => state.locale);
+  useEffect(() => {
+    i18n.locale = localeState.locale;
+  }, []);
   useEffect(() => {
     const getFilterData = async () => {
-      const [incomes, expenses] = await fetchTwoReports(params.type[0], params.type[1])
+      const [incomes, expenses] = await fetchTwoReports(
+        params.type[0],
+        params.type[1]
+      );
 
       const formattedIncomes = formatDataForCompare(incomes.data.monthlyReport);
       const formattedExpenses = formatDataForCompare(
@@ -62,7 +70,11 @@ const IncomeAndExpenseScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.chartContainer}>
-        <Text style={styles.title}>{`${params.name} Report`}</Text>
+        <Text style={styles.title}>
+          {params.name === "Income vs Expense"
+            ? i18n.t(LocalizationKey.INCOME_VS_EXPENSE_REPORT)
+            : i18n.t(LocalizationKey.RECEIVABLE_VS_DEBT_REPORT)}
+        </Text>
         <LineChart
           // pointerConfig={{
           //     showDataPointOnFocus: true,

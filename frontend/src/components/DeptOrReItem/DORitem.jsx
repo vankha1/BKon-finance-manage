@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, Dimensions } from "react-native";
 import * as Progress from "react-native-progress";
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -19,6 +19,7 @@ const DORitem = ({
 }) => {
   const navigator = useNavigation();
   console.log("type: ", type);
+  const progress = (amount - remaining) / amount;
   return (
     <View>
       <Pressable
@@ -61,15 +62,15 @@ const DORitem = ({
           <Text style={styles.contentText}>{remaining}</Text>
         </View>
         <View style={styles.progressBar}>
-          <Progress.Bar
-            progress={amount > 0 ? (amount - remaining) / amount : 0}
+          {/* <Progress.Bar
+            progress={amount > 0 ? progress : 0}
             //width={220}
             height={4}
-            width={265}
+            width={Dimensions.get("window").width * 0.6}
             borderWidth={0}
             unfilledColor={COLORS.gray3}
             color={COLORS.buttonBg}
-          />
+          /> */}
         </View>
 
         <View style={styles.description}>

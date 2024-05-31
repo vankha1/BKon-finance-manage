@@ -15,6 +15,9 @@ import {
 import { format, set } from "date-fns";
 import { useRoute } from "@react-navigation/native";
 import { FlatList } from "react-native-gesture-handler";
+import { LocalizationKey, i18n } from "@/localization";
+import { useSelector } from "react-redux";
+
 const RenderTopPeople = ({ name, amount, finishing }) => {
   return (
     <View style={styles.topReceivesItem}>
@@ -37,7 +40,10 @@ const ReceivableScreen = () => {
   const [data, setData] = useState([]);
   const [xLabels, setXLabels] = useState([]);
   const [receivables, setReceivables] = useState([]);
-
+  const localeState = useSelector((state) => state.locale);
+  useEffect(() => {
+    i18n.locale = localeState.locale;
+  }, []);
   useEffect(() => {
     const getFilterData = async () => {
       const res = await getReportByType(params.type, "month", {
@@ -73,7 +79,7 @@ const ReceivableScreen = () => {
   const lstTopPeople = getTopOfListByName(receivables, params.type);
   console.log("lstTopPeople: ", lstTopPeople);
   return (
-    <ScrollView contentContainerStyle={[styles.container]}>
+    <View style={styles.container}>
       <View style={styles.chartContainer}>
         <LineChart
           // pointerConfig={{
@@ -99,7 +105,11 @@ const ReceivableScreen = () => {
       </View>
 
       <View style={styles.topReceives}>
-        <Text style={styles.title}>Top of receives</Text>
+        <Text style={styles.title}>
+          {params.type === "debts"
+            ? i18n.t(LocalizationKey.TOP_OF_LENDERS)
+            : i18n.t(LocalizationKey.TOP_OF_RECEIVERS)}
+        </Text>
         <View style={{ width: "100%", backgroundColor: "#FFFFFF", padding: 0 }}>
           <FlatList
             contentContainerStyle={{
@@ -107,7 +117,7 @@ const ReceivableScreen = () => {
               backgroundColor: "#FFFFFF",
               padding: 20,
             }}
-            showsVerticalScrollIndicator={false} // remove scrollbar
+            showsVerticalScrollIndicator={true} // remove scrollbar
             data={lstTopPeople}
             renderItem={({ item }) => {
               return (
@@ -138,7 +148,7 @@ const ReceivableScreen = () => {
           />
         </Pressable>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 export default ReceivableScreen;

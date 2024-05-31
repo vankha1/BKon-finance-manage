@@ -1,3 +1,4 @@
+import { loadAsync } from "expo-font";
 import { LocalizationKey } from "../keys";
 
 export const vi = {
@@ -19,14 +20,22 @@ export const vi = {
   [LocalizationKey.FULLNAME]: "Họ và tên",
   [LocalizationKey.PASSWORD]: "Mật khẩu",
   [LocalizationKey.BANKACCOUNT]: "Tài khoản ngân hàng",
-
+  // Finance Resource
+  [LocalizationKey.FINANCIAL_RESOURCES]: "Các nguồn tài chính",
+  [LocalizationKey.CURRENT_BALANCE]: "Số dư hiện tại",
+  [LocalizationKey.EDIT]: "Sửa",
+  [LocalizationKey.TRANSACTION_HISTORY]: "Lịch sử giao dịch",
   // Statistic
   [LocalizationKey.INCOME_REPORT]: "Báo cáo thu nhập",
   [LocalizationKey.EXPENSE_REPORT]: "Báo cáo chi phí",
   [LocalizationKey.DEBT_REPORT]: "Báo cáo nợ",
   [LocalizationKey.RECEIVABLE_REPORT]: "Báo cáo phải thu",
-  [LocalizationKey.INCOME_VS_EXPENSE]: "Thu nhập vs Chi phí",
-  [LocalizationKey.RECEIVABLE_VS_DEBT]: "Phải thu vs Nợ",
+  [LocalizationKey.INCOME_VS_EXPENSE]: "Thu nhập và chi phí",
+  [LocalizationKey.INCOME_VS_EXPENSE_REPORT]: "Báo cáo thu nhập và chi phí",
+  [LocalizationKey.RECEIVABLE_VS_DEBT]: "Cho mượn và nợ",
+  [LocalizationKey.RECEIVABLE_VS_DEBT_REPORT]: "Báo cáo cho mượn và nợ",
+  [LocalizationKey.TOP_OF_LENDERS]: "Top người cho mượn",
+  [LocalizationKey.TOP_OF_RECEIVERS]: "Top người phải trả",
 
   // Home
   [LocalizationKey.YOUR_BALANCE]: "Số dư của bạn",
@@ -46,6 +55,12 @@ export const vi = {
   [LocalizationKey.DEBT]: "Mượn nợ",
   [LocalizationKey.INCOME]: "Thu nhập",
 
-  //Transaction
+  //Transaction type item
+  [LocalizationKey.ELECTRONICS]: "Điện",
+  [LocalizationKey.GROCERIES]: "Hàng hóa",
+  [LocalizationKey.EDUCATION]: "Giáo dục",
+  [LocalizationKey.HEALTH]: "Sức khỏe",
+  [LocalizationKey.ENTERTAINMENT]: "Giải trí",
+  [LocalizationKey.OTHERS]: "Khác",
 
 };

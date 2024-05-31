@@ -47,6 +47,10 @@ const HomeScreen = () => {
   const [name, setName] = useState("");
   const localeState = useSelector((state) => state.locale);
   useEffect(() => {
+    i18n.locale = localeState.locale;
+  }, []);
+
+  useEffect(() => {
     const getData = async () => {
       const response = await getResources();
       //console.log("finances: ", response);
@@ -100,10 +104,6 @@ const HomeScreen = () => {
         .reduce((acc, ele) => acc + ele.balance, 0),
     [financeResources]
   );
-
-  useEffect(() => {
-    i18n.locale = localeState.locale;
-  }, []);
 
   const navigator = useNavigation();
   const handleFinances = () => {
