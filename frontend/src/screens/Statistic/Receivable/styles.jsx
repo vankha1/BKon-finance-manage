@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   topReceives: {
     width: "90%",
     backgroundColor: "#FFFFFF",
-    padding: 20,
+    padding: 10,
     borderRadius: 10,
   },
   topReceivesItem: {
@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 10,
+    width: "100%",
   },
   titleTopReceives: { fontWeight: "bold" },
   moreBtn: {
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end",
     alignItems: "center",
-  }
+  },
 });
 
 export default styles;

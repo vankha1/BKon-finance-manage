@@ -7,6 +7,7 @@ import IconWrapper from "../Icon/Icon";
 import { COLORS } from "@/constants";
 import styles from "./styles";
 const DORitem = ({
+  id,
   note,
   type,
   amount,
@@ -17,22 +18,32 @@ const DORitem = ({
   time,
 }) => {
   const navigator = useNavigation();
-  //console.log(type);
+  console.log("type: ", type);
   return (
     <View>
       <Pressable
         style={styles.container}
         onPress={
-          type === "Debt"
+          type === "debts"
             ? () =>
                 navigator.navigate("Transaction", {
                   type: "Paying",
                   name: "debt",
+                  id: id,
+                  amountInfo: {
+                    amount: amount,
+                    remaining: remaining,
+                  },
                 })
             : () =>
                 navigator.navigate("Transaction", {
                   type: "Paying",
                   name: "receivable",
+                  id: id,
+                  amountInfo: {
+                    amount: amount,
+                    remaining: remaining,
+                  },
                 })
         }
       >
@@ -51,7 +62,7 @@ const DORitem = ({
         </View>
         <View style={styles.progressBar}>
           <Progress.Bar
-            progress={4 / 5}
+            progress={amount > 0 ? (amount - remaining) / amount : 0}
             //width={220}
             height={4}
             width={265}

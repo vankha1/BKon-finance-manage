@@ -22,7 +22,7 @@ const ListDORScreen = () => {
   const { listDebts } = useSelector((state) => state.debt);
   const [isLoading, setIsLoading] = useState(false);
 
-  const RenderItem = ({ notes, type, amount, date, remaining }) => {
+  const RenderItem = ({ notes, type, amount, date, remaining, id }) => {
     return (
       <DORitem
         note={notes}
@@ -30,6 +30,7 @@ const ListDORScreen = () => {
         amount={amount}
         remaining={remaining}
         date={date}
+        id={id}
       />
     );
   };
@@ -42,6 +43,7 @@ const ListDORScreen = () => {
       //console.log("running");
       setIsLoading(false);
       setData(response);
+      console.log(params.type, ": ", response);
     };
     getListDOR();
   }, [listDebts]);
@@ -64,6 +66,7 @@ const ListDORScreen = () => {
           renderItem={({ item }) => (
             <RenderItem
               notes={item?.note}
+              id={item?._id}
               type={params.type}
               amount={item?.amount}
               date={format(item?.createdAt, "dd/MM/yyyy")}

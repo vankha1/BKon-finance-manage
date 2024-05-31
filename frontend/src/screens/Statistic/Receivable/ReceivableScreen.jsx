@@ -5,17 +5,38 @@ import * as Progress from "react-native-progress";
 import styles from "./styles";
 import { COLORS } from "@/constants";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { getReportByType } from "@/services";
+import { getReportByType, getTransactionPeriod } from "@/services";
 import { useEffect, useState } from "react";
-import { convertString } from "@/utils";
-import { format } from "date-fns";
+import {
+  convertString,
+  getFirstDateOfMonth,
+  getTopOfListByName,
+} from "@/utils";
+import { format, set } from "date-fns";
 import { useRoute } from "@react-navigation/native";
-
+import { FlatList } from "react-native-gesture-handler";
+const RenderTopPeople = ({ name, amount, finishing }) => {
+  return (
+    <View style={styles.topReceivesItem}>
+      <Text style={styles.titleTopReceives}>{name}</Text>
+      <Progress.Bar
+        progress={amount > 0 ? finishing / amount : 0}
+        height={8}
+        width={200}
+        color={COLORS.buttonBg}
+        unfilledColor={COLORS.gray}
+        borderWidth={1}
+      />
+      <Text style={styles.titleTopReceives}>{amount}</Text>
+    </View>
+  );
+};
 const ReceivableScreen = () => {
   const params = useRoute().params;
-  console.log(params)
+  console.log("ReceivableScreen: ", params);
   const [data, setData] = useState([]);
   const [xLabels, setXLabels] = useState([]);
+  const [receivables, setReceivables] = useState([]);
 
   useEffect(() => {
     const getFilterData = async () => {
@@ -30,16 +51,27 @@ const ReceivableScreen = () => {
         };
       });
 
-      const xLabelArr = res.monthlyReport.map((item) => `${format(item.month, "LLL")}`);
+      const xLabelArr = res.monthlyReport.map(
+        (item) => `${format(item.month, "LLL")}`
+      );
       // console.log(data, xLabelArr)
 
       setData(data);
       setXLabels(xLabelArr);
     };
-
+    const getReceivable = async () => {
+      const response = await getTransactionPeriod(
+        params.type,
+        getFirstDateOfMonth(),
+        new Date()
+      );
+      setReceivables(response);
+    };
+    getReceivable();
     getFilterData();
   }, []);
-
+  const lstTopPeople = getTopOfListByName(receivables, params.type);
+  console.log("lstTopPeople: ", lstTopPeople);
   return (
     <ScrollView contentContainerStyle={[styles.container]}>
       <View style={styles.chartContainer}>
@@ -68,34 +100,26 @@ const ReceivableScreen = () => {
 
       <View style={styles.topReceives}>
         <Text style={styles.title}>Top of receives</Text>
-        <View
-          style={{ width: "100%", backgroundColor: "#FFFFFF", padding: 20 }}
-        >
-          <View style={styles.topReceivesItem}>
-            <Text style={styles.titleTopReceives}>Tom</Text>
-            <Progress.Bar
-              progress={0.15}
-              height={8}
-              width={210}
-              color={COLORS.buttonBg}
-              unfilledColor={COLORS.gray}
-              borderWidth={1}
-            />
-            <Text style={styles.titleTopReceives}>$2,500</Text>
-          </View>
-
-          <View style={styles.topReceivesItem}>
-            <Text style={styles.titleTopReceives}>Tom</Text>
-            <Progress.Bar
-              progress={0.15}
-              height={8}
-              width={210}
-              color={COLORS.buttonBg}
-              unfilledColor={COLORS.gray}
-              borderWidth={1}
-            />
-            <Text style={styles.titleTopReceives}>$2,500</Text>
-          </View>
+        <View style={{ width: "100%", backgroundColor: "#FFFFFF", padding: 0 }}>
+          <FlatList
+            contentContainerStyle={{
+              width: "100%",
+              backgroundColor: "#FFFFFF",
+              padding: 20,
+            }}
+            showsVerticalScrollIndicator={false} // remove scrollbar
+            data={lstTopPeople}
+            renderItem={({ item }) => {
+              return (
+                <RenderTopPeople
+                  name={item.name}
+                  amount={item.amount}
+                  finishing={item.finishing}
+                />
+              );
+            }}
+            keyExtractor={(item) => item?._id}
+          />
         </View>
 
         <Pressable style={styles.moreBtn}>

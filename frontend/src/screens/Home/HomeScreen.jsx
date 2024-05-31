@@ -28,6 +28,7 @@ import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 import { set } from "date-fns";
 import { getReceivables } from "@/services/receivable";
 import { getFirstDateOfMonth, getReceivableValue } from "@/utils";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const addWidgetFunc = () => {
   alert("addWidgetFunc");
@@ -43,11 +44,12 @@ const HomeScreen = () => {
   const [financeResources, setFinanceResource] = useState([]);
   const [incomes, setIncomes] = useState([]);
   const [receivables, setReceivables] = useState([]);
+  const [name, setName] = useState("");
   const localeState = useSelector((state) => state.locale);
   useEffect(() => {
     const getData = async () => {
       const response = await getResources();
-      console.log("finances: ", response);
+      //console.log("finances: ", response);
       setFinanceResource(response);
     };
     const getIncome = async () => {
@@ -55,18 +57,26 @@ const HomeScreen = () => {
         new Date(),
         getFirstDateOfMonth()
       );
-      console.log("incomes: ", response);
+      //console.log("incomes: ", response);
       setIncomes(response);
     };
     const getListReceivables = async () => {
       const response = await getReceivables();
-      console.log(response);
+      //console.log(response);
       setReceivables(response);
+    };
+    const userName = async () => {
+      const result = await AsyncStorage.getItem("userInfo");
+      console.log("hehe: ", result);
+      setName(result);
+      //return result;
     };
     getListReceivables();
     getData();
     getIncome();
+    userName();
   }, []);
+
   const latestReceivable = getReceivableValue(receivables);
   const monthlyIncome = useMemo(
     () => incomes.reduce((acc, ele) => acc + ele.amount, 0),
@@ -101,7 +111,7 @@ const HomeScreen = () => {
   };
   const { listDebts } = useSelector((state) => state.debt);
   console.log(listDebts);
-  const name = "Hehe";
+  //const name = "Hehe";
   return (
     <View>
       <View style={styles.header}>
@@ -213,7 +223,11 @@ const HomeScreen = () => {
                 </Text>
                 <Text style={styles.amountText}>{latestReceivable.amount}</Text>
                 <Progress.Bar
-                  progress={latestReceivable.received / latestReceivable.amount}
+                  progress={
+                    latestReceivable.amount > 0
+                      ? latestReceivable.received / latestReceivable.amount
+                      : 0
+                  }
                   width={220}
                   height={4}
                   borderWidth={0}

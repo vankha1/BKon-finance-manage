@@ -1,4 +1,5 @@
 import { format, getWeek } from "date-fns";
+import { l } from "i18n-js";
 
 export const categories = [
   "Electronics",
@@ -137,7 +138,43 @@ export function getReceivableValue(receivables) {
   //console.log(receivables);
   console.log("latest: ", latestItem);
   return {
-    amount: 5,
-    received: 1,
+    amount: latestItem?.amount,
+    received: latestItem?.received,
   };
+}
+export function sortList(lst, compareFunction) {
+  return lst.sort(compareFunction);
+}
+
+export function getTopOfListByName(lst, type) {
+  let classify = {};
+  console.log("type: ", type);
+  console.log("lst", lst);
+  lst.forEach((item) => {
+    if (!classify[item.lenderName]) {
+      classify[item.lenderName] = {
+        finishing: type === "debts" ? item.paid : item.received,
+        amount: item.amount,
+        _id: item._id,
+      };
+    } else {
+      classify[item.lenderName].finishing +=
+        type === "debts" ? item.paid : item.received;
+      classify[item.lenderName].amount += item.amount;
+    }
+  });
+  let classifyArr = [];
+  const keys = Object.keys(classify);
+  keys.forEach((key) => {
+    classifyArr.push({
+      name: key,
+      amount: classify[key].amount,
+      finishing: classify[key].finishing,
+      _id: classify[key]._id,
+    });
+  });
+  classifyArr = sortList(classifyArr, (a, b) => b.amount - a.amount);
+  //console.log("classifyArr", classifyArr);
+
+  return classifyArr.slice(0, 11);
 }
