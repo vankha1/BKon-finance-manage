@@ -24,8 +24,8 @@ const StatisticScreen = () => {
     // console.log(res.map((item) => item.totalAmount));
     return {
       series: res.map((item) => item.totalAmount),
-      categories: res.map((item) => item.spendOn)
-    }
+      categories: res.map((item) => item.spendOn),
+    };
   };
 
   return (
@@ -72,7 +72,7 @@ const StatisticScreen = () => {
           onPress={async () => {
             navigator.navigate("Debt", {
               type: "debts",
-              name: "Debt"
+              name: "Debt",
             });
             // await analytics().logEvent("statistic_usage", { type: "debt" });
           }}
@@ -86,7 +86,7 @@ const StatisticScreen = () => {
           onPress={async () => {
             navigator.navigate("Receivable", {
               type: "receivables",
-              name: "Receivable"
+              name: "Receivable",
             });
             // await analytics().logEvent("statistic_usage", { type: "receivable" });
           }}
@@ -100,7 +100,7 @@ const StatisticScreen = () => {
           onPress={async () => {
             navigator.navigate("IncomeAndExpense", {
               type: ["incomes", "expenses"],
-              name: "Income vs Expense"
+              name: "Income vs Expense",
             });
             // await analytics().logEvent("statistic_usage", {
             //   type: "incomeAndExpense",
@@ -116,7 +116,7 @@ const StatisticScreen = () => {
           onPress={async () => {
             navigator.navigate("ReceivableAndDebt", {
               type: ["receivables", "debts"],
-              name: "Receivable vs Debt"
+              name: "Receivable vs Debt",
             });
             // await analytics().logEvent("statistic_usage", {
             //   type: "ReceivableAndDebt",
