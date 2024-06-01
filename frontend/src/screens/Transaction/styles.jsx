@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    width: "40%",
+    width: "60%",
+    marginBottom: 5,
   },
   inputAmount: {
     width: "90%",
@@ -76,6 +77,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     width: cardWidth,
+    
   },
   amount: {
     marginTop: 30,
@@ -169,7 +171,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   underLine: {
-    width: 140,
+    width: 170,
     borderWidth: 2,
     borderColor: COLORS.buttonBg,
     backgroundColor: COLORS.buttonBg,

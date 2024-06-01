@@ -11,6 +11,7 @@ import {
   TouchableWithoutFeedback,
   Pressable,
   Image,
+  ActivityIndicator,
 } from "react-native";
 import styles from "./styles";
 import { COLORS, SIZES } from "@/constants";
@@ -33,6 +34,7 @@ const HomeScreen = () => {
   const [name, setName] = useState("");
   const localeState = useSelector((state) => state.locale);
   const { isChanged } = useSelector((state) => state.transaction);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     i18n.locale = localeState.locale;
@@ -40,6 +42,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     const getData = async () => {
+      setIsLoading(true);
       const [resources, monthlyIncomes, receivables, user] = await Promise.all([
         getResources(),
         getIncomeMonthly(new Date(), getFirstDateOfMonth()),
@@ -47,6 +50,7 @@ const HomeScreen = () => {
         AsyncStorage.getItem("userInfo"),
       ]);
 
+      setIsLoading(false);
       setFinanceResource(resources);
 
       setIncomes(monthlyIncomes);
@@ -55,6 +59,7 @@ const HomeScreen = () => {
 
       setName(JSON.parse(user).username);
     };
+
     getData();
   }, [isChanged]);
 
@@ -122,105 +127,113 @@ const HomeScreen = () => {
           </Pressable>
         </View>
       </View>
-
-      <ScrollView style={styles.containerScroll}>
-        <View style={styles.containerBackground}>
-          <View style={styles.container_cards}>
-            <View style={styles.card}>
-              <View style={styles.cardWith2Elements}>
-                <Text style={styles.cashText}>
-                  {i18n.t(LocalizationKey.CASH)}
-                </Text>
-                <Text style={styles.amountText}>
-                  {" "}
-                  {currentCash > 0
-                    ? `${currentCash}`
-                    : i18n.t(LocalizationKey.NOT_AVAILABLE)}
-                </Text>
-              </View>
-
-              <View style={{ height: 100, width: 2, backgroundColor: "#00FF00"}} />
-
-              <View style={styles.cardWith2Elements}>
-                <Text
-                  style={[
-                    styles.cashText,
-                  ]}
-                >
-                  {i18n.t(LocalizationKey.BANK_CARD)}
-                </Text>
-                <Text
-                  style={[
-                    {
-                      paddingLeft: 30,
-                    },
-                    styles.amountText,
-                  ]}
-                >
-                  {currentBankAccount > 0
-                    ? `${currentBankAccount}`
-                    : i18n.t(LocalizationKey.NOT_AVAILABLE)}
-                </Text>
-              </View>
-            </View>
-
-            <View style={styles.card}>
-              <View style={styles.cardEleWithIcon_Left}>
-                <IconWrapper
-                  iconType={"creditcard"}
-                  size={SIZES.xLarge}
-                  colorIcon={"#000"}
-                  LibIcon={AntDesign}
-                  haveBorder={true}
-                  borderSize={"large"}
-                />
-              </View>
-              <View style={[styles.cardEleWithIcon_Right, { alignSelf: "center" }]}>
-                <Text style={styles.contentText}>
-                  {i18n.t(LocalizationKey.MONTHLY_INCOME)}
-                </Text>
-                <Text style={styles.amountText}>{monthlyIncome}</Text>
-              </View>
-            </View>
-
-            <View style={styles.card}>
-              <View style={styles.cardEleWithIcon_Left}>
-                <IconWrapper
-                  iconType={"diff-added"}
-                  size={SIZES.xLarge}
-                  colorIcon={"#000"}
-                  LibIcon={Octicons}
-                  haveBorder={true}
-                  borderSize={"large"}
-                />
-              </View>
-              <View style={styles.cardEleWithIcon_Right}>
-                <Text style={styles.contentText}>
-                  {i18n.t(LocalizationKey.RECEIVABLE)}
-                </Text>
-                <Text style={styles.amountText}>{latestReceivable.amount}</Text>
-                <Progress.Bar
-                  progress={
-                    latestReceivable.amount > 0
-                      ? latestReceivable.received / latestReceivable.amount
-                      : 0
-                  }
-                  width={220}
-                  height={4}
-                  borderWidth={0}
-                  unfilledColor={COLORS.gray3}
-                  color={COLORS.buttonBg}
-                />
-                <View style={styles.subTitle}>
-                  <Text style={styles.subContentText}>
-                    {latestReceivable.received}/{latestReceivable.amount}
+      {isLoading ? (
+        <ActivityIndicator size="large" />
+      ) : (
+        <ScrollView style={styles.containerScroll}>
+          <View style={styles.containerBackground}>
+            <View style={styles.container_cards}>
+              <View style={styles.card}>
+                <View style={styles.cardWith2Elements}>
+                  <Text style={styles.cashText}>
+                    {i18n.t(LocalizationKey.CASH)}
                   </Text>
+                  <Text style={styles.amountText}>
+                    {" "}
+                    {currentCash > 0
+                      ? `${currentCash}`
+                      : i18n.t(LocalizationKey.NOT_AVAILABLE)}
+                  </Text>
+                </View>
+
+                <View
+                  style={{ height: 100, width: 2, backgroundColor: "#00FF00" }}
+                />
+
+                <View style={styles.cardWith2Elements}>
+                  <Text style={[styles.cashText]}>
+                    {i18n.t(LocalizationKey.BANK_CARD)}
+                  </Text>
+                  <Text
+                    style={[
+                      {
+                        paddingLeft: 30,
+                      },
+                      styles.amountText,
+                    ]}
+                  >
+                    {currentBankAccount > 0
+                      ? `${currentBankAccount}`
+                      : i18n.t(LocalizationKey.NOT_AVAILABLE)}
+                  </Text>
+                </View>
+              </View>
+
+              <View style={styles.card}>
+                <View style={styles.cardEleWithIcon_Left}>
+                  <IconWrapper
+                    iconType={"creditcard"}
+                    size={SIZES.xLarge}
+                    colorIcon={"#000"}
+                    LibIcon={AntDesign}
+                    haveBorder={true}
+                    borderSize={"large"}
+                  />
+                </View>
+                <View
+                  style={[
+                    styles.cardEleWithIcon_Right,
+                    { alignSelf: "center" },
+                  ]}
+                >
+                  <Text style={styles.contentText}>
+                    {i18n.t(LocalizationKey.MONTHLY_INCOME)}
+                  </Text>
+                  <Text style={styles.amountText}>{monthlyIncome}</Text>
+                </View>
+              </View>
+
+              <View style={styles.card}>
+                <View style={styles.cardEleWithIcon_Left}>
+                  <IconWrapper
+                    iconType={"diff-added"}
+                    size={SIZES.xLarge}
+                    colorIcon={"#000"}
+                    LibIcon={Octicons}
+                    haveBorder={true}
+                    borderSize={"large"}
+                  />
+                </View>
+                <View style={styles.cardEleWithIcon_Right}>
+                  <Text style={styles.contentText}>
+                    {i18n.t(LocalizationKey.RECEIVABLE)}
+                  </Text>
+                  <Text style={styles.amountText}>
+                    {latestReceivable.amount}
+                  </Text>
+                  <Progress.Bar
+                    progress={
+                      latestReceivable.amount > 0
+                        ? latestReceivable.received / latestReceivable.amount
+                        : 0
+                    }
+                    width={220}
+                    height={4}
+                    borderWidth={0}
+                    unfilledColor={COLORS.gray3}
+                    color={COLORS.buttonBg}
+                  />
+                  <View style={styles.subTitle}>
+                    <Text style={styles.subContentText}>
+                      {latestReceivable.received}/{latestReceivable.amount}
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      )}
     </View>
   );
 };

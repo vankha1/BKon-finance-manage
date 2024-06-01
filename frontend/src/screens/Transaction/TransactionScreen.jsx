@@ -126,8 +126,6 @@ const TransactionScreen = () => {
     navigator.goBack();
   };
 
-  console.log(params)
-
   return (
     <>
       {params.type === "Paying" ? (
@@ -139,77 +137,47 @@ const TransactionScreen = () => {
       )}
       <ScrollView style={styles.container}>
         <View style={styles.content}>
-          {params.type === "Paying" ? (
-            <View>
+          <View>
+            {params.type === "Paying" ? (
               <View style={styles.remaining}>
                 <Text style={styles.contentText}>Remaining</Text>
                 <Text style={[styles.amountText, { color: "red" }]}>
                   {params.amountInfo.remaining}
                 </Text>
               </View>
-              <View style={styles.amount}>
-                <Text style={styles.amountText}>Amount</Text>
-                <View style={styles.inputAmountWrapper}>
-                  <Text>
-                    {params.name === "debt" ? (
-                      <IconWrapper
-                        iconType={"minus"}
-                        size={SIZES.medium}
-                        LibIcon={AntDesign}
-                      />
-                    ) : (
-                      <IconWrapper
-                        iconType={"plus"}
-                        size={SIZES.medium}
-                        LibIcon={AntDesign}
-                      />
-                    )}{" "}
-                  </Text>
-                  <TextInput
-                    style={styles.inputAmount}
-                    value={amount}
-                    onChangeText={setAmount}
-                    placeholder="Enter amount"
-                    keyboardType="numeric"
-                  />
-                </View>
-                <View style={styles.underLine} />
-              </View>
-            </View>
-          ) : (
-            <Toggle
-              iconType={"credit-card"}
-              colorIcon={"#000"}
-              inputStyle={{ width: "90%", backgroundColor: "white" }}
-              nameCard={
-                params.type === "incomes"
-                  ? "Incomes"
-                  : params.type === "expenses"
-                  ? "Expenses"
-                  : params.type
-              }
-              Children={
-                <View style={styles.center}>
-                  <Text style={styles.amountText}>Amount</Text>
-                  <View style={styles.inputAmountWrapper}>
-                    <Text style={{ fontSize: 25 }}>{`${
-                      params.type === "Expense" || params.type === "Debt"
-                        ? "-"
-                        : "+"
-                    }`}</Text>
-                    <TextInput
-                      value={amount}
-                      onChangeText={setAmount}
-                      style={styles.inputAmount}
-                      placeholder="Enter amount"
-                      keyboardType="numeric"
+            ) : (
+              ""
+            )}
+            <View style={styles.center}>
+              <Text style={styles.amountText}>Amount</Text>
+              <View style={styles.inputAmountWrapper}>
+                <Text>
+                  {params.name === "debt" ? (
+                    <IconWrapper
+                      iconType={"minus"}
+                      size={SIZES.medium}
+                      LibIcon={AntDesign}
                     />
-                  </View>
-                  <View style={styles.underLine} />
-                </View>
-              }
-            />
-          )}
+                  ) : (
+                    <IconWrapper
+                      iconType={"plus"}
+                      size={SIZES.medium}
+                      LibIcon={AntDesign}
+                    />
+                  )}{" "}
+                </Text>
+                <TextInput
+                  style={styles.inputAmount}
+                  value={amount}
+                  onChangeText={setAmount}
+                  placeholder="Enter amount"
+                  keyboardType="numeric"
+                />
+              </View>
+              <View style={styles.underLine} />
+            </View>
+          </View>
+
           {/* Date picker */}
           <Pressable
             style={[styles.buttonContainer]}
@@ -267,6 +235,7 @@ const TransactionScreen = () => {
             </Pressable>
           ) : (
             <Select
+              onPress={() => {}}
               iconType="database"
               inputStyle={{ width: "90%", backgroundColor: "white" }}
               nameCard={
@@ -332,6 +301,7 @@ const TransactionScreen = () => {
             </View>
           ) : (
             <Select
+              onPress={() => {}}
               iconType="book"
               inputStyle={{ width: "90%", backgroundColor: "white" }}
               nameCard={
@@ -365,6 +335,7 @@ const TransactionScreen = () => {
           )}
 
           <Toggle
+            onPress={() => {}}
             iconType={"message-circle"}
             colorIcon={"#000"}
             inputStyle={{ width: "90%", backgroundColor: "white" }}

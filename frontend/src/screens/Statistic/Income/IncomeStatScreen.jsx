@@ -11,6 +11,7 @@ import { COLORS } from "@/constants";
 import HistoryCard from "@/components/HistoryCard/HistoryCard";
 import { convertString, formatReportData } from "@/utils";
 import { getReportByCategory, getReportByType } from "@/services";
+import { useSelector } from "react-redux";
 
 const IncomeStatScreen = () => {
   const params = useRoute().params;
@@ -63,6 +64,8 @@ const IncomeStatScreen = () => {
   ];
 
   const [selectedBtn, setSelectedBtn] = useState(0);
+  const { isChanged } = useSelector((state) => state.transaction)
+  console.log(isChanged)
   const filterByTime = ["D", "W", "M"];
 
   useEffect(() => {
@@ -92,7 +95,7 @@ const IncomeStatScreen = () => {
     };
 
     getFilterData();
-  }, [selectedBtn]);
+  }, [selectedBtn, isChanged]);
 
   return (
     <ScrollView contentContainerStyle={[styles.container]}>
@@ -125,7 +128,7 @@ const IncomeStatScreen = () => {
           barBorderRadius={2}
           frontColor={COLORS.buttonBg}
           data={data}
-          yAxisThickness={1}
+          yAxisThickness={1}  
           xAxisThickness={0}
           spacing={15}
           rulesLength={Dimensions.get("window").width - 110}
