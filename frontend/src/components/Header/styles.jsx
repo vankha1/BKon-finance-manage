@@ -4,14 +4,13 @@ const leftMargin = 20;
 const rightMargin = 29;
 const styles = StyleSheet.create({
     header: {
-        //marginTop: 30,
+        marginTop: 30,
         width: "100%",
         backgroundColor: COLORS.headerBg,
-        height: 100,
+        height: 70,
         display: "flex",
         flexDirection: "row",
-        alignItems: "flex-end",
-        paddingBottom: 20,
+        alignItems: "center",
         justifyContent: "center",
     },
 

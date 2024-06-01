@@ -12,33 +12,18 @@ import {
   Pressable,
 } from "react-native";
 import styles from "./styles";
-import Button from "@/components/Button/Button";
-import Finances from "./FinanceResources/Finances";
-import { COLORS, SIZES, FONTFAMILIES } from "@/constants";
+import { COLORS, SIZES } from "@/constants";
 import * as Progress from "react-native-progress";
-import HomeHeader from "@/components/Header/Home/HomeHeader";
 import { useNavigation } from "@react-navigation/native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo, useState } from "react";
 import { LocalizationKey, i18n } from "@/localization";
 import IconWrapper from "@/components/Icon/Icon";
 import { getResources } from "@/services";
 import { getIncomeMonthly } from "@/services/income";
-import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
-import { set } from "date-fns";
 import { getReceivables } from "@/services/receivable";
 import { getFirstDateOfMonth, getReceivableValue } from "@/utils";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-const addWidgetFunc = () => {
-  alert("addWidgetFunc");
-  // return (
-  //     <View>
-  //         <Text>addWidgetFunc</Text>
-  //     </View>
-  // );
-  // console.log("addWidgetFunc");
-};
 
 const HomeScreen = () => {
   const [financeResources, setFinanceResource] = useState([]);
@@ -46,36 +31,31 @@ const HomeScreen = () => {
   const [receivables, setReceivables] = useState([]);
   const [name, setName] = useState("");
   const localeState = useSelector((state) => state.locale);
+  const { isChanged } = useSelector((state) => state.transaction);
+
+  useEffect(() => {
+    i18n.locale = localeState.locale;
+  }, []);
+
   useEffect(() => {
     const getData = async () => {
-      const response = await getResources();
-      //console.log("finances: ", response);
-      setFinanceResource(response);
+      const [resources, monthlyIncomes, receivables, user] = await Promise.all([
+        getResources(),
+        getIncomeMonthly(new Date(), getFirstDateOfMonth()),
+        getReceivables(),
+        AsyncStorage.getItem("userInfo"),
+      ]);
+
+      setFinanceResource(resources);
+
+      setIncomes(monthlyIncomes);
+
+      setReceivables(receivables);
+
+      setName(JSON.parse(user).username);
     };
-    const getIncome = async () => {
-      const response = await getIncomeMonthly(
-        new Date(),
-        getFirstDateOfMonth()
-      );
-      //console.log("incomes: ", response);
-      setIncomes(response);
-    };
-    const getListReceivables = async () => {
-      const response = await getReceivables();
-      //console.log(response);
-      setReceivables(response);
-    };
-    const userName = async () => {
-      const result = await AsyncStorage.getItem("userInfo");
-      console.log("hehe: ", result);
-      setName(result);
-      //return result;
-    };
-    getListReceivables();
     getData();
-    getIncome();
-    userName();
-  }, []);
+  }, [isChanged]);
 
   const latestReceivable = getReceivableValue(receivables);
   const monthlyIncome = useMemo(
@@ -101,17 +81,11 @@ const HomeScreen = () => {
     [financeResources]
   );
 
-  useEffect(() => {
-    i18n.locale = localeState.locale;
-  }, []);
-
   const navigator = useNavigation();
   const handleFinances = () => {
     navigator.navigate("Finances");
   };
-  const { listDebts } = useSelector((state) => state.debt);
-  console.log(listDebts);
-  //const name = "Hehe";
+
   return (
     <View>
       <View style={styles.header}>
@@ -241,15 +215,6 @@ const HomeScreen = () => {
                 </View>
               </View>
             </View>
-
-            <TouchableWithoutFeedback onPress={addWidgetFunc}>
-              <View style={styles.addWidget}>
-                <AntDesign name="plus" size={SIZES.medium} color={"black"} />
-                <Text style={styles.widgetText}>
-                  {i18n.t(LocalizationKey.ADD_NEW_WIDGET)}
-                </Text>
-              </View>
-            </TouchableWithoutFeedback>
           </View>
         </View>
       </ScrollView>

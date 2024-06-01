@@ -26,14 +26,6 @@ const Header = ({ title, libIcon, iconName, subTitle, addButton }) => {
                     />
                 </Pressable>
                 <View style={styles.titleWithIcon}>
-                    <IconWrapper
-                        LibIcon={libIcon}
-                        iconType={iconName}
-                        size={SIZES.xLarge}
-                        haveBorder={true}
-                        borderSize={"small"}
-                        bgColor={"white"}
-                    ></IconWrapper>
                     {subTitle ? (
                         <View style={styles.headerWithSubTitle}>
                             <Text style={styles.headerTitleWithIcon}>
@@ -46,22 +38,10 @@ const Header = ({ title, libIcon, iconName, subTitle, addButton }) => {
                     )}
                 </View>
 
-                <Text style={styles.editStyle}>Edit</Text>
+                <Text style={styles.editStyle}></Text>
             </View>
         </View>
     ) : (
-        // <View style={styles.header}>
-        //     <View style={styles.content}>
-        //         <Pressable onPress={() => navigator.goBack()}>
-        //             <Ionicons
-        //                 name="chevron-back"
-        //                 size={SIZES.xLarge}
-        //                 style={styles.backBtn}
-        //             />
-        //         </Pressable>
-        //         <Text style={styles.headerTitle}>{title}</Text>
-        //     </View>
-        // </View>
         <View style={styles.header}>
             <View style={styles.content}>
                 <Pressable
@@ -99,15 +79,6 @@ const Header = ({ title, libIcon, iconName, subTitle, addButton }) => {
                 ) : (
                     <Text></Text>
                 )}
-                {/* onPress={
-                            (title === "List of debts")
-                                ? navigator.navigate("Transaction", {
-                                      type: "Debt",
-                                  })
-                                : navigator.navigate("Transaction", {
-                                      type: "Receivable",
-                                  })
-                        } */}
             </View>
         </View>
     );
