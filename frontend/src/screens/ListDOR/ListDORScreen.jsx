@@ -6,7 +6,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { format } from "date-fns";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -15,29 +15,33 @@ import styles from "./styles";
 import Header from "@/components/Header/Header";
 import { addDebt } from "@/redux/slice/debts";
 import { getTransactions } from "@/services";
+import { LocalizationKey, i18n } from "@/localization";
 
 const ListDORScreen = () => {
   const params = useRoute().params;
   const [data, setData] = useState([]);
   const { listDebts } = useSelector((state) => state.debt);
   const [isLoading, setIsLoading] = useState(false);
-
+  const localeState = useSelector((state) => state.locale);
+  useEffect(() => {
+    i18n.locale = localeState.locale;
+  }, []);
   const RenderItem = ({ notes, type, amount, date, remaining, id }) => {
     return (
       <DORitem
         note={notes}
         type={type}
         amount={amount}
-        remaining={remaining}
+        remaining={remaining || amount}
         date={date}
         id={id}
       />
     );
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const getListDOR = async () => {
-      console.log(params.type);
+      //console.log(params.type);
       setIsLoading(true);
       const response = await getTransactions(params.type);
       //console.log("running");
@@ -45,13 +49,23 @@ const ListDORScreen = () => {
       setData(response);
       console.log(params.type, ": ", response);
     };
-    getListDOR();
-  }, [listDebts]);
 
-  console.log(listDebts);
+    getListDOR();
+  }, [params.type]);
+
+  console.log("listDOR: ", params.type);
+
   return (
     <View style={styles.container}>
-      <Header title={`List of ${params.type}`} addButton={true} />
+      {console.log("this component is mounting ")}
+      <Header
+        title={
+          params.type === "debts"
+            ? i18n.t(LocalizationKey.LIST_OF_DEBTS)
+            : i18n.t(LocalizationKey.LIST_OF_RECEIVABLES)
+        }
+        addButton={true}
+      />
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : data?.length === 0 ? (

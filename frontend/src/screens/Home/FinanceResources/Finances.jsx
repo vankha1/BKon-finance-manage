@@ -22,6 +22,8 @@ import Header from "@/components/Header/Header";
 import styles from "./styles";
 import Button from "@/components/Button/Button";
 import { getResources, createResource } from "@/services";
+import { useSelector } from "react-redux";
+import { LocalizationKey, i18n } from "@/localization";
 
 const Finances = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -29,7 +31,10 @@ const Finances = () => {
   const [balance, setBalance] = useState("");
   const [resources, setResources] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
+  const localeState = useSelector((state) => state.locale);
+  useEffect(() => {
+    i18n.locale = localeState.locale;
+  }, []);
   const currentBalance = useMemo(
     () => resources.reduce((acc, ele) => acc + ele.balance, 0),
     [resources]
@@ -89,10 +94,10 @@ const Finances = () => {
         <ActivityIndicator size="large" />
       ) : (
         <>
-          <Header title={"Finance Resources"} />
+          <Header title={i18n.t(LocalizationKey.FINANCIAL_RESOURCES)} />
           <View style={styles.financeContainer}>
             <FinanceResources
-              title={"Current Balance"}
+              title={i18n.t(LocalizationKey.CURRENT_BALANCE)}
               amount={currentBalance}
             />
             <FlatList

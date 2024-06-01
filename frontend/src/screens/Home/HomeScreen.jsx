@@ -20,19 +20,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo, useState } from "react";
 import { LocalizationKey, i18n } from "@/localization";
 import IconWrapper from "@/components/Icon/Icon";
-import { getResources } from "@/services";
+import { getResources, getTransactions } from "@/services";
 import { getIncomeMonthly } from "@/services/income";
 import { getReceivables } from "@/services/receivable";
-import { getFirstDateOfMonth, getReceivableValue } from "@/utils";
+import {
+  getFirstDateOfMonth,
+  getLatestValue,
+  getReceivableValue,
+} from "@/utils";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { set } from "date-fns";
 
 const HomeScreen = () => {
   const [financeResources, setFinanceResource] = useState([]);
   const [incomes, setIncomes] = useState([]);
   const [receivables, setReceivables] = useState([]);
+  const [debts, setDebts] = useState([]);
   const [name, setName] = useState("");
-  const localeState = useSelector((state) => state.locale);
   const { isChanged } = useSelector((state) => state.transaction);
+  const localeState = useSelector((state) => state.locale);
 
   useEffect(() => {
     i18n.locale = localeState.locale;
@@ -40,12 +46,14 @@ const HomeScreen = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const [resources, monthlyIncomes, receivables, user] = await Promise.all([
-        getResources(),
-        getIncomeMonthly(new Date(), getFirstDateOfMonth()),
-        getReceivables(),
-        AsyncStorage.getItem("userInfo"),
-      ]);
+      const [resources, monthlyIncomes, receivables, debts, user] =
+        await Promise.all([
+          getResources(),
+          getIncomeMonthly(new Date(), getFirstDateOfMonth()),
+          getTransactions("receivables"),
+          getTransactions("debts"),
+          AsyncStorage.getItem("userInfo"),
+        ]);
 
       setFinanceResource(resources);
 
@@ -53,12 +61,15 @@ const HomeScreen = () => {
 
       setReceivables(receivables);
 
+      setDebts(debts);
+
       setName(JSON.parse(user).username);
     };
     getData();
   }, [isChanged]);
 
-  const latestReceivable = getReceivableValue(receivables);
+  const latestReceivable = getLatestValue("Receivable", receivables);
+  const latestDebt = getLatestValue("Debt", debts);
   const monthlyIncome = useMemo(
     () => incomes.reduce((acc, ele) => acc + ele.amount, 0),
     [incomes]
@@ -91,9 +102,11 @@ const HomeScreen = () => {
     <View>
       <View style={styles.header}>
         <View style={styles.upper_header}>
-          <Text style={styles.helloText}>
-            {i18n.t(LocalizationKey.HI)}, {name}
-          </Text>
+          <View style={styles.BoundingHelloText}>
+            <Text style={styles.helloText}>
+              {i18n.t(LocalizationKey.HI)}, {name}
+            </Text>
+          </View>
           <View style={styles.noticeAndAvt}>
             <MaterialCommunityIcons
               name="bell-outline"
@@ -139,14 +152,12 @@ const HomeScreen = () => {
                 </Text>
               </View>
 
-              <View style={{ height: 100, width: 2, backgroundColor: "#00FF00"}} />
+              <View
+                style={{ height: 100, width: 2, backgroundColor: "#00FF00" }}
+              />
 
               <View style={styles.cardWith2Elements}>
-                <Text
-                  style={[
-                    styles.cashText,
-                  ]}
-                >
+                <Text style={[styles.cashText]}>
                   {i18n.t(LocalizationKey.BANK_CARD)}
                 </Text>
                 <Text
@@ -175,7 +186,9 @@ const HomeScreen = () => {
                   borderSize={"large"}
                 />
               </View>
-              <View style={[styles.cardEleWithIcon_Right, { alignSelf: "center" }]}>
+              <View
+                style={[styles.cardEleWithIcon_Right, { alignSelf: "center" }]}
+              >
                 <Text style={styles.contentText}>
                   {i18n.t(LocalizationKey.MONTHLY_INCOME)}
                 </Text>
@@ -202,7 +215,7 @@ const HomeScreen = () => {
                 <Progress.Bar
                   progress={
                     latestReceivable.amount > 0
-                      ? latestReceivable.received / latestReceivable.amount
+                      ? latestReceivable.finishing / latestReceivable.amount
                       : 0
                   }
                   width={220}
@@ -213,7 +226,43 @@ const HomeScreen = () => {
                 />
                 <View style={styles.subTitle}>
                   <Text style={styles.subContentText}>
-                    {latestReceivable.received}/{latestReceivable.amount}
+                    {latestReceivable.finishing}/{latestReceivable.amount}
+                  </Text>
+                </View>
+              </View>
+            </View>
+
+            <View style={styles.card}>
+              <View style={styles.cardEleWithIcon_Left}>
+                <IconWrapper
+                  iconType={"diff-removed"}
+                  size={SIZES.xLarge}
+                  colorIcon={"#000"}
+                  LibIcon={Octicons}
+                  haveBorder={true}
+                  borderSize={"large"}
+                />
+              </View>
+              <View style={styles.cardEleWithIcon_Right}>
+                <Text style={styles.contentText}>
+                  {i18n.t(LocalizationKey.DEBT)}
+                </Text>
+                <Text style={styles.amountText}>{latestDebt.amount}</Text>
+                <Progress.Bar
+                  progress={
+                    latestDebt.amount > 0
+                      ? latestDebt.finishing / latestDebt.amount
+                      : 0
+                  }
+                  width={220}
+                  height={4}
+                  borderWidth={0}
+                  unfilledColor={COLORS.gray3}
+                  color={COLORS.buttonBg}
+                />
+                <View style={styles.subTitle}>
+                  <Text style={styles.subContentText}>
+                    {latestDebt.finishing}/{latestDebt.amount}
                   </Text>
                 </View>
               </View>

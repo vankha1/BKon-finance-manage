@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   transactionContainer: {
@@ -28,16 +28,16 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     gap: 15,
     padding: 13,
-    borderRadius: 10,
+    borderRadius: 16,
   },
   arrowDown: {
     position: "absolute",
     bottom: -34,
     left: 9,
     //right: -8,
-    borderLeftWidth: 156,
+    borderLeftWidth: (Dimensions.get("window").width - 48) / 2,
     borderLeftColor: "transparent",
-    borderRightWidth: 156,
+    borderRightWidth: (Dimensions.get("window").width - 48) / 2,
     borderRightColor: "transparent",
     borderTopWidth: 34,
     borderTopColor: "rgba(52, 52, 52, 0.8)",
@@ -48,8 +48,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    flexWrap: "wrap"
-  }
+    flexWrap: "wrap",
+  },
 });
 
 export default styles;
