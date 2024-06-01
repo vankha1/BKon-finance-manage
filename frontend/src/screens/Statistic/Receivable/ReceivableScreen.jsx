@@ -15,28 +15,30 @@ import {
 import { format, set } from "date-fns";
 import { useRoute } from "@react-navigation/native";
 import { FlatList } from "react-native-gesture-handler";
-const RenderTopPeople = ({ name, amount, finishing }) => {
-  return (
-    <View style={styles.topReceivesItem}>
-      <Text style={styles.titleTopReceives}>{name}</Text>
-      <Progress.Bar
-        progress={amount > 0 ? finishing / amount : 0}
-        height={8}
-        width={200}
-        color={COLORS.buttonBg}
-        unfilledColor={COLORS.gray}
-        borderWidth={1}
-      />
-      <Text style={styles.titleTopReceives}>{amount}</Text>
-    </View>
-  );
-};
+
 const ReceivableScreen = () => {
   const params = useRoute().params;
   console.log("ReceivableScreen: ", params);
   const [data, setData] = useState([]);
   const [xLabels, setXLabels] = useState([]);
   const [receivables, setReceivables] = useState([]);
+
+  const RenderTopPeople = ({ name, amount, finishing }) => {
+    return (
+      <View style={styles.topReceivesItem}>
+        <Text style={styles.titleTopReceives}>{name}</Text>
+        <Progress.Bar
+          progress={amount > 0 ? finishing / amount : 0}
+          height={8}
+          width={200}
+          color={COLORS.buttonBg}
+          unfilledColor={COLORS.gray}
+          borderWidth={1}
+        />
+        <Text style={styles.titleTopReceives}>{amount}</Text>
+      </View>
+    );
+  };
 
   useEffect(() => {
     const getFilterData = async () => {
@@ -70,10 +72,12 @@ const ReceivableScreen = () => {
     getReceivable();
     getFilterData();
   }, []);
+
   const lstTopPeople = getTopOfListByName(receivables, params.type);
   console.log("lstTopPeople: ", lstTopPeople);
+
   return (
-    <ScrollView contentContainerStyle={[styles.container]}>
+    <View style={[styles.container]}>
       <View style={styles.chartContainer}>
         <LineChart
           // pointerConfig={{
@@ -138,7 +142,7 @@ const ReceivableScreen = () => {
           />
         </Pressable>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 export default ReceivableScreen;

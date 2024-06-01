@@ -10,6 +10,7 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
   Pressable,
+  Image,
 } from "react-native";
 import styles from "./styles";
 import { COLORS, SIZES } from "@/constants";
@@ -99,7 +100,10 @@ const HomeScreen = () => {
               size={SIZES.xLarge}
               color={COLORS.white}
             />
-            <View style={styles.avatar}></View>
+            <Image
+              source={require("../../../assets/images/profile.png")}
+              style={styles.avatar}
+            />
           </View>
         </View>
         <View style={styles.downer_header}>
