@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "flex-start",
         gap: 20,
+        width: "100%",
     },
 });
 export default styles;

@@ -97,11 +97,10 @@ const TransactionScreen = () => {
     const transactionType = !checkDOR ? params.type : getType(params.type);
     //console.log("transaction type", transactionType);
     const response = await createTransaction(transactionType, data);
-    dispatch(toggleEvent({ value: !isChanged }))
+    dispatch(toggleEvent({ value: !isChanged }));
     dispatch(addDebt({ value: !listDebts }));
     navigator.goBack();
   };
-
 
   const handleSave2 = async () => {
     const newRemaining = params.amountInfo.remaining - +amount;
@@ -115,17 +114,19 @@ const TransactionScreen = () => {
     console.log("updateData: ", updateData);
     console.log("currentType: ", currentType);
     console.log("id", params.id);
-    
+
     newRemaining < 0
       ? alert("Amount is greater than remaining")
       : newRemaining == 0
       ? await deleteTransaction(currentType, params.id)
       : await updateTransaction(currentType, params.id, updateData);
-    
-    dispatch(toggleEvent({ value: !isChanged }))
+
+    dispatch(toggleEvent({ value: !isChanged }));
     dispatch(addDebt({ value: !listDebts }));
     navigator.goBack();
   };
+
+  console.log(params)
 
   return (
     <>
@@ -180,7 +181,13 @@ const TransactionScreen = () => {
               iconType={"credit-card"}
               colorIcon={"#000"}
               inputStyle={{ width: "90%", backgroundColor: "white" }}
-              nameCard={params.type}
+              nameCard={
+                params.type === "incomes"
+                  ? "Incomes"
+                  : params.type === "expenses"
+                  ? "Expenses"
+                  : params.type
+              }
               Children={
                 <View style={styles.center}>
                   <Text style={styles.amountText}>Amount</Text>

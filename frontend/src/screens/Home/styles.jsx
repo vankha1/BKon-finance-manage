@@ -152,6 +152,7 @@ const styles = StyleSheet.create({
   },
   // text
   amountText: {
+    color: COLORS.buttonBg,
     fontSize: SIZES.xMedium,
     fontFamily: FONTFAMILIES.semiBold,
   },
@@ -160,10 +161,12 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILIES.medium,
   },
   contentText: {
+    color: COLORS.gray4,
     fontSize: SIZES.xxSmall,
     fontFamily: FONTFAMILIES.medium,
   },
   cashText: {
+    color: COLORS.gray4,
     fontFamily: FONTFAMILIES.medium,
     fontSize: SIZES.xMedium,
   },

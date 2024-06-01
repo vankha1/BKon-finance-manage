@@ -138,13 +138,13 @@ const HomeScreen = () => {
                     : i18n.t(LocalizationKey.NOT_AVAILABLE)}
                 </Text>
               </View>
+
+              <View style={{ height: 100, width: 2, backgroundColor: "#00FF00"}} />
+
               <View style={styles.cardWith2Elements}>
                 <Text
                   style={[
-                    {
-                      paddingLeft: 30,
-                    },
-                    styles.contentText,
+                    styles.cashText,
                   ]}
                 >
                   {i18n.t(LocalizationKey.BANK_CARD)}
@@ -153,9 +153,8 @@ const HomeScreen = () => {
                   style={[
                     {
                       paddingLeft: 30,
-                      paddingTop: 10,
                     },
-                    styles.subContentText,
+                    styles.amountText,
                   ]}
                 >
                   {currentBankAccount > 0
@@ -176,7 +175,7 @@ const HomeScreen = () => {
                   borderSize={"large"}
                 />
               </View>
-              <View style={styles.cardEleWithIcon_Right}>
+              <View style={[styles.cardEleWithIcon_Right, { alignSelf: "center" }]}>
                 <Text style={styles.contentText}>
                   {i18n.t(LocalizationKey.MONTHLY_INCOME)}
                 </Text>
