@@ -30,14 +30,6 @@ const Header = ({ title, libIcon, iconName, subTitle, addButton }) => {
           />
         </Pressable>
         <View style={styles.titleWithIcon}>
-          <IconWrapper
-            LibIcon={libIcon}
-            iconType={iconName}
-            size={SIZES.xLarge}
-            haveBorder={true}
-            borderSize={"small"}
-            bgColor={"white"}
-          ></IconWrapper>
           {subTitle ? (
             <View style={styles.headerWithSubTitle}>
               <Text style={styles.headerTitleWithIcon}>{title}</Text>
@@ -48,22 +40,12 @@ const Header = ({ title, libIcon, iconName, subTitle, addButton }) => {
           )}
         </View>
 
-        <Text style={styles.editStyle}>{i18n.t(LocalizationKey.EDIT)}</Text>
+        <Text style={styles.editStyle}></Text>
       </View>
+
+      <Text style={styles.headerTitleWithIcon}>{title}</Text>
     </View>
   ) : (
-    // <View style={styles.header}>
-    //     <View style={styles.content}>
-    //         <Pressable onPress={() => navigator.goBack()}>
-    //             <Ionicons
-    //                 name="chevron-back"
-    //                 size={SIZES.xLarge}
-    //                 style={styles.backBtn}
-    //             />
-    //         </Pressable>
-    //         <Text style={styles.headerTitle}>{title}</Text>
-    //     </View>
-    // </View>
     <View style={styles.header}>
       <View style={styles.content}>
         <Pressable onPress={() => navigator.goBack()} style={styles.backBtn}>
@@ -77,7 +59,7 @@ const Header = ({ title, libIcon, iconName, subTitle, addButton }) => {
         {addButton ? (
           <Pressable
             onPress={
-              title === "List of debts"
+              title === i18n.t(LocalizationKey.LIST_OF_DEBTS)
                 ? () =>
                     navigator.navigate("Transaction", {
                       type: "Debt",
@@ -98,15 +80,6 @@ const Header = ({ title, libIcon, iconName, subTitle, addButton }) => {
         ) : (
           <Text></Text>
         )}
-        {/* onPress={
-                            (title === "List of debts")
-                                ? navigator.navigate("Transaction", {
-                                      type: "Debt",
-                                  })
-                                : navigator.navigate("Transaction", {
-                                      type: "Receivable",
-                                  })
-                        } */}
       </View>
     </View>
   );

@@ -25,10 +25,9 @@ const LoginScreen = () => {
 
     console.log(response);
     await AsyncStorage.setItem("token", response?.access_token);
-    userInfo = response?.user.username;
-    await AsyncStorage.setItem("userInfo", userInfo, (userInfo) => {
-      console.log(userInfo);
-    });
+
+    userInfo = response?.user;
+    await AsyncStorage.setItem("userInfo", JSON.stringify(userInfo));
 
     // dispatch(login({ isLoggin: true, isValidAcc: true }));
 

@@ -79,16 +79,13 @@ const styles = StyleSheet.create({
   },
   amount: {
     marginTop: 30,
-    flexDirection: "column",
     alignItems: "center",
   },
   blankAmount: {
     flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
     width: "45%",
     backgroundColor: "white",
-    padding: 10,
+    paddingVertical: 10,
     borderRadius: 20,
     marginBottom: 12,
     marginTop: 12,

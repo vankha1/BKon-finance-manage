@@ -11,6 +11,8 @@ const styles = StyleSheet.create({
   },
   pressableList: {
     flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     flexWrap: "wrap",
     gap: 20,
   },

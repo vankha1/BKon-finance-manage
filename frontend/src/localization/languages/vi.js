@@ -63,4 +63,37 @@ export const vi = {
   [LocalizationKey.ENTERTAINMENT]: "Giải trí",
   [LocalizationKey.OTHERS]: "Khác",
 
+  //Debt and Receivable
+  [LocalizationKey.LIST_OF_DEBTS]: "Danh sách nợ",
+  [LocalizationKey.LIST_OF_RECEIVABLES]: "Danh sách phải thu",
+  [LocalizationKey.REMAINING]: "Còn lại",
+  [LocalizationKey.CREATED_ON]: "Tạo lúc",
+  [LocalizationKey.PAYING_DEBT]: "Trả nợ",
+  [LocalizationKey.TAKING_RECEIVABLE]: "Nhận tiền",
+  [LocalizationKey.YOUR_DEBT]: "Khoản nợ",
+  [LocalizationKey.YOUR_RECEIVABLE]: "Khoản phải thu",
+  [LocalizationKey.NO_NOTE]: "Không có ghi chú",
+  [LocalizationKey.SAVE]: "Lưu",
+
+  // Transaction
+  [LocalizationKey.NEW_RECEIVABLE]: "Khoản phải thu mới",
+  [LocalizationKey.NEW_DEBT]: "Khoản nợ mới",
+  [LocalizationKey.NEW_EXPENSE]: "Chi phí mới",
+  [LocalizationKey.NEW_INCOME]: "Thu nhập mới",
+  [LocalizationKey.AMOUNT]: "Số tiền",
+  [LocalizationKey.DATE]: "Ngày",
+  [LocalizationKey.COMPLETE_DATE]: "Ngày hoàn thành",
+  [LocalizationKey.CREATE_DATE]: "Ngày tạo",
+  [LocalizationKey.SELECT_OPTION]: "Lựa chọn",
+  [LocalizationKey.WHOLENDYOUMONEY]: " Ai đã cho bạn mượn tiền",
+  [LocalizationKey.WHODIDYOULENDMONEY]: "Bạn đã cho ai mượn tiền",
+  [LocalizationKey.SELECT_CATEGORY]: "Chọn danh mục",
+  [LocalizationKey.SELECT]: "Chọn",
+  [LocalizationKey.ADDNOTE]: "Thêm ghi chú",
+  [LocalizationKey.REPAID_DATE]: "Ngày trả",
+  [LocalizationKey.SELECT_METHOD]: "Chọn phương thức",
+  [LocalizationKey.LENDER]: "Người cho mượn",
+  [LocalizationKey.BORROWER]: "Người mượn",
+
+
 };

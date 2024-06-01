@@ -48,16 +48,19 @@ export const LocalizationKey = {
 
     // Transaction
     NEW_RECEIVABLE: "new_receivable",
+    NEW_DEBT: "new_debt",
     NEW_EXPENSE: "new_expense",
+    NEW_INCOME: "new_income",
     AMOUNT: "Amount",
     DATE: "Date",
     COMPLETE_DATE: "Complete date",
     CREATE_DATE: "Create date",
     SELECT_OPTION: "Select option",
-    WHATACCOUNTDIDYOUREC: "What account did you receive ?",
+    WHOLENDYOUMONEY: "Who lend you money ?",
     WHODIDYOULENDMONEY: "Who did you lend money ?",
     SELECT_CATEGORY: "Select category",
     SELECT: "Select",
+    SELECT_METHOD: "Select method",
     ADDNOTE: "Add notes",
 
     // Finance Resource
@@ -84,7 +87,13 @@ export const LocalizationKey = {
     CREATED_ON: "created_on",
     PAYING_DEBT: "paying_debt",
     TAKING_RECEIVABLE: "taking_receivable",
- 
+    YOUR_DEBT: "your_debt",
+    YOUR_RECEIVABLE: "your_receivable",
+    NO_NOTE: "no_note",
+    REPAID_DATE: "repaid_date",
+    LENDER: "lender",
+    BORROWER: "borrower",
+    SAVE: "Save",
 
     
 }

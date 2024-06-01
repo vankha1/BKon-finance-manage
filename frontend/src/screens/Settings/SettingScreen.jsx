@@ -40,7 +40,7 @@ const SettingScreen = () => {
 
     dispatch(logout())
 
-    // navigator.navigate("Login");
+    navigator.navigate("Login");
   };
 
   return (
