@@ -20,46 +20,54 @@ const DORitem = ({
   const navigator = useNavigation();
   console.log("type: ", type);
   return (
-    <View>
-      <Pressable
-        style={styles.container}
-        onPress={
-          type === "debts"
-            ? () =>
-                navigator.navigate("Transaction", {
-                  type: "Paying",
-                  name: "debt",
-                  id: id,
-                  amountInfo: {
-                    amount: amount,
-                    remaining: remaining,
-                  },
-                })
-            : () =>
-                navigator.navigate("Transaction", {
-                  type: "Paying",
-                  name: "receivable",
-                  id: id,
-                  amountInfo: {
-                    amount: amount,
-                    remaining: remaining,
-                  },
-                })
-        }
-      >
-        <View style={styles.header}>
-          <IconWrapper iconType={"dollar"} LibIcon={FontAwesome} size={30} />
-          <Text style={styles.headerText}>{note ? note : "No note"}</Text>
-          <Text> </Text>
-        </View>
+    <Pressable
+      style={styles.container}
+      onPress={
+        type === "debts"
+          ? () =>
+              navigator.navigate("Transaction", {
+                type: "Paying",
+                name: "debt",
+                id: id,
+                amountInfo: {
+                  amount: amount,
+                  remaining: remaining,
+                },
+              })
+          : () =>
+              navigator.navigate("Transaction", {
+                type: "Paying",
+                name: "receivable",
+                id: id,
+                amountInfo: {
+                  amount: amount,
+                  remaining: remaining,
+                },
+              })
+      }
+    >
+      <View style={styles.header}>
+        <IconWrapper iconType={"dollar"} LibIcon={FontAwesome} size={30} />
+        <Text style={styles.headerText}>{note ? note : "No note"}</Text>
+      </View>
+
+      <View style={styles.content}>
         <View style={styles.mainContent}>
-          <Text style={styles.contentText}>{type}</Text>
-          <Text style={styles.contentText}>{amount}</Text>
+          <Text style={styles.contentText}>
+            {type === "debts" ? "Your debt " : "Your receivable"}
+          </Text>
+          <Text style={[styles.contentText, { fontWeight: "bold" }]}>
+            {amount}
+          </Text>
         </View>
+  
         <View style={styles.mainContent}>
           <Text style={styles.contentText}>Remaining</Text>
-          <Text style={styles.contentText}>{remaining}</Text>
+          <Text style={[styles.contentText, { fontWeight: "bold" }]}>
+            {remaining}
+          </Text>
         </View>
+  
         <View style={styles.progressBar}>
           <Progress.Bar
             progress={amount > 0 ? (amount - remaining) / amount : 0}
@@ -71,14 +79,14 @@ const DORitem = ({
             color={COLORS.buttonBg}
           />
         </View>
-
+  
         <View style={styles.description}>
           <Text style={styles.contentText}>
             Created on {date} {month} {year} {time}
           </Text>
         </View>
-      </Pressable>
-    </View>
+      </View>
+    </Pressable>
   );
 };
 export default DORitem;

@@ -6,6 +6,7 @@ import TabNavigator from "./TabNavigation";
 import OnBoardingScreen from "@/screens/Onboading/OnboardingScreen";
 import OnBoardingScreen2 from "@/screens/Onboading/OnboardingScreen2";
 import OnBoardingScreen3 from "@/screens/Onboading/OnboardingScreen3";
+import SettingScreen from "@/screens/Settings/SettingScreen";
 
 const Stack = createStackNavigator();
 
@@ -37,6 +38,7 @@ const AuthNavigator = () => {
             <Stack.Screen name="Onboarding" component={OnboardingStack} />
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Signup" component={SignupScreen} />
+            <Stack.Screen name="Setting" component={SettingScreen} />
             <Stack.Screen name="MainStack" component={TabNavigator} />
         </Stack.Navigator>
     );
