@@ -15,13 +15,10 @@ export const StatisStack = () => {
 
   useEffect(() => {
     i18n.locale = localeState.locale;
-  }, [])
+  }, []);
 
   return (
-    <Stack.Navigator
-        screenOptions={{
-        }}
-    >
+    <Stack.Navigator screenOptions={{}}>
       <Stack.Screen
         name="StatisStack"
         component={StatisticScreen}
@@ -40,7 +37,7 @@ export const StatisStack = () => {
         name="Income"
         component={IncomeStatScreen}
         options={{
-          headerTitle: "Income Report",
+          headerTitle: i18n.t(LocalizationKey.INCOME_REPORT),
           headerStyle: { backgroundColor: COLORS.headerBg, height: 100 },
           headerTitleStyle: {
             color: COLORS.white,
@@ -60,7 +57,7 @@ export const StatisStack = () => {
         name="Expense"
         component={IncomeStatScreen}
         options={{
-          headerTitle: "Expense Report",
+          headerTitle: i18n.t(LocalizationKey.EXPENSE_REPORT),
           headerStyle: { backgroundColor: COLORS.headerBg, height: 100 },
           headerTitleStyle: {
             color: COLORS.white,
@@ -81,7 +78,7 @@ export const StatisStack = () => {
         name="Debt"
         component={ReceivableScreen}
         options={{
-          headerTitle: "Debt Report",
+          headerTitle: i18n.t(LocalizationKey.DEBT_REPORT),
           headerStyle: { backgroundColor: COLORS.headerBg, height: 100 },
           headerTitleStyle: {
             color: COLORS.white,
@@ -102,7 +99,7 @@ export const StatisStack = () => {
         name="Receivable"
         component={ReceivableScreen}
         options={{
-          headerTitle: "Receivable Report",
+          headerTitle: i18n.t(LocalizationKey.RECEIVABLE_REPORT),
           headerStyle: { backgroundColor: COLORS.headerBg, height: 100 },
           headerTitleStyle: {
             color: COLORS.white,
@@ -123,7 +120,7 @@ export const StatisStack = () => {
         name="IncomeAndExpense"
         component={IncomeAndExpenseScreen}
         options={{
-          headerTitle: "Income vs Expense Report",
+          headerTitle: i18n.t(LocalizationKey.INCOME_VS_EXPENSE),
           headerStyle: { backgroundColor: COLORS.headerBg, height: 100 },
           headerTitleStyle: {
             color: COLORS.white,
@@ -139,12 +136,12 @@ export const StatisStack = () => {
           tabBarActiveBackgroundColor: "primary",
         }}
       />
-      
+
       <Stack.Screen
         name="ReceivableAndDebt"
         component={IncomeAndExpenseScreen}
         options={{
-          headerTitle: "Receivable vs Debt Report",
+          headerTitle: i18n.t(LocalizationKey.RECEIVABLE_VS_DEBT),
           headerStyle: { backgroundColor: COLORS.headerBg, height: 100 },
           headerTitleStyle: {
             color: COLORS.white,

@@ -11,6 +11,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: COLORS.mainLightBackground,
     height: maxHeight,
+    width: "100%",
+    paddingBottom: 300,
   },
   chartContainer: {
     width: "90%",

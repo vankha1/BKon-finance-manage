@@ -114,7 +114,6 @@ export const balanceTwoArray = (arr1, arr2, amount) => {
   };
 };
 
-
 export const formatDataForCompare = (data) => {
   const formattedData = data.map((item) => {
     return {
@@ -127,8 +126,6 @@ export const formatDataForCompare = (data) => {
   return formattedData;
 };
 
-
-
 export function getFirstDateOfMonth() {
   let date = new Date();
   date.setDate(1);
@@ -136,18 +133,17 @@ export function getFirstDateOfMonth() {
   return date;
 }
 
-
-export function getReceivableValue(receivables) {
+export function getLatestValue(type, receivables) {
+  console.log(type, ": ", receivables);
   const latestItem = receivables.reduce((acc, ele) => {
     return acc.createAt > ele.createAt ? acc : ele;
   }, receivables[0]);
-  
+
   return {
     amount: latestItem?.amount,
-    received: latestItem?.received,
+    finishing: type === "Receivable" ? latestItem?.received : latestItem?.paid,
   };
 }
-
 
 export function sortList(lst, compareFunction) {
   return lst.sort(compareFunction);

@@ -7,13 +7,6 @@ const addWidgetHeight = 35;
 const addWidgetWidth = 218;
 const overHeader = 30;
 const styles = StyleSheet.create({
-  container: {},
-  // containerScroll: {
-  //     flexDirection: "column",
-  //     backgroundColor: COLORS.mainLightBackground,
-  //     paddingBottom: 200,
-  //     //paddingBottom: ,
-  // },
   header: {
     backgroundColor: COLORS.headerBg,
     padding: 20,
@@ -50,6 +43,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     gap: 31,
+  },
+  BoundingHelloText: {
+    flexDirection: "row",
+    overFlowX: "hidden",
+    width: "50%",
+    height: 35,
   },
   containerScroll: {
     marginTop: -overHeader,

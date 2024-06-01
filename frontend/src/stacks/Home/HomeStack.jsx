@@ -40,6 +40,12 @@ export const CreateTransaction = ({ onShow }) => {
 
   const data = [
     {
+      name: i18n.t(LocalizationKey.INCOME),
+      comp: "Transaction",
+      icon: "wallet-outline",
+      iconLib: MaterialCommunityIcons,
+    },
+    {
       name: i18n.t(LocalizationKey.EXPENSE),
       comp: "Transaction",
       icon: "bitcoin",
@@ -57,17 +63,10 @@ export const CreateTransaction = ({ onShow }) => {
       icon: "minussquareo",
       iconLib: AntDesign,
     },
-    {
-      name: i18n.t(LocalizationKey.INCOME),
-      comp: "Transaction",
-      icon: "wallet-outline",
-      iconLib: MaterialCommunityIcons,
-    },
   ];
 
   const dispatch = useDispatch();
   const { listDebts } = useSelector((state) => state.debt);
-
 
   return (
     <View style={styles.transactionContainer}>
@@ -89,12 +88,10 @@ export const CreateTransaction = ({ onShow }) => {
                     marginBottom: 6,
                   }}
                   onPress={() => {
-
-                    dispatch(addDebt({ value: !listDebts }));
-
                     navigator.navigate(item.comp, {
                       type: getType(item.name),
                     });
+                    dispatch(addDebt({ value: !listDebts }));
 
                     onShow();
                   }}

@@ -11,12 +11,17 @@ import { SIZES } from "@/constants";
 import Header from "@/components/Header/Header";
 import FinanceResources from "@/components/FinanceResource/FinanceResources";
 import { getResourceById } from "@/services";
+import { useSelector } from "react-redux";
+import { LocalizationKey, i18n } from "@/localization";
 
 const CurrentCash = () => {
   const params = useRoute().params;
   const [resource, setResource] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-
+  const localeState = useSelector((state) => state.locale);
+  useEffect(() => {
+    i18n.locale = localeState.locale;
+  }, []);
   console.log("Navigation options in each resource", params);
 
   useEffect(() => {
@@ -47,12 +52,16 @@ const CurrentCash = () => {
       <ScrollView>
         <View style={styles.contentContainer}>
           <View style={styles.balance}>
-            <Text style={styles.title}>Current Balance</Text>
-            <Text style={styles.amount}>{`$ ${params.amount}`}</Text>
+            <Text style={styles.title}>
+              {i18n.t(LocalizationKey.CURRENT_BALANCE)}
+            </Text>
+            <Text style={styles.amount}>{` ${params.amount}`}</Text>
           </View>
           <View style={styles.content}>
             <View style={styles.search}>
-              <Text style={styles.searchTitle}>Transaction History</Text>
+              <Text style={styles.searchTitle}>
+                {i18n.t(LocalizationKey.TRANSACTION_HISTORY)}
+              </Text>
               <IconWrapper
                 iconType={"search"}
                 LibIcon={Feather}

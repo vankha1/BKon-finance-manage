@@ -29,6 +29,7 @@ import {
   updateTransaction,
 } from "@/services";
 import { toggleEvent } from "@/redux/slice/transactions";
+import { LocalizationKey, i18n } from "@/localization";
 
 const getType = (type) => {
   if (type === "Debt") return "debts";
@@ -59,7 +60,11 @@ const TransactionScreen = () => {
 
   const { listDebts } = useSelector((state) => state.debt);
   const { isChanged } = useSelector((state) => state.transaction);
+  const localeState = useSelector((state) => state.locale);
 
+  useEffect(() => {
+    i18n.locale = localeState.locale;
+  }, []);
   const handleOnChangeDate = (setDate, setShowPicker) => (e, selectedDate) => {
     if (e.type === "set") {
       const currentDate = selectedDate || new Date();
@@ -130,17 +135,33 @@ const TransactionScreen = () => {
     <>
       {params.type === "Paying" ? (
         <Header
-          title={params.name === "debt" ? `Paying debt` : `Taking receivable`}
+          title={
+            params.name === "debt"
+              ? i18n.t(LocalizationKey.PAYING_DEBT)
+              : i18n.t(LocalizationKey.TAKING_RECEIVABLE)
+          }
         />
       ) : (
-        <Header title={`New ${params.type.toLowerCase()}`} />
+        <Header
+          title={
+            params.type === "Receivable"
+              ? i18n.t(LocalizationKey.NEW_RECEIVABLE)
+              : params.type === "Debt"
+              ? i18n.t(LocalizationKey.NEW_DEBT)
+              : params.type === "incomes"
+              ? i18n.t(LocalizationKey.NEW_INCOME)
+              : i18n.t(LocalizationKey.NEW_EXPENSE)
+          }
+        />
       )}
       <ScrollView style={styles.container}>
         <View style={styles.content}>
           <View>
             {params.type === "Paying" ? (
               <View style={styles.remaining}>
-                <Text style={styles.contentText}>Remaining</Text>
+                <Text style={styles.contentText}>
+                  {i18n.t(LocalizationKey.REMAINING)}
+                </Text>
                 <Text style={[styles.amountText, { color: "red" }]}>
                   {params.amountInfo.remaining}
                 </Text>
@@ -149,7 +170,7 @@ const TransactionScreen = () => {
               ""
             )}
             <View style={styles.center}>
-              <Text style={styles.amountText}>Amount</Text>
+              <Text style={styles.amountText}>{i18n.t(LocalizationKey.AMOUNT)}</Text>
               <View style={styles.inputAmountWrapper}>
                 <Text>
                   {params.name === "debt" ? (
@@ -195,7 +216,9 @@ const TransactionScreen = () => {
               LibIcon={AntDesign}
             />
             <Text style={date1 ? styles.dateTitle : styles.contentText}>
-              {date1 ? date1.toDateString() : "Created Date"}
+              {date1
+                ? date1.toDateString()
+                : i18n.t(LocalizationKey.CREATE_DATE)}
             </Text>
           </Pressable>
           {showPicker1 && (
@@ -229,7 +252,9 @@ const TransactionScreen = () => {
                 {date2
                   ? date2.toDateString()
                   : `${
-                      params.type === "Debt" ? "Repaid Date" : "Complete Date"
+                      params.type === "Debt"
+                        ? i18n.t(LocalizationKey.REPAID_DATE)
+                        : i18n.t(LocalizationKey.COMPLETE_DATE)
                     }`}
               </Text>
             </Pressable>
@@ -241,7 +266,7 @@ const TransactionScreen = () => {
               nameCard={
                 methods[selectedIndex]?.name
                   ? methods[selectedIndex]?.name
-                  : "Select method"
+                  : i18n.t(LocalizationKey.SELECT_METHOD)
               }
               data={methods}
               chidren={
@@ -290,8 +315,12 @@ const TransactionScreen = () => {
                 style={styles.DORinput}
                 placeholder={
                   params.type === "Debt"
-                    ? "Lender (Who lend you money?)"
-                    : "Borrower (Who you lend money?)"
+                    ? `${i18n.t(LocalizationKey.LENDER)} (${i18n.t(
+                        LocalizationKey.WHOLENDYOUMONEY
+                      )})`
+                    : `${i18n.t(LocalizationKey.BORROWER)} (${i18n.t(
+                        LocalizationKey.WHODIDYOULENDMONEY
+                      )})`
                 }
                 placeholderTextColor="grey"
                 numberOfLines={1}
@@ -307,7 +336,7 @@ const TransactionScreen = () => {
               nameCard={
                 categories[categoryIdx]
                   ? categories[categoryIdx]
-                  : "Select category"
+                  : i18n.t(LocalizationKey.SELECT_CATEGORY)
               }
               data={categories}
               chidren={
@@ -339,7 +368,7 @@ const TransactionScreen = () => {
             iconType={"message-circle"}
             colorIcon={"#000"}
             inputStyle={{ width: "90%", backgroundColor: "white" }}
-            nameCard={"Add notes"}
+            nameCard={i18n.t(LocalizationKey.ADDNOTE)}
             Children={
               <TextInput
                 style={styles.textArea}
@@ -355,7 +384,9 @@ const TransactionScreen = () => {
           <Button
             onPress={params.type === "Paying" ? handleSave2 : handleSave1}
           >
-            <Text style={styles.buttonText}>Save</Text>
+            <Text style={styles.buttonText}>
+              {i18n.t(LocalizationKey.SAVE)}
+            </Text>
           </Button>
         </View>
       </ScrollView>
