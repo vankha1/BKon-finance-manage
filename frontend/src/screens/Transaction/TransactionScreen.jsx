@@ -131,8 +131,6 @@ const TransactionScreen = () => {
     navigator.goBack();
   };
 
-  console.log(params);
-
   return (
     <>
       {params.type === "Paying" ? (
@@ -158,8 +156,8 @@ const TransactionScreen = () => {
       )}
       <ScrollView style={styles.container}>
         <View style={styles.content}>
-          {params.type === "Paying" ? (
-            <View>
+          <>
+            {params.type === "Paying" ? (
               <View style={styles.remaining}>
                 <Text style={styles.contentText}>
                   {i18n.t(LocalizationKey.REMAINING)}
@@ -168,75 +166,41 @@ const TransactionScreen = () => {
                   {params.amountInfo.remaining}
                 </Text>
               </View>
-              <View style={styles.amount}>
-                <Text style={styles.amountText}>
-                  {i18n.t(LocalizationKey.AMOUNT)}
-                </Text>
-                <View style={styles.inputAmountWrapper}>
-                  <Text>
-                    {params.name === "debt" ? (
-                      <IconWrapper
-                        iconType={"minus"}
-                        size={SIZES.medium}
-                        LibIcon={AntDesign}
-                      />
-                    ) : (
-                      <IconWrapper
-                        iconType={"plus"}
-                        size={SIZES.medium}
-                        LibIcon={AntDesign}
-                      />
-                    )}{" "}
-                  </Text>
-                  <TextInput
-                    style={styles.inputAmount}
-                    value={amount}
-                    onChangeText={setAmount}
-                    placeholder="Enter amount"
-                    keyboardType="numeric"
-                  />
-                </View>
-                <View style={styles.underLine} />
-              </View>
-            </View>
-          ) : (
-            <Toggle
-              iconType={"credit-card"}
-              colorIcon={"#000"}
-              inputStyle={{ width: "90%", backgroundColor: "white" }}
-              nameCard={
-                params.type === "incomes"
-                  ? i18n.t(LocalizationKey.INCOME)
-                  : params.type === "expenses"
-                  ? i18n.t(LocalizationKey.EXPENSE)
-                  : params.type === "Debt"
-                  ? i18n.t(LocalizationKey.DEBT)
-                  : i18n.t(LocalizationKey.RECEIVABLE)
-              }
-              Children={
-                <View style={styles.center}>
-                  <Text style={styles.amountText}>
-                    {i18n.t(LocalizationKey.AMOUNT)}
-                  </Text>
-                  <View style={styles.inputAmountWrapper}>
-                    <Text style={{ fontSize: 25 }}>{`${
-                      params.type === "Expense" || params.type === "Debt"
-                        ? "-"
-                        : "+"
-                    }`}</Text>
-                    <TextInput
-                      value={amount}
-                      onChangeText={setAmount}
-                      style={styles.inputAmount}
-                      placeholder="Enter amount"
-                      keyboardType="numeric"
+            ) : (
+              ""
+            )}
+            <View style={styles.center}>
+              <Text style={styles.amountText}>
+                {i18n.t(LocalizationKey.AMOUNT)}
+              </Text>
+              <View style={styles.inputAmountWrapper}>
+                <Text>
+                  {params.name === "debt" ? (
+                    <IconWrapper
+                      iconType={"minus"}
+                      size={SIZES.medium}
+                      LibIcon={AntDesign}
                     />
-                  </View>
-                  <View style={styles.underLine} />
-                </View>
-              }
-            />
-          )}
+                  ) : (
+                    <IconWrapper
+                      iconType={"plus"}
+                      size={SIZES.medium}
+                      LibIcon={AntDesign}
+                    />
+                  )}{" "}
+                </Text>
+                <TextInput
+                  style={styles.inputAmount}
+                  value={amount}
+                  onChangeText={setAmount}
+                  placeholder="Enter amount"
+                  keyboardType="numeric"
+                />
+              </View>
+              <View style={styles.underLine} />
+            </View>
+          </>
+
           {/* Date picker */}
           <Pressable
             style={[styles.buttonContainer]}
@@ -289,15 +253,14 @@ const TransactionScreen = () => {
               <Text style={date2 ? styles.dateTitle : styles.contentText}>
                 {date2
                   ? date2.toDateString()
-                  : `${
-                      params.type === "Debt"
-                        ? i18n.t(LocalizationKey.REPAID_DATE)
-                        : i18n.t(LocalizationKey.COMPLETE_DATE)
-                    }`}
+                  : params.type === "Debt"
+                    ? i18n.t(LocalizationKey.REPAID_DATE)
+                    : i18n.t(LocalizationKey.COMPLETE_DATE)}
               </Text>
             </Pressable>
           ) : (
             <Select
+              onPress={() => {}}
               iconType="database"
               inputStyle={{ width: "90%", backgroundColor: "white" }}
               nameCard={
@@ -367,6 +330,7 @@ const TransactionScreen = () => {
             </View>
           ) : (
             <Select
+              onPress={() => {}}
               iconType="book"
               inputStyle={{ width: "90%", backgroundColor: "white" }}
               nameCard={
@@ -400,6 +364,7 @@ const TransactionScreen = () => {
           )}
 
           <Toggle
+            onPress={() => {}}
             iconType={"message-circle"}
             colorIcon={"#000"}
             inputStyle={{ width: "90%", backgroundColor: "white" }}

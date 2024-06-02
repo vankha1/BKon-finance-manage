@@ -73,6 +73,7 @@ export const en = {
   [LocalizationKey.NO_NOTE]: "No note",
   [LocalizationKey.LENDER]: "Lender",
   [LocalizationKey.BORROWER]: "Borrower",
+  
 
   // Transaction
   [LocalizationKey.NEW_RECEIVABLE]: "New receivable",
@@ -91,4 +92,5 @@ export const en = {
   [LocalizationKey.ADDNOTE]: "Add note",
   [LocalizationKey.SELECT_METHOD]: "Select method",
   [LocalizationKey.SAVE]: "Save",
+  [LocalizationKey.REPAID_DATE]: "Repaid date",
 };

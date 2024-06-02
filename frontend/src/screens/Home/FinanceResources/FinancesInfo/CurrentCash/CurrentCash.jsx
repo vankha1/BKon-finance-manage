@@ -43,61 +43,63 @@ const CurrentCash = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <>
       <Header
         title={params.name}
         iconName={"cash"}
         libIcon={MaterialCommunityIcons}
       />
-      <ScrollView>
-        <View style={styles.contentContainer}>
-          <View style={styles.balance}>
-            <Text style={styles.title}>
-              {i18n.t(LocalizationKey.CURRENT_BALANCE)}
-            </Text>
-            <Text style={styles.amount}>{` ${params.amount}`}</Text>
-          </View>
-          <View style={styles.content}>
-            <View style={styles.search}>
-              <Text style={styles.searchTitle}>
-                {i18n.t(LocalizationKey.TRANSACTION_HISTORY)}
+      <View style={styles.container}>
+        <ScrollView>
+          <View style={styles.contentContainer}>
+            <View style={styles.balance}>
+              <Text style={styles.title}>
+                {i18n.t(LocalizationKey.CURRENT_BALANCE)}
               </Text>
-              <IconWrapper
-                iconType={"search"}
-                LibIcon={Feather}
-                size={SIZES.medium}
-              ></IconWrapper>
+              <Text style={styles.amount}>{` ${params.amount}`}</Text>
             </View>
-            <View>
-              {isLoading ? (
-                <ActivityIndicator size={"large"} />
-              ) : resource &&
-                resource?.incomes?.length === 0 &&
-                resource?.expenses?.length === 0 ? (
-                <Text style={styles.text}>No transactions yet</Text>
-              ) : (
-                [
-                  ...(resource?.incomes || []),
-                  ...(resource?.expenses || []),
-                ]?.map((item, index) => {
-                  return (
-                    <FinanceResources
-                      title={item.spendOn}
-                      iconName={"shirt-outline"}
-                      amount={item.amount}
-                      subTitle={params.name}
-                      Time={format(item.createdAt, "dd/MM/yyyy    HH.mm")}
-                      libIcon={Ionicons}
-                      key={index}
-                    />
-                  );
-                })
-              )}
+            <View style={styles.content}>
+              <View style={styles.search}>
+                <Text style={styles.searchTitle}>
+                  {i18n.t(LocalizationKey.TRANSACTION_HISTORY)}
+                </Text>
+                <IconWrapper
+                  iconType={"search"}
+                  LibIcon={Feather}
+                  size={SIZES.medium}
+                ></IconWrapper>
+              </View>
+              <View>
+                {isLoading ? (
+                  <ActivityIndicator size={"large"} />
+                ) : resource &&
+                  resource?.incomes?.length === 0 &&
+                  resource?.expenses?.length === 0 ? (
+                  <Text style={styles.text}>No transactions yet</Text>
+                ) : (
+                  [
+                    ...(resource?.incomes || []),
+                    ...(resource?.expenses || []),
+                  ]?.map((item, index) => {
+                    return (
+                      <FinanceResources
+                        title={item.spendOn}
+                        iconName={"shirt-outline"}
+                        amount={item.amount}
+                        subTitle={params.name}
+                        Time={format(item.createdAt, "dd/MM/yyyy    HH.mm")}
+                        libIcon={Ionicons}
+                        key={index}
+                      />
+                    );
+                  })
+                )}
+              </View>
             </View>
           </View>
-        </View>
-      </ScrollView>
-    </View>
+        </ScrollView>
+      </View>
+    </>
   );
 };
 export default CurrentCash;

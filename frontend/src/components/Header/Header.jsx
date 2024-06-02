@@ -43,7 +43,7 @@ const Header = ({ title, libIcon, iconName, subTitle, addButton }) => {
         <Text style={styles.editStyle}></Text>
       </View>
 
-      <Text style={styles.headerTitleWithIcon}>{title}</Text>
+      {/* <Text style={styles.headerTitleWithIcon}>{title}</Text> */}
     </View>
   ) : (
     <View style={styles.header}>

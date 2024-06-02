@@ -13,12 +13,18 @@ const Toggle = ({
   inputStyle,
   nameCard,
   onPress,
-  Children
+  Children,
 }) => {
   const [isOpened, setIsOpened] = useState(false);
   const Comp = onPress ? TouchableOpacity : View;
   return (
-    <Comp style={styles.container} onPress={onPress}>
+    <Comp
+      style={styles.container}
+      onPress={() => {
+        onPress();
+        setIsOpened(!isOpened);
+      }}
+    >
       <View style={[styles.selectInput, inputStyle]}>
         <View>
           <IconWrapper
@@ -32,9 +38,7 @@ const Toggle = ({
         </View>
 
         <View style={styles.progressContent}>
-          <Text style={styles.typeName}>
-            {nameCard}
-          </Text>
+          <Text style={styles.typeName}>{nameCard}</Text>
         </View>
         <Pressable onPress={() => setIsOpened(!isOpened)}>
           <MaterialCommunityIcons
@@ -44,7 +48,7 @@ const Toggle = ({
           />
         </Pressable>
       </View>
-      {isOpened &&  Children }
+      {isOpened && Children}
     </Comp>
   );
 };

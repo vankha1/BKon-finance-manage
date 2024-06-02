@@ -7,9 +7,9 @@ import { useState } from "react";
 
 const Select = ({
   iconType,
-  bgColorIcon="white",
+  bgColorIcon = "white",
   colorIcon,
-  iconStyle={ borderWidth: 1, borderColor: COLORS.buttonBg },
+  iconStyle = { borderWidth: 1, borderColor: COLORS.buttonBg },
   inputStyle,
   nameCard,
   chidren,
@@ -17,10 +17,16 @@ const Select = ({
   onPress,
 }) => {
   const [isOpened, setIsOpened] = useState(false);
-  
+
   const Comp = onPress ? TouchableOpacity : View;
   return (
-    <Comp style={styles.container} onPress={onPress}>
+    <Comp
+      style={styles.container}
+      onPress={() => {
+        onPress();
+        setIsOpened(!isOpened);
+      }}
+    >
       <View style={[styles.selectInput, inputStyle]}>
         <View>
           <IconWrapper
@@ -34,7 +40,14 @@ const Select = ({
         </View>
 
         <View style={styles.progressContent}>
-          <Text style={styles.typeName}>{nameCard}</Text>
+          <Text
+            style={[
+              styles.typeName,
+              !nameCard.startsWith("Select") ? { color: COLORS.buttonBg } : {},
+            ]}
+          >
+            {nameCard}
+          </Text>
         </View>
         <Pressable onPress={() => setIsOpened(!isOpened)}>
           <MaterialCommunityIcons

@@ -20,12 +20,16 @@ import { LocalizationKey, i18n } from "@/localization";
 const ListDORScreen = () => {
   const params = useRoute().params;
   const [data, setData] = useState([]);
-  const { listDebts } = useSelector((state) => state.debt);
+  const { isChanged } = useSelector((state) => state.transaction);
   const [isLoading, setIsLoading] = useState(false);
+
+
   const localeState = useSelector((state) => state.locale);
   useEffect(() => {
     i18n.locale = localeState.locale;
   }, []);
+
+
   const RenderItem = ({ notes, type, amount, date, remaining, id }) => {
     return (
       <DORitem
@@ -41,23 +45,21 @@ const ListDORScreen = () => {
 
   useLayoutEffect(() => {
     const getListDOR = async () => {
-      //console.log(params.type);
+      
       setIsLoading(true);
       const response = await getTransactions(params.type);
-      //console.log("running");
+      
       setIsLoading(false);
       setData(response);
-      console.log(params.type, ": ", response);
     };
 
     getListDOR();
-  }, [params.type]);
+  }, [params.type, isChanged]);
 
   console.log("listDOR: ", params.type);
 
   return (
     <View style={styles.container}>
-      {console.log("this component is mounting ")}
       <Header
         title={
           params.type === "debts"
@@ -69,8 +71,8 @@ const ListDORScreen = () => {
       {isLoading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : data?.length === 0 ? (
-        <Text style={{ marginTop: 10, textAlign: "center" }}>
-          No {params.type} found!!
+        <Text style={{ marginTop: 10, textAlign: "center", fontSize: 20, fontWeight: "bold" }}>
+          NO {params.type.toUpperCase()} FOUND !!!
         </Text>
       ) : (
         <FlatList

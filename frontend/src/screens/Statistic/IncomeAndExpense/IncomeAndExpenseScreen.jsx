@@ -18,10 +18,14 @@ const IncomeAndExpenseScreen = () => {
   const [expenseData, setExpenseData] = useState([]);
   const [xLabels, setXLabels] = useState([]);
   const sliceColor = [COLORS.buttonBg, "red"];
+
+  const { isChanged } = useSelector((state) => state.transaction)
   const localeState = useSelector((state) => state.locale);
   useEffect(() => {
     i18n.locale = localeState.locale;
   }, []);
+
+
   useEffect(() => {
     const getFilterData = async () => {
       const [incomes, expenses] = await fetchTwoReports(
@@ -65,7 +69,7 @@ const IncomeAndExpenseScreen = () => {
     };
 
     getFilterData();
-  }, []);
+  }, [isChanged]);
 
   return (
     <View style={styles.container}>
@@ -79,6 +83,7 @@ const IncomeAndExpenseScreen = () => {
           // pointerConfig={{
           //     showDataPointOnFocus: true,
           // }}
+          key={JSON.stringify(incomeData) + JSON.stringify(expenseData)}
           hideDataPoints={false}
           hideDataPoints1={false}
           curved={true}
