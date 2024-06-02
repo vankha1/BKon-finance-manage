@@ -8,33 +8,13 @@ import { format } from "date-fns";
 
 import styles from "./styles";
 import { COLORS } from "@/constants";
-import HistoryCard from "@/components/HistoryCard/HistoryCard";
 import { convertString, formatReportData } from "@/utils";
-import { getReportByCategory, getReportByType } from "@/services";
-import { useSelector } from "react-redux";
+import {  getReportByType } from "@/services";
+import { useDispatch, useSelector } from "react-redux";
 
 const IncomeStatScreen = () => {
   const params = useRoute().params;
-  console.log(params);
-  const [data, setData] = useState([]);
-
-  const bankNames = [
-    "BIDV",
-    "Mono Bank",
-    "Mono Bank",
-    "Mono Bank",
-    "Mono Bank",
-    "Mono Bank",
-  ];
-
-  const timeTransaction = [
-    "12:00AM",
-    "12:30AM",
-    "12:30AM",
-    "13:00AM",
-    "13:30AM",
-    "13:30AM",
-  ];
+  // console.log(params);
 
   const sliceColor = [
     "#f59e0b",
@@ -45,27 +25,10 @@ const IncomeStatScreen = () => {
     "#3b82f6",
   ].slice(0, params.series.length);
 
-  const bgColorIcon = [
-    "#ffdad6",
-    "#fdf5cc",
-    "#eaffe9",
-    "#e9ddff",
-    "#d6d8ff",
-    "#d6e4ff",
-  ];
 
-  const iconTypes = [
-    "lightning-bolt-outline",
-    "shopping",
-    "book-education",
-    "silverware-fork-knife",
-    "tshirt-v",
-    "dots-horizontal-circle-outline",
-  ];
-
+  const [data, setData] = useState([]);
   const [selectedBtn, setSelectedBtn] = useState(0);
   const { isChanged } = useSelector((state) => state.transaction)
-  console.log(isChanged)
   const filterByTime = ["D", "W", "M"];
 
   useEffect(() => {
@@ -90,7 +53,7 @@ const IncomeStatScreen = () => {
           : res.monthlyReport;
 
       const formattedData = formatReportData(filterOpt, dataByType);
-
+      
       setData(formattedData);
     };
 
@@ -123,6 +86,7 @@ const IncomeStatScreen = () => {
           ))}
         </View>
         <BarChart
+          key={JSON.stringify(data)}
           barWidth={30}
           noOfSections={10}
           barBorderRadius={2}
@@ -138,6 +102,7 @@ const IncomeStatScreen = () => {
       {params.series?.length !== 0 ? (
         <View style={styles.chartContainer}>
           <PieChart
+            key={JSON.stringify(params.series)}
             widthAndHeight={200}
             series={params.series}
             sliceColor={sliceColor}

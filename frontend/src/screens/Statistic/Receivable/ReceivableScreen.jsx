@@ -34,50 +34,55 @@ const RenderTopPeople = ({ name, amount, finishing }) => {
     </View>
   );
 };
+
 const ReceivableScreen = () => {
   const params = useRoute().params;
   console.log("ReceivableScreen: ", params);
+
   const [data, setData] = useState([]);
   const [xLabels, setXLabels] = useState([]);
   const [receivables, setReceivables] = useState([]);
+
+  const { isChanged } = useSelector((state) => state.transaction)
   const localeState = useSelector((state) => state.locale);
+
   useEffect(() => {
     i18n.locale = localeState.locale;
   }, []);
+
   useEffect(() => {
     const getFilterData = async () => {
-      const res = await getReportByType(params.type, "month", {
-        startDate: convertString("Y").value,
-        endDate: new Date(),
-      });
+      const [monthlyReceivables, monthlyTransactions] = await Promise.all([
+        getReportByType(params.type, "month", {
+          startDate: convertString("Y").value,
+          endDate: new Date(),
+        }),
+        getTransactionPeriod(params.type, getFirstDateOfMonth(), new Date()),
+      ]);
 
-      const data = res.monthlyReport.map((item) => {
+      const data = monthlyReceivables.monthlyReport.map((item) => {
         return {
           value: item.amount / 1000,
         };
       });
 
-      const xLabelArr = res.monthlyReport.map(
+      const xLabelArr = monthlyReceivables.monthlyReport.map(
         (item) => `${format(item.month, "LLL")}`
       );
       // console.log(data, xLabelArr)
 
       setData(data);
       setXLabels(xLabelArr);
+      setReceivables(monthlyTransactions);
     };
-    const getReceivable = async () => {
-      const response = await getTransactionPeriod(
-        params.type,
-        getFirstDateOfMonth(),
-        new Date()
-      );
-      setReceivables(response);
-    };
-    getReceivable();
+
     getFilterData();
-  }, []);
+  }, [isChanged]);
+
   const lstTopPeople = getTopOfListByName(receivables, params.type);
+
   console.log("lstTopPeople: ", lstTopPeople);
+
   return (
     <View style={styles.container}>
       <View style={styles.chartContainer}>
@@ -85,6 +90,7 @@ const ReceivableScreen = () => {
           // pointerConfig={{
           //     showDataPointOnFocus: true,
           // }}
+          key={JSON.stringify(data)}
           hideDataPoints={false}
           curved={true}
           color1={COLORS.buttonBg}
@@ -132,7 +138,7 @@ const ReceivableScreen = () => {
           />
         </View>
 
-        <Pressable style={styles.moreBtn}>
+        {/* <Pressable style={styles.moreBtn}>
           <Text
             style={{
               fontSize: 16,
@@ -146,7 +152,7 @@ const ReceivableScreen = () => {
             size={24}
             color={COLORS.gray3}
           />
-        </Pressable>
+        </Pressable> */}
       </View>
     </View>
   );

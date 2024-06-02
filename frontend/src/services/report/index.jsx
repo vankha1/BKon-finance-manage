@@ -14,7 +14,6 @@ export const getReportByType = async (type, query, params) => {
       params,
     };
     const response = await axios.request(options);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -32,7 +31,6 @@ export const getReportByCategory = async (type) => {
       },
     };
     const response = await axios.request(options);
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log(error);

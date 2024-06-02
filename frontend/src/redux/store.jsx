@@ -4,6 +4,7 @@ import loginSlice from "./slice/login";
 import debtSlice from "./slice/debts";
 import receivableSlice from "./slice/receivables";
 import transactionSlice from "./slice/transactions";
+import expenseSlice from "./slice/expenses";
 
 const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
         debt: debtSlice.reducer,
         receivable: receivableSlice.reducer,
         transaction: transactionSlice.reducer,
+        expense: expenseSlice.reducer,
     }
 })
 

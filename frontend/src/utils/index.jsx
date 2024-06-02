@@ -1,5 +1,4 @@
 import { format, getWeek } from "date-fns";
-import { l } from "i18n-js";
 
 export const categories = [
   "Electronics",
@@ -134,7 +133,6 @@ export function getFirstDateOfMonth() {
 }
 
 export function getLatestValue(type, receivables) {
-  console.log(type, ": ", receivables);
   const latestItem = receivables.reduce((acc, ele) => {
     return acc.createAt > ele.createAt ? acc : ele;
   }, receivables[0]);
@@ -179,4 +177,13 @@ export function getTopOfListByName(lst, type) {
   //console.log("classifyArr", classifyArr);
 
   return classifyArr.slice(0, 11);
+}
+
+
+export const checkProgressValue = (numerator, denominator) => {
+  if (denominator === 0 || !numerator || !denominator) return 0
+
+  if (denominator <= numerator) return 1
+
+  return (numerator / denominator)
 }

@@ -25,6 +25,7 @@ import { getResources, getTransactions } from "@/services";
 import { getIncomeMonthly } from "@/services/income";
 import { getReceivables } from "@/services/receivable";
 import {
+  checkProgressValue,
   getFirstDateOfMonth,
   getLatestValue,
   getReceivableValue,
@@ -154,7 +155,7 @@ const HomeScreen = () => {
                   </Text>
                   <Text style={styles.amountText}>
                     {" "}
-                    {currentCash > 0
+                    {currentCash >= 0
                       ? `${currentCash}`
                       : i18n.t(LocalizationKey.NOT_AVAILABLE)}
                   </Text>
@@ -170,13 +171,14 @@ const HomeScreen = () => {
                   </Text>
                   <Text
                     style={[
-                      {
+                      !(currentBalance >= 0) && {
                         paddingLeft: 30,
+                        fontSize: 16
                       },
                       styles.amountText,
                     ]}
                   >
-                    {currentBankAccount > 0
+                    {currentBankAccount >= 0
                       ? `${currentBankAccount}`
                       : i18n.t(LocalizationKey.NOT_AVAILABLE)}
                   </Text>
@@ -223,14 +225,13 @@ const HomeScreen = () => {
                     {i18n.t(LocalizationKey.RECEIVABLE)}
                   </Text>
                   <Text style={styles.amountText}>
-                    {latestReceivable.amount}
+                    {latestReceivable.amount || 0}
                   </Text>
                   <Progress.Bar
-                    progress={
-                      latestReceivable.amount > 0
-                        ? latestReceivable.finishing / latestReceivable.amount
-                        : 0
-                    }
+                    progress={checkProgressValue(
+                      latestReceivable.finishing,
+                      latestReceivable.amount
+                    )}
                     width={220}
                     height={4}
                     borderWidth={0}
@@ -239,7 +240,7 @@ const HomeScreen = () => {
                   />
                   <View style={styles.subTitle}>
                     <Text style={styles.subContentText}>
-                      {latestReceivable.finishing}/{latestReceivable.amount}
+                      {latestReceivable.finishing || 0}/{latestReceivable.amount || 0}
                     </Text>
                   </View>
                 </View>
@@ -260,19 +261,23 @@ const HomeScreen = () => {
                   <Text style={styles.contentText}>
                     {i18n.t(LocalizationKey.DEBT)}
                   </Text>
-                  <Text style={styles.amountText}>{latestDebt.amount}</Text>
+                  <Text style={styles.amountText}>{latestDebt.amount || 0}</Text>
                   <Progress.Bar
-                    progress={
-                      latestDebt.amount > 0
-                        ? latestDebt.finishing / latestDebt.amount
-                        : 0
-                    }
+                    progress={checkProgressValue(
+                      latestDebt.finishing,
+                      latestDebt.amount
+                    )}
                     width={220}
                     height={4}
                     borderWidth={0}
                     unfilledColor={COLORS.gray3}
                     color={COLORS.buttonBg}
                   />
+                  <View style={styles.subTitle}>
+                    <Text style={styles.subContentText}>
+                      {latestDebt.finishing || 0}/{latestDebt.amount || 0}
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>

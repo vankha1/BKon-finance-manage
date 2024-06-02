@@ -22,8 +22,9 @@ import Header from "@/components/Header/Header";
 import styles from "./styles";
 import Button from "@/components/Button/Button";
 import { getResources, createResource } from "@/services";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { LocalizationKey, i18n } from "@/localization";
+import { toggleEvent } from "@/redux/slice/transactions";
 
 const Finances = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -31,16 +32,20 @@ const Finances = () => {
   const [balance, setBalance] = useState("");
   const [resources, setResources] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const { isChanged } = useSelector(state => state.transaction)
   const localeState = useSelector((state) => state.locale);
   useEffect(() => {
     i18n.locale = localeState.locale;
   }, []);
+
   const currentBalance = useMemo(
     () => resources.reduce((acc, ele) => acc + ele.balance, 0),
     [resources]
   );
 
   const navigator = useNavigation();
+  const dispatch = useDispatch();
 
   const handleVisibleModal = () => {
     setIsVisible(true);
@@ -80,6 +85,7 @@ const Finances = () => {
     setResources([...resources, response]);
 
     setIsLoading(false);
+    dispatch(toggleEvent({ value: !isChanged }))
 
     handleClose();
   };
@@ -125,7 +131,7 @@ const Finances = () => {
           <Text
             style={{
               paddingLeft: 10,
-              fontSize: SIZES.tiny,
+              fontSize: SIZES.small,
               fontFamily: FONTFAMILIES.medium,
             }}
           >

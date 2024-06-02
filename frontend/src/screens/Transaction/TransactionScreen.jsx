@@ -156,7 +156,7 @@ const TransactionScreen = () => {
       )}
       <ScrollView style={styles.container}>
         <View style={styles.content}>
-          <View>
+          <>
             {params.type === "Paying" ? (
               <View style={styles.remaining}>
                 <Text style={styles.contentText}>
@@ -170,7 +170,9 @@ const TransactionScreen = () => {
               ""
             )}
             <View style={styles.center}>
-              <Text style={styles.amountText}>{i18n.t(LocalizationKey.AMOUNT)}</Text>
+              <Text style={styles.amountText}>
+                {i18n.t(LocalizationKey.AMOUNT)}
+              </Text>
               <View style={styles.inputAmountWrapper}>
                 <Text>
                   {params.name === "debt" ? (
@@ -197,7 +199,7 @@ const TransactionScreen = () => {
               </View>
               <View style={styles.underLine} />
             </View>
-          </View>
+          </>
 
           {/* Date picker */}
           <Pressable
@@ -251,11 +253,9 @@ const TransactionScreen = () => {
               <Text style={date2 ? styles.dateTitle : styles.contentText}>
                 {date2
                   ? date2.toDateString()
-                  : `${
-                      params.type === "Debt"
-                        ? i18n.t(LocalizationKey.REPAID_DATE)
-                        : i18n.t(LocalizationKey.COMPLETE_DATE)
-                    }`}
+                  : params.type === "Debt"
+                    ? i18n.t(LocalizationKey.REPAID_DATE)
+                    : i18n.t(LocalizationKey.COMPLETE_DATE)}
               </Text>
             </Pressable>
           ) : (
