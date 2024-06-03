@@ -13,6 +13,7 @@ import FinanceResources from "@/components/FinanceResource/FinanceResources";
 import { getResourceById } from "@/services";
 import { useSelector } from "react-redux";
 import { LocalizationKey, i18n } from "@/localization";
+import { convertNumber } from "@/utils";
 
 const CurrentCash = () => {
   const params = useRoute().params;
@@ -56,7 +57,9 @@ const CurrentCash = () => {
               <Text style={styles.title}>
                 {i18n.t(LocalizationKey.CURRENT_BALANCE)}
               </Text>
-              <Text style={styles.amount}>{` ${params.amount}`}</Text>
+              <Text style={styles.amount}>{` ${convertNumber(
+                params.amount
+              )}`}</Text>
             </View>
             <View style={styles.content}>
               <View style={styles.search}>

@@ -8,6 +8,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { getReportByType, getTransactionPeriod } from "@/services";
 import { useEffect, useState } from "react";
 import {
+  convertNumber,
   convertString,
   getFirstDateOfMonth,
   getTopOfListByName,
@@ -30,7 +31,7 @@ const RenderTopPeople = ({ name, amount, finishing }) => {
         unfilledColor={COLORS.gray}
         borderWidth={1}
       />
-      <Text style={styles.titleTopReceives}>{amount}</Text>
+      <Text style={styles.titleTopReceives}>{convertNumber(amount)}</Text>
     </View>
   );
 };
@@ -43,7 +44,7 @@ const ReceivableScreen = () => {
   const [xLabels, setXLabels] = useState([]);
   const [receivables, setReceivables] = useState([]);
 
-  const { isChanged } = useSelector((state) => state.transaction)
+  const { isChanged } = useSelector((state) => state.transaction);
   const localeState = useSelector((state) => state.locale);
 
   useEffect(() => {

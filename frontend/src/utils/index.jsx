@@ -179,11 +179,20 @@ export function getTopOfListByName(lst, type) {
   return classifyArr.slice(0, 11);
 }
 
-
 export const checkProgressValue = (numerator, denominator) => {
-  if (denominator === 0 || !numerator || !denominator) return 0
+  if (denominator === 0 || !numerator || !denominator) return 0;
 
-  if (denominator <= numerator) return 1
+  if (denominator <= numerator) return 1;
 
-  return (numerator / denominator)
+  return numerator / denominator;
+};
+
+export function convertNumber(number) {
+  if (!number) return 0;
+  text = number.toString();
+  for (let i = text.length - 3; i > 0; i = i - 3) {
+    text = text.slice(0, i) + "." + text.slice(i);
+  }
+  //console.log("text: ", text);
+  return text;
 }

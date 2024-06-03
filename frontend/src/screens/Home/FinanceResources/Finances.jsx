@@ -25,6 +25,7 @@ import { getResources, createResource } from "@/services";
 import { useDispatch, useSelector } from "react-redux";
 import { LocalizationKey, i18n } from "@/localization";
 import { toggleEvent } from "@/redux/slice/transactions";
+import { convertNumber } from "@/utils";
 
 const Finances = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -33,7 +34,7 @@ const Finances = () => {
   const [resources, setResources] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { isChanged } = useSelector(state => state.transaction)
+  const { isChanged } = useSelector((state) => state.transaction);
   const localeState = useSelector((state) => state.locale);
   useEffect(() => {
     i18n.locale = localeState.locale;
@@ -85,7 +86,7 @@ const Finances = () => {
     setResources([...resources, response]);
 
     setIsLoading(false);
-    dispatch(toggleEvent({ value: !isChanged }))
+    dispatch(toggleEvent({ value: !isChanged }));
 
     handleClose();
   };
@@ -104,7 +105,7 @@ const Finances = () => {
           <View style={styles.financeContainer}>
             <FinanceResources
               title={i18n.t(LocalizationKey.CURRENT_BALANCE)}
-              amount={currentBalance}
+              amount={convertNumber(currentBalance)}
             />
             <FlatList
               data={resources}

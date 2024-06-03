@@ -9,6 +9,7 @@ import styles from "./styles";
 import { LocalizationKey, i18n } from "@/localization";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import { convertNumber } from "@/utils";
 const DORitem = ({
   id,
   note,
@@ -73,7 +74,7 @@ const DORitem = ({
               : i18n.t(LocalizationKey.YOUR_RECEIVABLE)}
           </Text>
           <Text style={[styles.contentText, { fontWeight: "bold" }]}>
-            {amount}
+            {convertNumber(amount)}
           </Text>
         </View>
 
@@ -82,7 +83,7 @@ const DORitem = ({
             {i18n.t(LocalizationKey.REMAINING)}
           </Text>
           <Text style={[styles.contentText, { fontWeight: "bold" }]}>
-            {remaining}
+            {convertNumber(remaining)}
           </Text>
         </View>
 

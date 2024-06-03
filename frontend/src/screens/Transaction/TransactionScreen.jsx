@@ -21,7 +21,7 @@ import Button from "@/components/Button/Button";
 import Toggle from "@/components/Toggle/Toggle";
 import IconWrapper from "@/components/Icon/Icon";
 import { addDebt } from "@/redux/slice/debts";
-import { categories } from "@/utils";
+import { categories, convertNumber } from "@/utils";
 import {
   createTransaction,
   deleteTransaction,
@@ -163,7 +163,7 @@ const TransactionScreen = () => {
                   {i18n.t(LocalizationKey.REMAINING)}
                 </Text>
                 <Text style={[styles.amountText, { color: "red" }]}>
-                  {params.amountInfo.remaining}
+                  {convertNumber(params.amountInfo.remaining)}
                 </Text>
               </View>
             ) : (
@@ -254,8 +254,8 @@ const TransactionScreen = () => {
                 {date2
                   ? date2.toDateString()
                   : params.type === "Debt"
-                    ? i18n.t(LocalizationKey.REPAID_DATE)
-                    : i18n.t(LocalizationKey.COMPLETE_DATE)}
+                  ? i18n.t(LocalizationKey.REPAID_DATE)
+                  : i18n.t(LocalizationKey.COMPLETE_DATE)}
               </Text>
             </Pressable>
           ) : (
