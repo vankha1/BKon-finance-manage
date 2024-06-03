@@ -26,6 +26,7 @@ import { getIncomeMonthly } from "@/services/income";
 import { getReceivables } from "@/services/receivable";
 import {
   checkProgressValue,
+  convertNumber,
   getFirstDateOfMonth,
   getLatestValue,
   getReceivableValue,
@@ -130,7 +131,9 @@ const HomeScreen = () => {
             <Text style={styles.balanceHeadingText}>
               {i18n.t(LocalizationKey.YOUR_BALANCE)}
             </Text>
-            <Text style={styles.headingAmountText}>{currentBalance}</Text>
+            <Text style={styles.headingAmountText}>
+              {convertNumber(currentBalance)}
+            </Text>
           </View>
           <Pressable onPress={handleFinances}>
             <FontAwesome6
@@ -156,7 +159,7 @@ const HomeScreen = () => {
                   <Text style={styles.amountText}>
                     {" "}
                     {currentCash >= 0
-                      ? `${currentCash}`
+                      ? `${convertNumber(currentCash)}`
                       : i18n.t(LocalizationKey.NOT_AVAILABLE)}
                   </Text>
                 </View>
@@ -173,13 +176,13 @@ const HomeScreen = () => {
                     style={[
                       !(currentBalance >= 0) && {
                         paddingLeft: 30,
-                        fontSize: 16
+                        fontSize: 16,
                       },
                       styles.amountText,
                     ]}
                   >
                     {currentBankAccount >= 0
-                      ? `${currentBankAccount}`
+                      ? `${convertNumber(currentBankAccount)}`
                       : i18n.t(LocalizationKey.NOT_AVAILABLE)}
                   </Text>
                 </View>
@@ -205,7 +208,9 @@ const HomeScreen = () => {
                   <Text style={styles.contentText}>
                     {i18n.t(LocalizationKey.MONTHLY_INCOME)}
                   </Text>
-                  <Text style={styles.amountText}>{monthlyIncome}</Text>
+                  <Text style={styles.amountText}>
+                    {convertNumber(monthlyIncome)}
+                  </Text>
                 </View>
               </View>
 
@@ -225,7 +230,7 @@ const HomeScreen = () => {
                     {i18n.t(LocalizationKey.RECEIVABLE)}
                   </Text>
                   <Text style={styles.amountText}>
-                    {latestReceivable.amount || 0}
+                    {convertNumber(latestReceivable.amount) || 0}
                   </Text>
                   <Progress.Bar
                     progress={checkProgressValue(
@@ -240,7 +245,8 @@ const HomeScreen = () => {
                   />
                   <View style={styles.subTitle}>
                     <Text style={styles.subContentText}>
-                      {latestReceivable.finishing || 0}/{latestReceivable.amount || 0}
+                      {convertNumber(latestReceivable.finishing) || 0}/
+                      {convertNumber(latestReceivable.amount) || 0}
                     </Text>
                   </View>
                 </View>
@@ -261,7 +267,9 @@ const HomeScreen = () => {
                   <Text style={styles.contentText}>
                     {i18n.t(LocalizationKey.DEBT)}
                   </Text>
-                  <Text style={styles.amountText}>{latestDebt.amount || 0}</Text>
+                  <Text style={styles.amountText}>
+                    {convertNumber(latestDebt.amount) || 0}
+                  </Text>
                   <Progress.Bar
                     progress={checkProgressValue(
                       latestDebt.finishing,
@@ -275,7 +283,8 @@ const HomeScreen = () => {
                   />
                   <View style={styles.subTitle}>
                     <Text style={styles.subContentText}>
-                      {latestDebt.finishing || 0}/{latestDebt.amount || 0}
+                      {convertNumber(latestDebt.finishing) || 0}/
+                      {convertNumber(latestDebt.amount) || 0}
                     </Text>
                   </View>
                 </View>
