@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet } from "react-native";
-import { COLORS } from "../../../constants";
+import { COLORS, FONTFAMILIES } from "../../../constants";
 
 const maxHeight = Dimensions.get("window").height;
 
@@ -31,6 +31,12 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 10,
   },
+  peopleName: {
+    width: "20%",
+    height: 20,
+    overflowX: "hidden",
+  },
+
   topReceivesItem: {
     display: "flex",
     flexDirection: "row",
@@ -40,7 +46,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     width: "100%",
   },
-  titleTopReceives: { fontWeight: "bold" },
+  titleTopReceives: { fontFamily: FONTFAMILIES.bold },
   moreBtn: {
     width: "100%",
     display: "flex",

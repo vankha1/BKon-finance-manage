@@ -22,7 +22,10 @@ import { useSelector } from "react-redux";
 const RenderTopPeople = ({ name, amount, finishing }) => {
   return (
     <View style={styles.topReceivesItem}>
-      <Text style={styles.titleTopReceives}>{name}</Text>
+      <View style={styles.peopleName}>
+        <Text style={styles.titleTopReceives}>{name}</Text>
+      </View>
+
       <Progress.Bar
         progress={amount > 0 ? finishing / amount : 0}
         height={8}
@@ -31,7 +34,9 @@ const RenderTopPeople = ({ name, amount, finishing }) => {
         unfilledColor={COLORS.gray}
         borderWidth={1}
       />
-      <Text style={styles.titleTopReceives}>{convertNumber(amount)}</Text>
+      <View style={styles.peopleName}>
+        <Text style={styles.titleTopReceives}>{convertNumber(amount)}</Text>
+      </View>
     </View>
   );
 };
