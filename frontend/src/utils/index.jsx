@@ -189,10 +189,12 @@ export const checkProgressValue = (numerator, denominator) => {
 
 export function convertNumber(number) {
   if (!number) return 0;
+  if (typeof number === "string") return number;
+  console.log("number", number);
   text = number.toString();
   for (let i = text.length - 3; i > 0; i = i - 3) {
     text = text.slice(0, i) + "." + text.slice(i);
   }
-  //console.log("text: ", text);
+  console.log("text: ", text);
   return text;
 }

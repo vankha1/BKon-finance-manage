@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 import { COLORS, FONTFAMILIES, SIZES } from "../../constants";
 const cardWidth = 309;
+const cardHeight = 97;
 const iconSideWidth = 60;
 const border_card = 20;
 const addWidgetHeight = 35;
@@ -80,7 +81,12 @@ const styles = StyleSheet.create({
     width: cardWidth,
     flexDirection: "row",
     //marginTop: -overHeader,
-    height: 97,
+    height: cardHeight,
+  },
+  divideLine: {
+    height: cardHeight,
+    width: 2,
+    backgroundColor: COLORS.primary,
   },
   cardWith2Elements: {
     width: "50%",

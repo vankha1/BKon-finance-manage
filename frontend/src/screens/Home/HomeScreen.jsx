@@ -164,9 +164,7 @@ const HomeScreen = () => {
                   </Text>
                 </View>
 
-                <View
-                  style={{ height: 100, width: 2, backgroundColor: "#00FF00" }}
-                />
+                <View style={styles.divideLine} />
 
                 <View style={styles.cardWith2Elements}>
                   <Text style={[styles.cashText]}>
