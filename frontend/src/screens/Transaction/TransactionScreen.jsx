@@ -175,7 +175,7 @@ const TransactionScreen = () => {
               </Text>
               <View style={styles.inputAmountWrapper}>
                 <Text>
-                  {params.name === "debt" ? (
+                  {params.name === "debt" || params.type === "Receivable" ? (
                     <IconWrapper
                       iconType={"minus"}
                       size={SIZES.medium}
@@ -353,7 +353,9 @@ const TransactionScreen = () => {
                           styles.lastOptionSelect,
                       ]}
                       key={index}
-                      onPress={() => setCategoryIdx(index)}
+                      onPress={() => {
+                        setCategoryIdx(index);
+                      }}
                     >
                       <Text style={styles.option}>{value}</Text>
                     </TouchableOpacity>
