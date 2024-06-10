@@ -9,7 +9,7 @@ import Main from "./src/Main";
 import { Language, i18n } from "./src/localization";
 import store from "./src/redux/store";
 import { en, vi } from "./src/localization/languages";
-
+//hehehehehheeheh
 i18n.locale = Localization.locale;
 i18n.enableFallback = true;
 i18n.defaultLocale = Language.ENGLISH;
